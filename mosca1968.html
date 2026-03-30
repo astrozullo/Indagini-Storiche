@@ -112,78 +112,14 @@ const CLUES_LBL={
 };
 
 
-// ── NAME RANDOMIZATION ────────────────────────────────
-const _NF = ['Irina','Natasha','Svetlana','Galina','Tamara','Ludmila','Nadezhda','Zinaida','Raisa','Valentina'];
-const _NM = ['Viktor','Dmitri','Nikolaj','Anatoly','Grigory','Alexei','Boris','Sergei','Pavel','Ivan','Pyotr','Vasily','Mikhail','Yuri','Andrei','Konstantin','Georgy','Lev','Igor','Arkady'];
-
-// Default names → randomized at avvia()
-// Keys: internal id, value: display first name
-const NM = {
-  sokolov:'Viktor', irina:'Irina', cheskov:'Dmitri',
-  barinov:'Nikolaj', vera:'Vera', petrov:'Grigory',
-  zhuk:'Anatoly', tatyana:'Tatyana', semyon:'Semyon', arkady:'Arkady'
-};
-
-function randomizeNames(){
-  const pickF = [..._NF].sort(()=>Math.random()-.5);
-  const pickM = [..._NM].sort(()=>Math.random()-.5);
-  let fi=0, mi=0;
-  // female slots
-  NM.irina   = pickF[fi++];
-  NM.vera    = pickF[fi++];
-  NM.tatyana = pickF[fi++];
-  // male slots
-  NM.sokolov = pickM[mi++];
-  NM.cheskov = pickM[mi++];
-  NM.barinov = pickM[mi++];
-  NM.petrov  = pickM[mi++];
-  NM.zhuk    = pickM[mi++];
-  NM.semyon  = pickM[mi++];
-  NM.arkady  = pickM[mi++];
-}
-
-// Apply name substitutions to an HTML string
-function applyNames(html){
-  // Order: longest/fullest first to avoid partial substitution
-  const subs = [
-    ['Irina Volkova',  NM.irina+' Volkova'],
-    ['Vera Sokolova',  NM.vera+' Sokolova'],
-    ['Viktor Sokolov', NM.sokolov+' Sokolov'],
-    ['Dmitri Cheskov', NM.cheskov+' Cheskov'],
-    ['Nikolaj Barinov',NM.barinov+' Barinov'],
-    ['Grigory Petrov', NM.petrov+' Petrov'],
-    ['Anatoly Zhuk',   NM.zhuk+' Zhuk'],
-    ['Tatyana Orlova', NM.tatyana+' Orlova'],
-    ['Semyon Gavrilov',NM.semyon+' Gavrilov'],
-    ['Arkady Volkov',  NM.arkady+' Volkov'],
-    // First names alone (after full names to avoid double-replace)
-    ['Viktor',   NM.sokolov],
-    ['Irina',    NM.irina],
-    ['Dmitri',   NM.cheskov],
-    ['Nikolaj',  NM.barinov],
-    ['Grigory',  NM.petrov],
-    ['Anatoly',  NM.zhuk],
-    ['Vera',     NM.vera],
-    ['Tatyana',  NM.tatyana],
-    ['Semyon',   NM.semyon],
-    ['Arkady',   NM.arkady],
-  ];
-  let out = html;
-  for(const [from,to] of subs){
-    // Replace all occurrences, word-boundary aware
-    out = out.split(from).join(to);
-  }
-  return out;
-}
-
 
 const SUSPECTS=[
-  {id:'irina',   get name(){return NM.irina+' Volkova';},      role:'Assistente di Sokolov — Settore Fisica Applicata'},
-  {id:'cheskov', get name(){return NM.cheskov+' Cheskov';},    role:'Collega e rivale scientifico al Ministero'},
-  {id:'barinov', get name(){return NM.barinov+' Barinov';},    role:'Funzionario KGB — Terza Direzione'},
-  {id:'vera',    get name(){return NM.vera+' Sokolova';},      role:'Moglie separata della vittima'},
-  {id:'petrov',  get name(){return 'Dott. '+NM.petrov+' Petrov';}, role:'Medico di guardia — ha firmato il referto'},
-  {id:'zhuk',    get name(){return NM.zhuk+' Zhuk';},          role:'Autista del Ministero'}
+  {id:'irina',   name:'Irina Volkova',       role:'Assistente di Sokolov — Settore Fisica Applicata'},
+  {id:'cheskov', name:'Dmitri Cheskov',       role:'Collega e rivale scientifico al Ministero'},
+  {id:'barinov', name:'Nikolaj Barinov',      role:'Funzionario KGB — Terza Direzione'},
+  {id:'vera',    name:'Vera Sokolova',        role:'Moglie separata della vittima'},
+  {id:'petrov',  name:'Dott. Grigory Petrov', role:'Medico di guardia — ha firmato il referto'},
+  {id:'zhuk',    name:'Anatoly Zhuk',         role:'Autista del Ministero'}
 ];
 const MOTIVES={
   irina:  ['Sokolov aveva scoperto la sua vera identità di agente','Ordine ricevuto dalla rete di intelligence','Una relazione sentimentale usata come copertura e poi liquidata'],
@@ -615,10 +551,6 @@ function go(id){
   }
 }
 
-function tornaMenu(){
-  window.location.href='index.html';
-}
-
 function confirmRestart(){
   if(document.getElementById('rst-panel'))return;
   const panel=document.createElement('div');
@@ -646,8 +578,8 @@ function renderScene(id){
     return`<button class="choice ${c.cls||''}" ${dis} ${act}>${c.lbl?c.lbl():c.text}</button>`;
   }).join('');
   const rdr=S.players.length>1?`<div class="reader-badge">Legge: <span>${readerName()}</span></div>`:'';
-  const rst=`<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div><div style="margin-top:24px;text-align:center;font-family:'Courier Prime',monospace;font-size:.6em;letter-spacing:2px;color:var(--muted);padding-bottom:8px">Gioco creato da Andrea Zullo</div>`;
-  app.innerHTML=applyNames(`<div>${rdr}<div class="s-hdr">${def.title}</div><div class="s-body">${def.text()}</div><div class="c-wrap">${btns}</div>${rst}</div>`);
+  const rst=`<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div><div style="margin-top:24px;text-align:center;font-family:'Courier Prime',monospace;font-size:.6em;letter-spacing:2px;color:var(--muted);padding-bottom:8px">Gioco creato da Andrea Zullo</div>`;
+  app.innerHTML=`<div>${rdr}<div class="s-hdr">${def.title}</div><div class="s-body">${def.text()}</div><div class="c-wrap">${btns}</div>${rst}</div>`;
   // ambient: hub pages = investigation drone, detail pages = lighter
   const tensionIds=['hub3','irina_olga','irina_foto','hot1_a','hot1_b','hot2_a','hot2_b','hot3_a','hot3_b','micro_anal','barinov_irina'];
   const interrogationIds=['hub2','hub_irina','hub_cheskov','hub_vera','hub_petrov','hub_barinov','hub_zhuk','irina_alibi','irina_num','irina_ag','irina_micro','cheskov_lett','cheskov_ric','cheskov_al','vera_prima','vera_min','vera_ass','vera_telefono','petrov_scena','petrov_autopsia','petrov_contatto','zhuk_sera','zhuk_irina','barinov_micro','barinov_app','arch_inf','arch_form','arch_scelta','cheskov_promosso','commissariato','lettera_vera'];
@@ -670,15 +602,15 @@ function renderHotSeat(id){
       :`onclick="_hotChoice('${c.goto}')"`;
     return`<button class="choice ${c.cls||''}" ${dis} ${act}>${c.lbl?c.lbl():c.text}</button>`;
   }).join('');
-  const rst=`<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div><div style="margin-top:24px;text-align:center;font-family:'Courier Prime',monospace;font-size:.6em;letter-spacing:2px;color:var(--muted);padding-bottom:8px">Gioco creato da Andrea Zullo</div>`;
-  app.innerHTML=applyNames(`<div>
+  const rst=`<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div><div style="margin-top:24px;text-align:center;font-family:'Courier Prime',monospace;font-size:.6em;letter-spacing:2px;color:var(--muted);padding-bottom:8px">Gioco creato da Andrea Zullo</div>`;
+  app.innerHTML=`<div>
     ${passHtml}
     <div class="hot-wrap"><div class="hot-title">📢 Leggi a voce alta solo le parti in rosso</div><div class="hot-sub">Gli altri ascoltano senza guardare lo schermo</div></div>
     <div class="s-hdr">${def.title}</div>
     <div class="s-body">${def.text()}</div>
     <div class="c-wrap">${btns}</div>
     ${rst}
-  </div>`);
+  </div>`;
   window._ambientType='tension';
   startAmbient('tension');
   scroll();
@@ -709,7 +641,7 @@ function renderBiforcata(id){
   const _rp=randPlayers(1);
   S.flags._bifPlayer=_rp[0].nome;
   const plA=S.flags._bifPlayer;
-  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div>';
+  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div>';
 
   // STEP 1: pass screen
   app.innerHTML='<div class="pass-wrap"><div class="pass-stars">★ ★ ★</div><div class="pass-lbl">Scena riservata</div><div class="pass-nm">'+plA+'</div><div class="pass-note">Prendi il telefono.<br>Gli altri girano lo sguardo.</div><button class="btn-r" onclick="_bifStep2(\''+id+'\')">Sono pronto →</button>'+rst+'</div>';
@@ -720,10 +652,10 @@ function _bifStep2(id){
   const def=SC[id];
   if(def.enter) def.enter();
   const plA=S.flags._bifPlayer||'Giocatore 1';
-  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div>';
+  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div>';
 
   // STEP 2: 30s read — show text, countdown in corner
-  app.innerHTML=applyNames('<div><div class="s-hdr" style="display:flex;justify-content:space-between;align-items:center">'+def.title+'<span id="bif-cnt" style="font-size:1.5em;color:var(--red);min-width:2em;text-align:right">30</span></div><div class="s-body">'+def.text()+'</div><div style="border:1px solid var(--border2);padding:12px;font-family:\'Courier Prime\',monospace;font-size:.72em;letter-spacing:1px;color:var(--muted);margin-top:8px">'+plA+': leggi in silenzio. Quando il tempo scade, lo schermo si oscura.</div>'+rst+'</div>');
+  app.innerHTML='<div><div class="s-hdr" style="display:flex;justify-content:space-between;align-items:center">'+def.title+'<span id="bif-cnt" style="font-size:1.5em;color:var(--red);min-width:2em;text-align:right">30</span></div><div class="s-body">'+def.text()+'</div><div style="border:1px solid var(--border2);padding:12px;font-family:\'Courier Prime\',monospace;font-size:.72em;letter-spacing:1px;color:var(--muted);margin-top:8px">'+plA+': leggi in silenzio. Quando il tempo scade, lo schermo si oscura.</div>'+rst+'</div>';
   scroll();
   let n=18;
   const tick=setInterval(()=>{
@@ -737,22 +669,22 @@ function _bifStep2(id){
 
 function _bifStep3(id){
   const def=SC[id];
-  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div>';
+  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div>';
   // STEP 3: dark screen — tell the others
-  app.innerHTML=applyNames('<div class="pass-wrap"><div class="pass-stars" style="animation:pulseRed 1s ease infinite">⬛</div><div class="pass-lbl" style="color:var(--red)">Il tempo è scaduto</div><div class="pass-nm" style="font-size:1.3em">Racconta agli altri cosa hai sentito.</div><div class="pass-note">Metti giù il telefono.<br>Tutti prendono nota su carta.<br>Poi decidete insieme.</div><button class="btn-r" onclick="_bifStep4(\''+id+'\')" style="margin-top:24px">Pronti — scegliere →</button>'+rst+'</div>');
+  app.innerHTML='<div class="pass-wrap"><div class="pass-stars" style="animation:pulseRed 1s ease infinite">⬛</div><div class="pass-lbl" style="color:var(--red)">Il tempo è scaduto</div><div class="pass-nm" style="font-size:1.3em">Racconta agli altri cosa hai sentito.</div><div class="pass-note">Metti giù il telefono.<br>Tutti prendono nota su carta.<br>Poi decidete insieme.</div><button class="btn-r" onclick="_bifStep4(\''+id+'\')" style="margin-top:24px">Pronti — scegliere →</button>'+rst+'</div>';
   scroll();
 }
 
 function _bifStep4(id){
   const def=SC[id];
   const ch=def.choices?def.choices():[];
-  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div>';
+  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div>';
   const btns=ch.filter(c=>!c.cond||c.cond()).map(c=>{
     const act=c.delay?'onclick="goDelayed(\''+c.goto+'\',this)"':'onclick="go(\''+c.goto+'\')"';
     return '<button class="choice '+(c.cls||'')+'" '+act+'>'+c.text+'</button>';
   }).join('');
   // STEP 4: choices for everyone
-  app.innerHTML=applyNames('<div><div class="hot-wrap"><div class="hot-title">📢 Decidete insieme</div><div class="hot-sub">In base a quello che ha raccontato '+(S.flags._bifPlayer||'Giocatore 1')+'</div></div><div class="s-hdr">'+def.title+'</div><div class="c-wrap">'+btns+'</div>'+rst+'</div>');
+  app.innerHTML='<div><div class="hot-wrap"><div class="hot-title">📢 Decidete insieme</div><div class="hot-sub">In base a quello che ha raccontato '+(S.flags._bifPlayer||'Giocatore 1')+'</div></div><div class="s-hdr">'+def.title+'</div><div class="c-wrap">'+btns+'</div>'+rst+'</div>';
   scroll();
   nextReader();
 }
@@ -769,7 +701,7 @@ function renderDossier(id, phase){
   }
   const pA=S.flags._dosA||'Giocatore 1';
   const pB=S.flags._dosB||'Giocatore 2';
-  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button></div>';
+  const rst='<div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center"><button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button></div>';
 
   if(phase===0){
     // Pass to A
@@ -824,7 +756,7 @@ function renderDossier(id, phase){
   }
   else if(phase===4){
     // Discuss
-    app.innerHTML=applyNames('<div class="pass-wrap"><div class="pass-stars">💬</div><div class="pass-lbl">Confrontatevi</div><div class="pass-nm" style="font-size:1.2em">Cosa avete letto?</div><div class="pass-note">Nessuno rilegge. Solo a voce.<br>Prendete nota su carta.<br><br>Chi è ОЛГА? Cosa stava raccogliendo?<br>E per conto di chi?</div><button class="btn-r" onclick="go(\'hub2\')" style="margin-top:24px">← Tornare alle indagini</button>'+rst+'</div>');
+    app.innerHTML='<div class="pass-wrap"><div class="pass-stars">💬</div><div class="pass-lbl">Confrontatevi</div><div class="pass-nm" style="font-size:1.2em">Cosa avete letto?</div><div class="pass-note">Nessuno rilegge. Solo a voce.<br>Prendete nota su carta.<br><br>Chi è ОЛГА? Cosa stava raccogliendo?<br>E per conto di chi?</div><button class="btn-r" onclick="go(\'hub2\')" style="margin-top:24px">← Tornare alle indagini</button>'+rst+'</div>';
     scroll();
   }
 }
@@ -1847,8 +1779,8 @@ function renderAccusa(){
   const warn=!ok?`<div class="verdict ambig"><div class="v-title">⚠ Prove Insufficienti</div><p>Non avete ancora prove sufficienti per un'accusa solida. Potete procedere, ma rischiate una conclusione sbagliata.</p></div>`:'';
   const sl=SUSPECTS.map(s=>`<button class="opt${accSusp===s.id?' sel':''}" onclick="selS('${s.id}')">${s.name}<span class="opt-role">${s.role}</span></button>`).join('');
   const ml=accSusp?MOTIVES[accSusp].map(m=>`<button class="opt${accMot===m?' sel':''}" onclick="selM(this)">${m}</button>`).join(''):`<p class="dim">Selezionare prima un sospettato.</p>`;
-  const bk=`<button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button> <button class="btn-g" onclick="tornaMenu()" style="margin-left:8px">← Menu</button>`;
-  app.innerHTML=applyNames(`<div>
+  const bk=`<button class="btn-g" onclick="confirmRestart()">↺ Ricomincia da capo</button>`;
+  app.innerHTML=`<div>
     <div class="s-hdr">Accusa Finale</div>
     <div class="s-body"><p>Chi ha ucciso Viktor Sokolov? E per quale ragione?</p><p class="dim">Confrontatevi, usate i vostri appunti su carta, poi decidete insieme.</p></div>
     ${warn}
@@ -1857,7 +1789,7 @@ function renderAccusa(){
     <div class="c-wrap" style="margin-top:20px"><button class="choice" id="bacc" onclick="conferma(this)" ${(!accSusp||!accMot)?'disabled':''}>⚖️ Confermare l'accusa</button></div>
     <div style="margin-top:32px;padding-top:16px;border-top:1px dashed var(--border);text-align:center">${bk}</div>
   <div style="margin-top:24px;text-align:center;font-family:'Courier Prime',monospace;font-size:.6em;letter-spacing:2px;color:var(--muted);padding-bottom:8px">Gioco creato da Andrea Zullo</div>
-  </div>`);
+  </div>`;
   window._ambientType='tension';
   startAmbient('tension');
   scroll();
@@ -1925,13 +1857,13 @@ function renderVerdetto(){
     <p><strong>Zhuk</strong> era fuori dall'edificio come autista, non come assassino. Ha aspettato Irina, l'ha portata via. Complice indiretto, forse inconsapevole della gravità. Non ha ucciso nessuno.</p></div>`;
   }
   const restart=`<button class="btn-r full" style="margin-top:18px" onclick="restartGame()">↺ Nuova partita</button>`;
-  app.innerHTML=applyNames(`<div>
+  app.innerHTML=`<div>
     <div class="s-hdr">Mosca, 24 Ottobre 1968</div>
     <div class="s-body"><p>Accusa: <strong>${nm}</strong><br><em>${accMot}</em></p></div>
     ${vhtml}
     ${restart}
   <div style="margin-top:24px;text-align:center;font-family:'Courier Prime',monospace;font-size:.6em;letter-spacing:2px;color:var(--muted);padding-bottom:8px">Gioco creato da Andrea Zullo</div>
-  </div>`);
+  </div>`;
   window._ambientType='verdict';
   startAmbient('verdict');
   scroll();
@@ -1995,7 +1927,6 @@ function aggForm(){
 }
 
 function avvia(){
-  randomizeNames();
   const n=parseInt(document.getElementById('npl').value);
   S.players=[];
   for(let i=0;i<n;i++){const v=(document.getElementById('nm'+i).value||'').trim();S.players.push({nome:v||`Giocatore ${i+1}`});}
