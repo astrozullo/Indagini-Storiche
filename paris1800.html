@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'INDAGINE — Parigi, Anno VIII</title>
+<style>
+  :root {
+    --papier: #f0e6d0;
+    --encre: #1a0f00;
+    --sang:  #7a1a0a;
+    --or:    #8b6914;
+    --ombre: #2a1a08;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ombre);
+    color: var(--encre);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  /* ── SCHERMATA INIZIALE ─────────────────────────── */
+  #splash {
+    background: var(--papier);
+    max-width: 680px;
+    width: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 28px 24px 28px;
+    border: 2px solid var(--or);
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    text-align: center;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px,
+        rgba(139,105,20,0.07) 28px, rgba(139,105,20,0.07) 29px);
+  }
+
+  #splash .titolo-grande {
+    font-family: 'Cinzel Decorative', 'Georgia', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: none;
+    color: var(--or);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  #splash .sottotitolo {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: #6b4c1a;
+    margin-bottom: 10px;
+  }
+
+  #splash .badge-riga {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  #splash .badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: #6b4c1a;
+    border: 1px solid rgba(139,105,20,0.4);
+    padding: 3px 10px;
+  }
+
+  #splash .sep {
+    border: none;
+    border-top: 1px solid var(--or);
+    margin: 0 auto 18px;
+    width: 60%;
+  }
+
+  #splash .intro-testo {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--encre);
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  #splash .intro-testo p { margin-bottom: 10px; }
+
+  #splash .regole {
+    background: rgba(139,105,20,0.08);
+    border: 1px solid rgba(139,105,20,0.35);
+    padding: 12px 16px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  #splash .regole h3 {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sang);
+    font-weight: normal;
+    margin-bottom: 9px;
+  }
+
+  #splash .regole ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  #splash .regole ul li {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--encre);
+    padding-left: 16px;
+    position: relative;
+  }
+
+  #splash .regole ul li::before {
+    content: '›';
+    color: var(--or);
+    position: absolute;
+    left: 0;
+  }
+
+  #splash .avvio-btn {
+    background: var(--sang);
+    border: 1px solid var(--sang);
+    color: var(--papier);
+    font-family: inherit;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 11px 36px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    margin-bottom: 16px;
+  }
+
+  #splash .avvio-btn:hover {
+    background: #5a0e06;
+    border-color: #5a0e06;
+  }
+
+  #splash .splash-credito {
+    font-size: 0.65rem;
+    color: #9a7030;
+    letter-spacing: 0.12em;
+    font-style: italic;
+  }
+
+  #splash .splash-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  #splash .splash-menu {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #6b4c1a;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  #splash .splash-menu:hover { color: var(--or); }
+
+  /* ── PAGINA DI GIOCO ────────────────────────────── */
+  #page {
+    display: none;
+    background: var(--papier);
+    max-width: 680px;
+    width: 100%;
+    min-height: 80vh;
+    padding: 48px 52px 40px;
+    border: 2px solid var(--or);
+    box-shadow: 0 0 40px rgba(0,0,0,0.8), inset 0 0 60px rgba(139,105,20,0.08);
+    position: relative;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 28px,
+        rgba(139,105,20,0.07) 28px, rgba(139,105,20,0.07) 29px);
+  }
+
+  #header {
+    text-align: center;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--or);
+  }
+
+  #btn-audio {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+    border: 1px solid #6b4c1a;
+    color: #6b4c1a;
+    font-family: inherit;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: border-color 0.15s, color 0.15s;
+    line-height: 1.4;
+    z-index: 5;
+  }
+
+  #btn-audio:hover { border-color: var(--or); color: var(--or); }
+  #btn-audio.muto   { opacity: 0.45; }
+
+  @keyframes scelta-blink {
+    0%   { background: rgba(122,26,10,0.25); border-color: var(--sang); color: var(--sang); }
+    50%  { background: transparent; border-color: var(--or); color: var(--encre); }
+    100% { background: rgba(122,26,10,0.25); border-color: var(--sang); color: var(--sang); }
+  }
+
+  .choice.flash {
+    animation: scelta-blink 0.45s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .choice.flash-altri {
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  #header h1 {
+    font-size: 1.05rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--or);
+    font-weight: normal;
+  }
+
+  #header .subtitle {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: #6b4c1a;
+    margin-top: 6px;
+  }
+
+  #scene-title {
+    font-size: 0.78rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--sang);
+    margin-bottom: 18px;
+  }
+
+  #text {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--encre);
+    margin-bottom: 28px;
+  }
+
+  #text p { margin-bottom: 14px; }
+  #text p:last-child { margin-bottom: 0; }
+
+  #text em { font-style: italic; color: var(--sang); }
+
+  #text .avviso {
+    font-size: 0.82rem;
+    color: #6b4c1a;
+    font-style: italic;
+    border-left: 2px solid var(--or);
+    padding-left: 12px;
+    margin-top: 14px;
+  }
+
+  #choices {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .choice {
+    background: transparent;
+    border: 1px solid var(--or);
+    color: var(--encre);
+    font-family: inherit;
+    font-size: 0.88rem;
+    text-align: left;
+    padding: 11px 16px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    line-height: 1.5;
+  }
+
+  .choice::before {
+    content: '›';
+    color: var(--or);
+    margin-right: 10px;
+    font-size: 1.1rem;
+  }
+
+  .choice:hover {
+    background: rgba(139,105,20,0.12);
+    border-color: var(--sang);
+    color: var(--sang);
+  }
+
+  .choice.bloccata {
+    border-color: #c0a060;
+    color: #9a7840;
+    cursor: default;
+    opacity: 0.55;
+  }
+
+  .choice.bloccata::before { content: '✕'; font-size: 0.85rem; }
+  .choice.bloccata:hover { background: transparent; border-color: #c0a060; color: #9a7840; }
+
+  #status-bar {
+    margin-top: 30px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(139,105,20,0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  #credito {
+    font-size: 0.65rem;
+    color: #9a7030;
+    letter-spacing: 0.12em;
+    font-style: italic;
+    flex: 1;
+  }
+
+  #btn-restart {
+    background: transparent;
+    border: 1px solid #6b4c1a;
+    color: #6b4c1a;
+    font-family: inherit;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    padding: 4px 10px;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  #btn-restart:hover { border-color: var(--sang); color: var(--sang); }
+
+  /* ── PANNELLO RESTART INLINE ────────────────────── */
+  #restart-panel {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--papier);
+    border: 2px solid var(--sang);
+    padding: 30px 36px;
+    text-align: center;
+    z-index: 10;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    min-width: 280px;
+  }
+
+  #restart-panel p {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: var(--encre);
+    line-height: 1.6;
+  }
+
+  .panel-btns { display: flex; gap: 12px; justify-content: center; }
+
+  .panel-btns button {
+    font-family: inherit;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    cursor: pointer;
+    border: 1px solid;
+  }
+
+  #btn-confirm-restart { background: var(--sang); border-color: var(--sang); color: var(--papier); }
+  #btn-cancel-restart  { background: transparent; border-color: var(--or); color: var(--encre); }
+
+  #overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(26,15,0,0.5);
+    z-index: 9;
+  }
+
+  /* ── POPUP EVENTO ──────────────────────────────── */
+  #popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.92);
+    background: var(--papier);
+    border: 2px solid var(--or);
+    padding: 22px 32px;
+    text-align: center;
+    z-index: 200;
+    box-shadow: 0 6px 32px rgba(0,0,0,0.65);
+    max-width: 340px;
+    width: 90%;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+    opacity: 0;
+  }
+
+  #popup.visibile {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  #popup .popup-icona {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    display: block;
+    color: var(--or);
+  }
+
+  #popup .popup-testo {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--encre);
+    font-style: italic;
+  }
+
+  #popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,5,0,0.45);
+    z-index: 199;
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ══ SCHERMATA INIZIALE ══════════════════════════════════ -->
+<div id="splash">
+  <div class="titolo-grande">Il Caso<br>Deschênes</div>
+  <div class="sottotitolo">Parigi — Brumaio, Anno VIII della Repubblica</div>
+  <div class="badge-riga">
+    <span class="badge">👤 1 giocatore o in gruppo</span>
+    <span class="badge">🕯 Difficoltà: Facile</span>
+  </div>
+  <hr class="sep">
+
+  <div class="intro-testo">
+    <p>Novembre 1800. Napoleone Bonaparte è primo console da meno di un anno. Parigi respira dopo il Terrore, ma la città è ancora piena di rancori antichi, di conti in sospeso, di uomini che la Rivoluzione ha arricchito o rovinato.</p>
+    <p>Il notaio <em>Armand Deschênes</em> è stato trovato morto nel suo studio. Un'unica coltellata al fianco sinistro. La serva ha dato l'allarme all'alba.</p>
+    <p>Siete l'<em>Ispettore Laval</em>, in servizio alla Prefettura. Il Primo Console vuole ordine e discrezione. Avete poche ore per risolvere il caso prima che la faccenda diventi politica.</p>
+  </div>
+
+  <div class="regole">
+    <h3>Prima di cominciare</h3>
+    <ul>
+      <li><strong>Prendete appunti.</strong> Nomi, orari, dettagli fisici — non tutto sarà rilevante, ma non saprete quale lo è fino alla fine.</li>
+      <li><strong>Scegliete con attenzione.</strong> La storia cambia in base alle vostre decisioni: alcune strade si aprono, altre si chiudono per sempre.</li>
+      <li>Non esiste un unico percorso corretto — ma esistono errori che rendono il caso più difficile da chiudere.</li>
+      <li>Non tutti gli indizi portano al colpevole. Alcune testimonianze sono in buona fede ma fuorvianti.</li>
+    </ul>
+  </div>
+
+  <button class="avvio-btn" id="btn-inizia">Inizia l'indagine</button>
+  <div class="splash-footer">
+    <a href="index.html" class="splash-menu">← Menu</a>
+    <div class="splash-credito">Gioco creato da Andrea Zullo</div>
+  </div>
+</div>
+
+<!-- ══ PAGINA DI GIOCO ══════════════════════════════════════ -->
+<div id="page">
+  <div id="overlay"></div>
+  <button id="btn-audio" title="Audio on/off">♪ ON</button>
+  <div id="restart-panel">
+    <p>Tornare alla pagina iniziale?<br><small style="color:#6b4c1a">Tutti i progressi andranno perduti.</small></p>
+    <div class="panel-btns">
+      <button id="btn-confirm-restart">Ricomincia</button>
+      <button id="btn-cancel-restart">Continua</button>
+    </div>
+  </div>
+
+  <div id="header">
+    <h1>L'Indagine</h1>
+    <div class="subtitle">Parigi — Brumaio, Anno VIII della Repubblica</div>
+  </div>
+
+  <div id="scene-title"></div>
+  <div id="text"></div>
+  <div id="choices"></div>
+
+  <div id="status-bar">
+    <div id="credito">Gioco creato da Andrea Zullo</div>
+    <button id="btn-restart">Abbandona</button>
+  </div>
+</div>
+
+<!-- ══ POPUP GLOBALE ════════════════════════════════════════ -->
+<div id="popup-overlay"></div>
+<div id="popup">
+  <span class="popup-icona" id="popup-icona">◈</span>
+  <div class="popup-testo" id="popup-testo"></div>
+</div>
+
+<script>
+// ══ STATO GLOBALE ══════════════════════════════════════════
+const G = {
+  scene: 'intro',
+  indici: [],
+  sospetti: {},
+  scelte: {},
+  // scelte chiave: raux_ostile, raux_scagionato, brisset_fuggito,
+  //               moreau_saltato, lettera_ignorata, vicino_interrogato
+};
+
+// ══ SCENE ═══════════════════════════════════════════════════
+const SCENE = {
+
+  // ── INIZIO ────────────────────────────────────────────────
+  intro: {
+    titolo: 'Rue Saint-Honoré — alba',
+    testo: `<p>Parigi, 9 Brumaio Anno VIII. La città dorme ancora, ma vi hanno fatto alzare prima dell'alba.</p>
+<p>Il cittadino <em>Armand Deschênes</em>, notaio stimato del primo arrondissement, è stato trovato morto nel suo studio. Un'unica ferita al fianco sinistro. La serva ha dato l'allarme alle sei del mattino.</p>
+<p>Siete l'<em>Ispettore Laval</em>, in servizio alla Prefettura. La faccenda deve restare discreta — il Primo Console non ha bisogno di scandali in questo momento.</p>
+<p>Scendete dal fiacre davanti all'edificio. Una guardia vi aspetta sul portone.</p>`,
+    scelte: [
+      { testo: "Interrogare prima la guardia di ronda", vai: 'guardia_moreau' },
+      { testo: "Entrare direttamente nello studio del morto",
+        vai: 'studio',
+        onScegli: () => { G.scelte.moreau_saltato = true; }
+      },
+    ]
+  },
+
+  // ── NUOVA SCENA 1: GUARDIA MOREAU ─────────────────────────
+  guardia_moreau: {
+    titolo: 'Davanti all\'edificio',
+    testo: `<p>La guardia si chiama Moreau, è giovane e visibilmente scossa. Parla in fretta.</p>
+<p>— <em>La serva, la cittadina Hortense, ha trovato la porta dello studio socchiusa alle sei. Ha visto il corpo e ha urlato. Ero di pattuglia qui vicino, sono accorso.</em></p>
+<p>— <em>Qualcuno ha lasciato l'edificio questa notte?</em></p>
+<p>— <em>Un uomo con un soprabito scuro, verso le due di notte. L'ho visto io stesso. Camminava veloce. Non gli ho chiesto i documenti — avrei dovuto, Ispettore.</em></p>
+<p>Moreau abbassa gli occhi. Annotate l'informazione.</p>`,
+    onEnter: () => { if (!G.indici.includes('uomo_soprabito')) G.indici.push('uomo_soprabito'); },
+    scelte: [
+      { testo: "Chiedergli di descrivere l'uomo meglio", vai: 'descrizione_uomo' },
+      { testo: "Entrare nello studio", vai: 'studio' },
+    ]
+  },
+
+  descrizione_uomo: {
+    titolo: 'La testimonianza di Moreau',
+    testo: `<p>— <em>Alto, magro. Aveva un cappello a tesa larga. Zoppicava leggermente — la gamba sinistra, mi sembra. E aveva qualcosa sotto il braccio — un rotolo di carta, o forse un libro rilegato.</em></p>
+<p>Riponete il dettaglio. Un uomo che zoppica della gamba sinistra. Parigi ne è piena da quando tornano i soldati, ma è qualcosa.</p>`,
+    onEnter: () => { if (!G.indici.includes('zoppo')) G.indici.push('zoppo'); },
+    scelte: [
+      { testo: "Entrare nello studio", vai: 'studio' },
+    ]
+  },
+
+  // ── STUDIO DEL MORTO ──────────────────────────────────────
+  studio: {
+    titolo: 'Lo studio notarile',
+    testo: `<p>La stanza è buia, la lampada a olio ancora accesa. Deschênes è riverso sul tavolo — una ferita unica al fianco sinistro, netta, profonda. Nessun disordine apparente.</p>
+<p>Sul tavolo: atti notarili, un calamaio rovesciato, e una lettera parzialmente bruciata nel caminetto. Qualcuno ha tentato di distruggerla senza riuscirci del tutto.</p>
+<p>Contro la parete, una cassaforte. Chiusa a chiave, ma graffiata — qualcuno ha tentato di forzarla.</p>
+<p>Il corpo stesso non è ancora stato toccato.</p>`,
+    scelte: [
+      { testo: "Frugare le tasche del morto", vai: 'tasche_morto' },
+      { testo: "Esaminare la lettera parzialmente bruciata", vai: 'lettera_bruciata' },
+      { testo: "Ispezionare la cassaforte", vai: 'cassaforte' },
+      { testo: "Chiamare la serva Hortense", vai: 'hortense_1' },
+    ]
+  },
+
+  // ── NUOVA SCENA 2: TASCHE DEL MORTO ───────────────────────
+  tasche_morto: {
+    titolo: 'Le tasche di Deschênes',
+    testo: `<p>Con cautela girate il corpo. Nella tasca del panciotto trovate tre cose: la chiave della cassaforte, alcune monete, e un biglietto spiegazzato scritto a mano.</p>
+<p>Il biglietto recita: <em>«B. — mercoledì notte — venite soli. Portate quanto dovuto o troverò un altro modo.»</em></p>
+<p>Nessuna firma, nessun indirizzo. Ma il tono è quello di qualcuno che non intende aspettare oltre. Mercoledì notte — ovvero ieri sera.</p>
+<p class="avviso">Avete trovato la chiave della cassaforte.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('biglietto_B')) G.indici.push('biglietto_B');
+      if (!G.indici.includes('chiave_cassaforte')) G.indici.push('chiave_cassaforte');
+    },
+    scelte: [
+      { testo: "Aprire la cassaforte con la chiave trovata", vai: 'cassaforte_aperta' },
+      { testo: "Esaminare la lettera bruciata", vai: 'lettera_bruciata' },
+      { testo: "Chiamare Hortense", vai: 'hortense_1' },
+    ]
+  },
+
+  lettera_bruciata: {
+    titolo: 'La lettera',
+    testo: `<p>Recuperate i frammenti con cautela. La scrittura è elegante, affrettata.</p>
+<p><em>«...avete mancato alla parola data. Se non consegnate i documenti entro venerdì, sarò costretto a...»</em></p>
+<p>Il resto è cenere. La firma è illeggibile, ma si distingue un'iniziale: <em>B</em> — o forse una <em>R</em>.</p>
+<p><em>I documenti.</em> Qualcuno cercava qualcosa di preciso. La cassaforte graffiata acquista tutto il suo senso.</p>`,
+    onEnter: () => { if (!G.indici.includes('lettera_iniziale')) G.indici.push('lettera_iniziale'); mostraPopup('Una minaccia scritta. Qualcuno reclamava qualcosa — e non intendeva aspettare.', 'mistero'); },
+    scelte: [
+      { testo: "Ispezionare la cassaforte", vai: 'cassaforte' },
+      { testo: "Chiamare Hortense", vai: 'hortense_1' },
+    ]
+  },
+
+  cassaforte: {
+    titolo: 'La cassaforte',
+    testo: `<p>I graffi sono recenti — la lacca ancora fresca. Uno strumento sottile, forse un temperino. Il lavoro di qualcuno di nervoso e inesperto.</p>
+<p>Non avete la chiave. Bisogna trovare un fabbro o cercare altrove.</p>
+<p class="avviso">Senza la chiave non potete aprire la cassaforte. Cercate nelle tasche del morto.</p>`,
+    scelte: [
+      { testo: "Frugare le tasche del morto per trovare la chiave", vai: 'tasche_morto' },
+      { testo: "Chiamare Hortense intanto", vai: 'hortense_1' },
+    ]
+  },
+
+  cassaforte_aperta: {
+    titolo: 'Dentro la cassaforte',
+    testo: `<p>La cassaforte contiene: denaro in contanti, due atti di vendita fondiaria, e uno spazio vuoto — un rettangolo polveroso nel velluto, come se un registro o un fascicolo fosse stato rimosso di recente.</p>
+<p>Qualcosa manca. E quella cosa, evidentemente, valeva la pena di uccidere.</p>`,
+    onEnter: () => { if (!G.indici.includes('oggetto_mancante')) G.indici.push('oggetto_mancante'); mostraPopup('Qualcosa è stato rubato. Il delitto aveva uno scopo preciso.', 'allarme'); },
+    scelte: [
+      { testo: "Esaminare gli atti di vendita fondiaria", vai: 'atti_vendita' },
+      { testo: "Chiamare Hortense", vai: 'hortense_1' },
+    ]
+  },
+
+  atti_vendita: {
+    titolo: 'Gli atti di vendita',
+    testo: `<p>Due transazioni dell'Anno VII. Beni nazionali — antica proprietà ecclesiastica venduta durante la Rivoluzione, ora rivenduta a privati.</p>
+<p>L'acquirente è lo stesso in entrambi i casi: <em>cittadino Bernardin Raux</em>, commerciante di stoffe, rue du Temple. I prezzi sembrano stranamente bassi per proprietà di quella dimensione.</p>
+<p>Deschênes era il notaio di queste transazioni. E se i documenti rubati riguardassero queste vendite?</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('raux')) G.indici.push('raux');
+      G.sospetti['Raux'] = (G.sospetti['Raux'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Chiamare Hortense", vai: 'hortense_1' },
+      { testo: "Andare subito a interrogare Raux",
+        vai: 'raux_1',
+        condition: () => !G.scelte.raux_ostile
+      },
+    ]
+  },
+
+  // ── HORTENSE ──────────────────────────────────────────────
+  hortense_1: {
+    titolo: 'La serva Hortense',
+    testo: `<p>Hortense Collet, quarant'anni, gli occhi rossi. Si torce il grembiule tra le dita.</p>
+<p>— <em>Ieri sera ha ricevuto due visite. Prima il cittadino Raux, un suo cliente — verso le nove, dopo cena. Hanno litigato. Ho sentito il cittadino Deschênes urlare: «Non è colpa mia se avete firmato.»</em></p>
+<p>— <em>E la seconda visita?</em></p>
+<p>— <em>Più tardi. Passata la mezzanotte. Qualcuno ha bussato piano. Il cittadino è andato ad aprire lui stesso — cosa che non faceva mai. Non ho visto chi fosse.</em></p>`,
+    onEnter: () => {
+      if (!G.indici.includes('visita_sera')) G.indici.push('visita_sera');
+      G.sospetti['Raux'] = (G.sospetti['Raux'] || 0) + 1;
+      mostraPopup('Due visitatori nella stessa notte. Il secondo è venuto dopo mezzanotte — e Deschênes ha aperto lui stesso.', 'ominoso');
+    },
+    scelte: [
+      { testo: "Chiederle se conosce altri nemici di Deschênes", vai: 'hortense_nemici' },
+      { testo: "Un funzionario del Ministero si avvicina — vuole un aggiornamento urgente",
+        condition: () => !G.indici.includes('brisset') && !G.scelte.pressione_arrivata,
+        vai: 'funzionario_ministero'
+      },
+      { testo: "Interrogare il vicino del piano di sopra", vai: 'vicino_scala' },
+      { testo: "Parlare con il commerciante di vini di fronte — Hortense dice che ha visto qualcosa",
+        vai: 'thevenot_1',
+        condition: () => !G.scelte.thevenot_visitato
+      },
+      { testo: "Andare a interrogare Raux",
+        vai: 'raux_1',
+        condition: () => !G.scelte.raux_ostile
+      },
+      { testo: "Cercare la vedova Deschênes", vai: 'vedova_1' },
+    ]
+  },
+
+  hortense_nemici: {
+    titolo: 'Hortense — i nemici',
+    testo: `<p>— <em>Il cittadino era un uomo prudente. Ma nelle ultime settimane aveva paura. Chiudeva lo studio a doppia mandata, bruciava documenti.</em></p>
+<p>— <em>Ha mai pronunciato un nome?</em></p>
+<p>Hortense esita.</p>
+<p>— <em>Una volta ha parlato di un certo... Brisset. Un ex collaboratore, credo. Si erano guastati. Non so altro.</em></p>`,
+    onEnter: () => {
+      if (!G.indici.includes('brisset')) G.indici.push('brisset');
+      G.sospetti['Brisset'] = (G.sospetti['Brisset'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Interrogare il vicino del piano", vai: 'vicino_scala' },
+      { testo: "Cercare informazioni su Brisset alla Prefettura",
+        condition: () => G.indici.includes('brisset'),
+        vai: 'prefettura_brisset'
+      },
+      { testo: "Interrogare Raux",
+        condition: () => !G.scelte.raux_ostile,
+        vai: 'raux_1'
+      },
+    ]
+  },
+
+  // ── NUOVA SCENA 3: VICINO DI SCALA ────────────────────────
+  vicino_scala: {
+    titolo: 'Il vicino — primo piano',
+    testo: `<p>Il signor Arnoux, magistrato in pensione, abita il piano di sotto. Vi riceve in vestaglia, seccato ma collaborativo.</p>
+<p>— <em>Sì, ho sentito. Verso mezzanotte e mezza — passi pesanti sulle scale, poi un'alterco smorzato. Poi silenzio. Ho pensato fosse un cliente tardivo.</em></p>
+<p>— <em>Ha visto l'uomo?</em></p>
+<p>— <em>Solo di spalle, mentre scendeva. Zoppicava. E ho visto quello che aveva in mano: un registro rilegato in verde. Lo ricordo perché la candela dell'ingresso lo illuminava bene.</em></p>
+<p>Un registro verde. Il rettangolo vuoto nella cassaforte.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('registro_verde')) G.indici.push('registro_verde');
+      if (!G.indici.includes('zoppo')) G.indici.push('zoppo');
+      G.scelte.vicino_interrogato = true;
+    },
+    scelte: [
+      { testo: "Chiedergli se ha sentito pronunciare nomi durante il litigio", vai: 'vicino_nomi' },
+      { testo: "Queste informazioni bastano — andare alla Prefettura",
+        condition: () => G.indici.includes('brisset'),
+        vai: 'prefettura_brisset'
+      },
+      { testo: "Interrogare Raux prima",
+        condition: () => !G.scelte.raux_ostile,
+        vai: 'raux_1'
+      },
+    ]
+  },
+
+  vicino_nomi: {
+    titolo: 'Arnoux — i nomi',
+    testo: `<p>— <em>Un nome... sì. Ho sentito Deschênes urlare qualcosa come «Brisset, questo non vi porterà nulla». O qualcosa di simile. Poi la voce dell'altro — bassa, quasi calma. Peggio, in un certo senso.</em></p>
+<p>Brisset. Il nome che Hortense aveva pronunciato.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('brisset')) G.indici.push('brisset');
+      G.sospetti['Brisset'] = (G.sospetti['Brisset'] || 0) + 2;
+    },
+    scelte: [
+      { testo: "Andare alla Prefettura per trovare Brisset",
+        condition: () => G.indici.includes('brisset'),
+        vai: 'prefettura_brisset'
+      },
+      { testo: "Interrogare prima Raux",
+        condition: () => !G.scelte.raux_ostile,
+        vai: 'raux_1'
+      },
+    ]
+  },
+
+  // ── FALSA PISTA: THÉVENOT ─────────────────────────────────
+  thevenot_1: {
+    titolo: 'Il commerciante di vini — rue Saint-Honoré',
+    testo: `<p>Gaston Thévenot, cinquantadue anni, corporatura robusta, grembiule da lavoro. Vi aspetta sulla soglia della sua bottega come se vi avesse già visti arrivare.</p>
+<p>— <em>Lo sapevo che qualcuno sarebbe venuto da me. Ho visto tutto, Ispettore. O quasi tutto.</em></p>
+<p>— <em>Raccontate.</em></p>
+<p>— <em>Tre settimane fa — di mattina, verso le dieci — un uomo si è fermato davanti al portone di Deschênes. Elegante, cappotto blu militare, alto. Avevano una discussione animata sul marciapiede. Deschênes era pallido. L'altro gesticolava. Ho sentito le parole «documenti» e «quello che mi appartiene».</em></p>
+<p>Vi guarda con aria soddisfatta, come se avesse risolto lui il caso.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('uomo_cappotto_blu')) G.indici.push('uomo_cappotto_blu');
+      G.scelte.thevenot_visitato = true;
+    },
+    scelte: [
+      { testo: "Chiedergli di descrivere meglio l'uomo", vai: 'thevenot_2' },
+      { testo: "Tornare a seguire le altre piste", vai: 'studio' },
+    ]
+  },
+
+  thevenot_2: {
+    titolo: 'Thévenot — la descrizione',
+    testo: `<p>— <em>Alto, dicevo. Una cicatrice sulla guancia sinistra — una linea sottile, come da sciabola. Capelli scuri, ben pettinati. Sui quarant'anni. Portamento da militare, ma vestito da borghese.</em></p>
+<p>— <em>Ha sentito un nome?</em></p>
+<p>— <em>Deschênes lo ha chiamato per nome, una volta. «Verneuil» — sì, sono sicuro. Verneuil. E poi ha abbassato la voce e l'ha fatto entrare.</em></p>
+<p>Thévenot annuisce a se stesso, soddisfatto della propria memoria.</p>
+<p>— <em>Aspettate — ho anche trovato una cosa, quella stessa mattina, sul marciapiede davanti al portone.</em></p>`,
+    onEnter: () => {
+      if (!G.indici.includes('nome_verneuil')) G.indici.push('nome_verneuil');
+      G.sospetti['Verneuil'] = (G.sospetti['Verneuil'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Chiedergli cos'ha trovato", vai: 'thevenot_3' },
+    ]
+  },
+
+  thevenot_3: {
+    titolo: 'Thévenot — il bottone',
+    testo: `<p>Thévenot scompare nel retrobottega e torna con un piccolo oggetto avvolto in un panno.</p>
+<p>Un bottone. Argento, inciso con un'aquila e le iniziali <em>R.V.</em> Fattura militare, di buona qualità.</p>
+<p>— <em>Era caduto durante il litigio. L'ho tenuto — pensavo di riconsegnarlo, poi me ne sono dimenticato. Forse appartiene a questo Verneuil.</em></p>
+<p>Il bottone è reale, le iniziali sono reali. <em>R.V.</em> — Verneuil, magari. O qualunque altro nome che cominci con quelle lettere. Riponete l'oggetto.</p>
+<p class="avviso">Indizio raccolto: bottone con iniziali R.V.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('bottone_RV')) G.indici.push('bottone_RV');
+      G.sospetti['Verneuil'] = (G.sospetti['Verneuil'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Cercare Verneuil alla Prefettura", vai: 'verneuil_ricerca' },
+      { testo: "Lasciare perdere questa pista e tornare alle indagini principali",
+        vai: 'hortense_nemici'
+      },
+    ]
+  },
+
+  verneuil_ricerca: {
+    titolo: 'Alla Prefettura — Verneuil',
+    testo: `<p>Gli archivi restituiscono un risultato. <em>Raoul Verneuil</em>, quarantadue anni, fornitore militare, domicilio rue de Rivoli. Una pratica aperta: una disputa contrattuale con il notaio Deschênes, quattro mesi fa, per un contratto di acquisto fondiario contestato. La pratica è stata chiusa — accordo extragiudiziale, novembre scorso.</p>
+<p>Le iniziali quadrano: R.V. Il cappotto blu militare. La discussione sul marciapiede.</p>
+<p>Ma la disputa era già chiusa da quattro mesi. Eppure...</p>
+<p>Decidete di cercarlo.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('verneuil_disputa')) G.indici.push('verneuil_disputa');
+      G.sospetti['Verneuil'] = (G.sospetti['Verneuil'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Andare a interrogare Verneuil in rue de Rivoli", vai: 'verneuil_interrogatorio' },
+    ]
+  },
+
+  verneuil_interrogatorio: {
+    titolo: 'Rue de Rivoli — Verneuil',
+    testo: `<p>Raoul Verneuil vi riceve in un appartamento ordinato. Ha effettivamente una cicatrice sulla guancia sinistra e un vecchio cappotto militare blu appeso all'ingresso. Ascolta la vostra domanda senza agitarsi.</p>
+<p>— <em>Sì, tre settimane fa ero da Deschênes. Volevo recuperare alcune carte relative alla nostra vecchia disputa — documenti che avevo firmato e che preferivo riacquistare. Lui me li ha venduti, li ho pagati, sono tornato a casa. Fine.</em></p>
+<p>— <em>E la notte del delitto?</em></p>
+<p>— <em>Cena a casa del generale Aubert, rue Saint-Florentin. Dodici persone a tavola. Sono rimasto fino all'una di notte — potete verificare con ognuno di loro.</em></p>
+<p>Verificate. L'alibi regge su tutta la linea. Poi, mentre vi alzate per andarvene, Verneuil aggiunge quasi tra sé:</p>
+<p>— <em>Sapete... quando ero dallo studio di Deschênes, nell'anticamera ho incrociato un uomo che aspettava. Zoppicava. Ci siamo guardati — aveva una faccia che non si dimentica. Ho sentito Deschênes chiamarlo per nome: Brisset.</em></p>
+<p class="avviso">Vicolo cieco su Verneuil. Ma avete un nome nuovo: Brisset.</p>`,
+    onEnter: () => {
+      G.scelte.verneuil_scagionato = true;
+      G.sospetti['Verneuil'] = 0;
+      if (!G.indici.includes('brisset')) G.indici.push('brisset');
+      G.sospetti['Brisset'] = (G.sospetti['Brisset'] || 0) + 1;
+      mostraPopup('Verneuil è fuori causa. Ma quel nome — Brisset — è comparso due volte in un giorno solo.', 'rivelazione');
+    },
+    scelte: [
+      { testo: "Andare alla Prefettura a cercare questo Brisset", vai: 'prefettura_brisset' },
+      { testo: "Cercare prima altri riscontri",
+        vai: 'hortense_nemici',
+        condition: () => !G.scelte.raux_ostile
+      },
+    ]
+  },
+
+  // ── VEDOVA ────────────────────────────────────────────────
+  vedova_1: {
+    titolo: 'La vedova Deschênes',
+    testo: `<p>Marianne Deschênes vi riceve in salotto, già in nero. Trentacinque anni, il viso composto — troppo composto.</p>
+<p>— <em>Mio marito aveva debiti morali, Ispettore. Aveva fatto affari sbagliati con certe persone durante la Rivoluzione. Ne pagava le conseguenze.</em></p>
+<p>— <em>Pensa a qualcuno in particolare?</em></p>
+<p>Fissa la finestra.</p>
+<p>— <em>Penso a Raux. Quell'uomo gli voleva male da mesi. Ma c'è anche un altro — un certo Brisset, un ex impiegato. Zoppica. Mio marito lo aveva licenziato e denunciato anni fa.</em></p>`,
+    onEnter: () => {
+      if (!G.indici.includes('brisset')) G.indici.push('brisset');
+      if (!G.indici.includes('zoppo')) G.indici.push('zoppo');
+      G.sospetti['Brisset'] = (G.sospetti['Brisset'] || 0) + 2;
+      G.sospetti['Raux'] = (G.sospetti['Raux'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Chiederle dell'altercazione di ieri sera", vai: 'vedova_litigio' },
+      { testo: "Andare alla Prefettura per Brisset",
+        condition: () => G.indici.includes('brisset'),
+        vai: 'prefettura_brisset'
+      },
+    ]
+  },
+
+  vedova_litigio: {
+    titolo: 'La vedova — il litigio',
+    testo: `<p>— <em>Sì, Raux era qui ieri sera. Urlavano entrambi. Poi Raux se n'è andato sbattendo la porta, verso le dieci e mezza. Ho sentito mio marito girare nello studio fino a mezzanotte.</em></p>
+<p>— <em>E dopo mezzanotte?</em></p>
+<p>— <em>Ho sentito bussare. Piano. Non come bussa Raux. Poi... niente. Mi sono riaddormentata. Non avrei dovuto.</em></p>
+<p>Abbassa la testa. Non sembra recitare.</p>`,
+    scelte: [
+      { testo: "Andare alla Prefettura", vai: 'prefettura_brisset',
+        condition: () => G.indici.includes('brisset') },
+      { testo: "Interrogare Raux prima",
+        condition: () => !G.scelte.raux_ostile,
+        vai: 'raux_1'
+      },
+    ]
+  },
+
+  // ── RAUX ──────────────────────────────────────────────────
+  raux_1: {
+    titolo: 'Rue du Temple — da Raux',
+    testo: `<p>Bernardin Raux, commerciante di stoffe, vi riceve nel retrobottega. Cinquant'anni, grosso, sudato, nervoso.</p>
+<p>— <em>Sì, ero da Deschênes ieri sera. Non lo nascondo. Quell'uomo mi aveva venduto due proprietà gravate di ipoteche che mi aveva taciuto. Ho perso quattromila lire.</em></p>
+<p>— <em>Avete litigato.</em></p>
+<p>— <em>Avevo ragione di farlo! Ma non l'ho ucciso. Sono partito alle dieci e mezza — chiedetelo a mia moglie.</em></p>`,
+    scelte: [
+      { testo: "Accusarlo di mentire e pressarlo",
+        vai: 'raux_accusa_prematura',
+        condition: () => (G.sospetti['Brisset'] || 0) < 2 // ERRORE: si attiva se non hai prove su Brisset
+      },
+      { testo: "Chiedergli se conosce un certo Brisset",
+        vai: 'raux_brisset',
+        condition: () => G.indici.includes('brisset')
+      },
+      { testo: "Accettare l'alibi per ora e cercare Brisset",
+        vai: 'prefettura_brisset',
+        condition: () => G.indici.includes('brisset')
+      },
+      { testo: "Pressarlo sulle proprietà",
+        vai: 'raux_pressione',
+        condition: () => (G.sospetti['Brisset'] || 0) >= 2 // disponibile solo se hai già prove su Brisset
+      },
+    ]
+  },
+
+  // SCELTA SBAGLIATA: accusare Raux senza prove → lui si chiude, opzione persa
+  raux_accusa_prematura: {
+    titolo: 'Un errore di valutazione',
+    testo: `<p>Alzate la voce. Raux si irrigidisce e vi guarda con occhi freddi.</p>
+<p>— <em>Ispettore, mia moglie vi confermerà dove mi trovavo dalle dieci e mezza in poi. Se avete intenzione di accusarmi senza prove, farò chiamare il mio avvocato adesso stesso.</em></p>
+<p>Si alza e apre la porta sul retro.</p>
+<p>— <em>Buongiorno.</em></p>
+<p>L'interrogatorio è finito. Raux non vi dirà nient'altro — avete bruciato la vostra possibilità di fargli menzionare Brisset.</p>
+<p class="avviso">Raux è ora sulla difensiva. Non collaborerà più.</p>`,
+    onEnter: () => {
+      G.scelte.raux_ostile = true;
+      G.sospetti['Raux'] = Math.max(0, (G.sospetti['Raux'] || 0) - 1);
+      mostraPopup('Un errore di metodo. Raux non parlerà più — avete perso una fonte.', 'errore');
+    },
+    scelte: [
+      { testo: "Tornare all'edificio e interrogare il vicino di scala",
+        condition: () => !G.scelte.vicino_interrogato,
+        vai: 'vicino_scala'
+      },
+      { testo: "Andare alla Prefettura — serve un altro angolo",
+        condition: () => G.indici.includes('brisset'),
+        vai: 'prefettura_brisset'
+      },
+      { testo: "Tornare da Hortense per cercare altri nomi",
+        condition: () => !G.indici.includes('brisset'),
+        vai: 'hortense_nemici'
+      },
+      { testo: "Tornare da Hortense per cercare altri nomi",
+        condition: () => !G.indici.includes('brisset'),
+        vai: 'hortense_nemici'
+      },
+      { testo: "Tornare in Prefettura a fare rapporto — il Prefetto aspetta",
+        condition: () => !G.indici.includes('brisset'),
+        vai: 'pressione_prefetto'
+      },
+    ]
+  },
+
+  // ── PUNTO DI NON RITORNO CENTRALE ────────────────────────
+  funzionario_ministero: {
+    titolo: 'Il funzionario del Ministero',
+    testo: `<p>L'uomo che si avvicina porta una fascia tricolore al braccio e l'aria di chi non è abituato ad aspettare. Si chiama Bergeron, è del Ministère de la Police Générale.</p>
+<p>— <em>Ispettore Laval. Ho bisogno di un nome. Il notaio Deschênes era cliente di tre parlamentari — la cosa ha già fatto il giro dei ministeri. Il ministro vuole sapere entro un'ora chi è il responsabile.</em></p>
+<p>— <em>Un'ora è poco per—</em></p>
+<p>— <em>Un'ora è quello che avete.</em></p>
+<p>Bergeron vi guarda. Avete un sospettato ovvio: Raux, che ha litigato con la vittima quella stessa sera e ha rifiutato di collaborare. Non avete ancora trovato nessun altro nome. La pressione è reale.</p>`,
+    onEnter: () => { G.scelte.pressione_arrivata = true; },
+    scelte: [
+      { testo: "Indicare Raux come principale sospettato — le prove si trovano dopo", vai: 'sconfitta_ministero' },
+      { testo: "Rifiutare di fare nomi senza prove — serve più tempo", vai: 'ministero_rifiuto' },
+    ]
+  },
+
+  ministero_rifiuto: {
+    titolo: 'Un\'ora di tempo',
+    testo: `<p>— <em>Non do nomi senza prove, cittadino Bergeron. Se il ministro vuole un capro espiatorio, non sono io l'uomo giusto.</em></p>
+<p>Bergeron vi guarda a lungo. Poi ripiega la fascia tricolore con cura e la rimette in tasca.</p>
+<p>— <em>Avete un'ora, Laval. Dopodiché decido io.</em></p>
+<p>Se ne va. L'aria nella stanza pesa di più di prima.</p>
+<p class="avviso">L'indagine continua — ma il tempo stringe davvero.</p>`,
+    scelte: [
+      { testo: "Chiederle se conosce altri nemici di Deschênes", vai: 'hortense_nemici' },
+      { testo: "Interrogare il vicino del piano di sopra", vai: 'vicino_scala' },
+      { testo: "Cercare la vedova Deschênes", vai: 'vedova_1' },
+    ]
+  },
+
+  sconfitta_ministero: {
+    titolo: 'Il prezzo della fretta',
+    testo: `<p>Date il nome. Bergeron annota, annuisce, se ne va soddisfatto.</p>
+<p>Bernardin Raux viene fermato nel tardo pomeriggio. Il suo avvocato arriva prima di sera.</p>
+<p>Théodore Brisset quella notte riceve notizia dell'arresto — qualcuno parla, Parigi è piccola. Si affretta. All'alba è già oltre Melun con il registro verde sotto il braccio. Tre giorni dopo è in Svizzera.</p>
+<p>L'avvocato di Raux lavora bene. In due settimane produce l'albergatore di Nemours, il figlio del mugnaio e il vetturino che quella notte ha portato Raux a dormire fuori Parigi. Il fermo viene revocato. Raux ottiene un risarcimento pubblico.</p>
+<p>Venite convocato dal Prefetto. Non è una promozione.</p>
+<p>Il caso Deschênes rimane aperto nei registri della Prefettura per anni. Brisset non verrà mai trovato.</p>
+<p style="text-align:center;margin-top:30px;letter-spacing:0.2em;color:var(--sang);font-size:0.85rem;">— CASO IRRISOLTO —</p>`,
+    onEnter: () => { G.scelte.sconfitta = true; },
+    scelte: [
+      { testo: "Ricominciare l'indagine", vai: '__restart__' },
+    ]
+  },
+
+  // ── PISTA SCONFITTA: PRESSIONE POLITICA ───────────────────
+  pressione_prefetto: {
+    titolo: 'La Prefettura — ore undici',
+    testo: `<p>Trovate il commissario Duval ad aspettarvi sulla soglia del vostro ufficio. Ha l'aria di chi porta cattive notizie a qualcuno che non ha voglia di sentirle.</p>
+<p>— <em>Il Prefetto vuole un nome entro mezzogiorno, Laval. Il cadavere è di un notaio stimato, la famiglia ha già scritto al Ministero. Questa faccenda non può restare aperta.</em></p>
+<p>— <em>Non ho ancora prove sufficienti.</em></p>
+<p>— <em>Avete un sospettato che ha litigato con la vittima quella sera stessa e che si è rifiutato di collaborare con la polizia. Raux. Per il Prefetto è abbastanza per un fermo provvisorio.</em></p>
+<p>Duval posa sul tavolo un foglio già preparato. Basta una firma.</p>`,
+    onEnter: () => { G.scelte.pressione_arrivata = true; },
+    scelte: [
+      { testo: "Firmare l'atto di fermo — Raux è il sospettato più solido", vai: 'accusa_raux_sconfitta' },
+      { testo: "Rifiutare e chiedere altre ventiquattr'ore", vai: 'chiedi_tempo' },
+    ]
+  },
+
+  chiedi_tempo: {
+    titolo: 'Ventiquattr\'ore',
+    testo: `<p>— <em>Avete tempo fino a domani mattina, Laval. Dopodiché il Prefetto decide lui.</em></p>
+<p>Duval riprende il foglio e se ne va senza aggiungere altro.</p>
+<p>Avete ancora tempo. Ma ora il caso ha una scadenza.</p>
+<p class="avviso">L'indagine continua — ma il margine si è ridotto.</p>`,
+    scelte: [
+      { testo: "Tornare all'edificio e interrogare il vicino di scala",
+        condition: () => !G.scelte.vicino_interrogato,
+        vai: 'vicino_scala'
+      },
+      { testo: "Tornare da Hortense per cercare altri nomi", vai: 'hortense_nemici' },
+    ]
+  },
+
+  accusa_raux_sconfitta: {
+    titolo: 'Un errore che costerà caro',
+    testo: `<p>Firmate. L'inchiostro è ancora fresco quando Duval esce con il foglio.</p>
+<p>Bernardin Raux viene fermato alle tre del pomeriggio davanti alla sua bottega di rue du Temple. Protesta, chiama l'avvocato, piange. Sua moglie sviene.</p>
+<p>Quella stessa notte, Théodore Brisset attraversa la frontiera con la Svizzera a Pontarlier. Ha con sé il registro verde e un documento che non tornerà mai.</p>
+<p>Tre mesi dopo, l'avvocato di Raux produce undici testimoni e i registri dell'albergo dove Raux ha dormito quella notte — a venti chilometri da Parigi, a casa di un cugino. Il fermo viene revocato. Raux ottiene un risarcimento.</p>
+<p>Il caso Deschênes resta ufficialmente irrisolto. Il vero colpevole non verrà mai trovato.</p>
+<p>Avete chiuso un caso che non era vostro da chiudere. Il Prefetto è soddisfatto. Voi no.</p>
+<p style="text-align:center;margin-top:30px;letter-spacing:0.2em;color:var(--sang);font-size:0.85rem;">— CASO IRRISOLTO —</p>`,
+    onEnter: () => { G.scelte.sconfitta = true; },
+    scelte: [
+      { testo: "Ricominciare l'indagine", vai: '__restart__' },
+    ]
+  },
+
+  raux_pressione: {
+    titolo: 'Raux sotto pressione',
+    testo: `<p>Raux suda di più. Si alza, si risiede.</p>
+<p>— <em>Vi dico la verità. Ma... c'era un altro interessato a Deschênes. Un certo Brisset — ex impiegato notarile, licenziato per malversazione. Tre settimane fa mi ha avvicinato chiedendomi se Deschênes avesse certi documenti. Voleva comprarli.</em></p>
+<p>— <em>Quali documenti?</em></p>
+<p>— <em>Non me lo ha detto. Ma aveva l'aria di qualcuno che non ha altro da perdere.</em></p>`,
+    onEnter: () => {
+      if (!G.indici.includes('brisset')) G.indici.push('brisset');
+      G.sospetti['Brisset'] = (G.sospetti['Brisset'] || 0) + 1;
+      G.sospetti['Raux'] = Math.max(0, (G.sospetti['Raux'] || 0) - 1);
+    },
+    scelte: [
+      { testo: "Andare alla Prefettura per localizzare Brisset", vai: 'prefettura_brisset' },
+    ]
+  },
+
+  raux_brisset: {
+    titolo: 'Raux — Brisset',
+    testo: `<p>A quel nome, Raux trasalisce visibilmente.</p>
+<p>— <em>Brisset? Mi ha contattato tre settimane fa. Cercava documenti compromettenti su Deschênes. Gli ho detto che non erano affari miei. Quell'uomo è pericoloso — zoppica, e ha gli occhi di chi non ha nulla da perdere.</em></p>`,
+    onEnter: () => {
+      if (!G.indici.includes('brisset')) G.indici.push('brisset');
+      if (!G.indici.includes('zoppo')) G.indici.push('zoppo');
+      G.sospetti['Brisset'] = (G.sospetti['Brisset'] || 0) + 1;
+    },
+    scelte: [
+      { testo: "Andare alla Prefettura per localizzare Brisset", vai: 'prefettura_brisset' },
+    ]
+  },
+
+  // ── PREFETTURA ────────────────────────────────────────────
+  prefettura_brisset: {
+    titolo: 'La Prefettura',
+    testo: `<p>Gli archivi della Prefettura vi danno un fascicolo sottile su <em>Théodore Brisset</em>, quarantadue anni, ex impiegato notarile, licenziato nell'Anno V per appropriazione indebita. La denuncia era stata presentata da Deschênes in persona.</p>
+<p>Indirizzo noto: <em>albergo mobiliato, rue des Lombards.</em> Segnalamento: alto, magro, zoppia alla gamba sinistra — ferita di guerra, campagna d'Italia.</p>
+<p>Tutto quadra. Partite per la rue des Lombards.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('indirizzo_brisset')) G.indici.push('indirizzo_brisset');
+    },
+    scelte: [
+      {
+        testo: "Recarsi direttamente all'albergo",
+        vai: 'albergo_lombards_solo',
+        condition: () => (G.sospetti['Brisset'] || 0) < 3
+      },
+      {
+        testo: "Chiedere un uomo di rinforzo prima di andare",
+        vai: 'albergo_lombards_rinforzo',
+        condition: () => (G.sospetti['Brisset'] || 0) >= 3
+      },
+    ]
+  },
+
+  // SCELTA RISCHIOSA: andare da soli → Brisset scappa, ma lascia il registro
+  albergo_lombards_solo: {
+    titolo: 'Rue des Lombards',
+    testo: `<p>L'albergo è buio, la scala scricchiola. La proprietaria vi indica la stanza al secondo piano.</p>
+<p>Bussate. Silenzio. Aprite la porta: la stanza è vuota, in fretta — un bicchiere rovesciato, una valigia a metà abbandonata.</p>
+<p>Sul tavolo, un registro rilegato in verde. Copertina usurata. Sul frontespizio: il timbro dello studio Deschênes e una data — <em>Vendemmiaio Anno V</em>. Il documento rubato dalla cassaforte.</p>
+<p>Brisset è fuggito. Ma ha lasciato la cosa più importante.</p>
+<p class="avviso">Brisset è fuggito. Servirà una caccia per catturarlo.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('registro_verde')) G.indici.push('registro_verde');
+      G.scelte.brisset_fuggito = true;
+    },
+    scelte: [
+      { testo: "Esaminare il registro", vai: 'registro_esame' },
+      { testo: "Lanciare subito la ricerca per arrestare Brisset", vai: 'caccia_brisset' },
+    ]
+  },
+
+  // SCELTA OTTIMALE: con rinforzo → cattura immediata
+  albergo_lombards_rinforzo: {
+    titolo: 'Rue des Lombards — con rinforzo',
+    testo: `<p>Arrivate in due. Scelta saggia: appena bussate sentite una sedia rovesciarsi. Brisset tenta di fuggire dalla finestra sul retro.</p>
+<p>Il vostro uomo lo blocca nel cortile. Brisset resiste, poi crolla. Nella giacca interna: un registro rilegato in verde e un coltellino — la lama ancora leggermente macchiata.</p>`,
+    onEnter: () => {
+      if (!G.indici.includes('registro_verde')) G.indici.push('registro_verde');
+      if (!G.indici.includes('coltello')) G.indici.push('coltello');
+      G.scelte.brisset_arrestato = true;
+      mostraPopup('Brisset catturato sul posto. Il coltello ancora sporco. Il registro in sua mano.', 'trionfo');
+    },
+    scelte: [
+      { testo: "Interrogarlo sul posto", vai: 'brisset_interrogatorio' },
+    ]
+  },
+
+  registro_esame: {
+    titolo: 'Il registro verde',
+    testo: `<p>Le pagine rivelano una frode sistematica: tra l'Anno IV e l'Anno VI, Deschênes aveva falsificato atti di vendita di beni nazionali — sottovalutando le proprietà a vantaggio di un gruppo di acquirenti complici. Brisset era il suo impiegato all'epoca: sapeva tutto, e aveva conservato una copia.</p>
+<p>Questo registro era una spada di Damocle. Deschênes voleva recuperarlo. Brisset chiedeva una compensazione. L'affare è finito male.</p>
+<p>Avete il movente. Manca ancora Brisset.</p>`,
+    scelte: [
+      { testo: "Lanciare la ricerca per arrestare Brisset", vai: 'caccia_brisset' },
+    ]
+  },
+
+  caccia_brisset: {
+    titolo: 'La caccia',
+    testo: `<p>Diramate il segnalamento dalla Prefettura. Due ore dopo, Brisset viene fermato alla barriera d'Italia — cercava di lasciare Parigi.</p>
+<p>Non oppone resistenza. Sembra persino... sollevato.</p>`,
+    scelte: [
+      { testo: "Interrogarlo", vai: 'brisset_interrogatorio' },
+    ]
+  },
+
+  // ── INTERROGATORIO FINALE ─────────────────────────────────
+  brisset_interrogatorio: {
+    titolo: 'Interrogatorio di Brisset',
+    testo: `<p>Théodore Brisset, le mani legate, vi guarda senza odio.</p>
+<p>— <em>Non cercavo di ucciderlo. Volevo soltanto quello che mi spettava — la mia parte di quelle vendite. Mi aveva raggirato, poi licenziato e denunciato per farmi tacere. Avevo aspettato quattro anni.</em></p>
+<p>— <em>Cosa è successo?</em></p>
+<p>— <em>Ha rifiutato di pagare. Ha riso. Ha detto che nessuno avrebbe creduto a un ex condannato. Ho visto rosso. Il tagliacarte era lì, sul tavolo.</em></p>
+<p>Abbassa la testa.</p>
+<p>— <em>Non era nei piani.</em></p>`,
+    scelte: [
+      { testo: "Concludere il caso", vai: 'conclusione' },
+    ]
+  },
+
+  // ── CONCLUSIONE ───────────────────────────────────────────
+  conclusione: {
+    titolo: 'Epilogo',
+    testo: () => {
+      const arrestato = G.scelte.brisset_arrestato;
+      const fuggito   = G.scelte.brisset_fuggito;
+      const haRaux    = G.indici.includes('raux');
+      const haRegistro = G.indici.includes('registro_verde');
+
+      const valutazione = arrestato
+        ? '<p class="avviso">Brisset è stato catturato sul posto. L\'indagine è stata condotta con metodo.</p>'
+        : fuggito
+          ? '<p class="avviso">Brisset è fuggito e ha dovuto essere rincorso. Un rinforzo vi avrebbe risparmiato ore preziose.</p>'
+          : '<p class="avviso">Brisset è stato arrestato. Il caso è chiuso.</p>';
+
+      const raux = haRaux
+        ? '<p>Raux ha presentato ricorso civile contro lo studio. Perderà.</p>'
+        : '';
+
+      const registro = haRegistro
+        ? '<p>Il registro verde viene consegnato alle autorità. Vi figurano diversi nomi — uomini che si sono arricchiti sulle rovine della Chiesa e della nobiltà. L\'Anno VIII è un\'epoca di riconciliazione: quei nomi probabilmente spariranno in un cassetto della Prefettura.</p>'
+        : '';
+
+      return `
+<p>Il caso si chiude in due giorni — un record, per Parigi.</p>
+<p>Théodore Brisset viene deferito al Tribunale criminale. Il suo avvocato sosterrà le attenuanti: la provocazione, l'ingiustizia antica, la guerra che gli ha tolto una gamba e quattro anni di vita. Nessuno sa come andrà a finire.</p>
+<p>Marianne Deschênes eredita lo studio notarile. Lo ha venduto la settimana seguente, a buon prezzo.</p>
+${raux}
+${registro}
+${valutazione}
+<p style="text-align:center;margin-top:30px;letter-spacing:0.2em;color:var(--or);font-size:0.85rem;">— FINE —</p>`;
+    },
+    onEnter: () => {},
+    scelte: [
+      { testo: "Ricominciare l'indagine", vai: '__restart__' },
+    ]
+  },
+
+};
+
+// ══ AUDIO ════════════════════════════════════════════════════
+let audioCtx = null;
+let audioOn = true;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function suonaTac() {
+  if (!audioOn) return;
+  try {
+    const ctx = getAudioCtx();
+    const buf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < data.length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / data.length, 6);
+    }
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'bandpass';
+    filter.frequency.value = 1800;
+    filter.Q.value = 0.7;
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.45, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(ctx.destination);
+    src.start();
+  } catch(e) {}
+}
+
+document.getElementById('btn-audio').addEventListener('click', () => {
+  audioOn = !audioOn;
+  const btn = document.getElementById('btn-audio');
+  btn.textContent = audioOn ? '♪ ON' : '♪ OFF';
+  btn.classList.toggle('muto', !audioOn);
+  if (audioOn) getAudioCtx();
+});
+
+// ══ POPUP ═════════════════════════════════════════════════════
+const POPUP_CFG = {
+  mistero:     { icona: '✦', durata: 2800 },
+  allarme:     { icona: '!', durata: 2600 },
+  ominoso:     { icona: '†', durata: 3000 },
+  errore:      { icona: '✕', durata: 2800 },
+  rivelazione: { icona: '◉', durata: 3000 },
+  trionfo:     { icona: '◈', durata: 2800 },
+};
+
+function suonaPopup(tipo) {
+  if (!audioOn) return;
+  try {
+    const ctx = getAudioCtx();
+    const t = ctx.currentTime;
+
+    const mkOsc = (freq, type, vol, start, dur, detune=0) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      const rev = ctx.createConvolver();
+      o.type = type; o.frequency.value = freq; o.detune.value = detune;
+      g.gain.setValueAtTime(0, t + start);
+      g.gain.linearRampToValueAtTime(vol, t + start + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.001, t + start + dur);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(t + start); o.stop(t + start + dur + 0.05);
+    };
+
+    if (tipo === 'mistero') {
+      // accordo minore discendente lento
+      mkOsc(220,  'sine',     0.18, 0,    1.8);
+      mkOsc(261,  'sine',     0.12, 0.1,  1.6);
+      mkOsc(329,  'triangle', 0.08, 0.25, 1.4);
+      mkOsc(196,  'sine',     0.10, 0.5,  2.0);
+    } else if (tipo === 'allarme') {
+      // due note dissonanti brevi, sharp
+      mkOsc(440, 'sawtooth', 0.20, 0,    0.18);
+      mkOsc(466, 'sawtooth', 0.16, 0.06, 0.18);
+      mkOsc(370, 'square',   0.10, 0.22, 0.25);
+    } else if (tipo === 'ominoso') {
+      // basso profondo + singolo tono acuto
+      mkOsc(60,  'sine',     0.22, 0,   2.2);
+      mkOsc(120, 'sine',     0.10, 0.1, 1.8);
+      mkOsc(880, 'sine',     0.07, 0.4, 1.2);
+    } else if (tipo === 'errore') {
+      // tritono discendente
+      mkOsc(440, 'sawtooth', 0.20, 0,    0.30);
+      mkOsc(311, 'sawtooth', 0.18, 0.25, 0.35);
+      mkOsc(220, 'sine',     0.12, 0.55, 0.50);
+    } else if (tipo === 'rivelazione') {
+      // arpeggio ascendente, campane
+      [0, 0.12, 0.24, 0.36].forEach((delay, i) => {
+        mkOsc([523, 659, 784, 1047][i], 'sine', 0.14 - i*0.02, delay, 1.2 - delay);
+      });
+    } else if (tipo === 'trionfo') {
+      // accordo maggiore breve, pulito
+      mkOsc(392, 'sine', 0.18, 0,    0.6);
+      mkOsc(494, 'sine', 0.15, 0.06, 0.55);
+      mkOsc(587, 'sine', 0.13, 0.12, 0.50);
+      mkOsc(784, 'sine', 0.10, 0.20, 0.45);
+    }
+  } catch(e) {}
+}
+
+function mostraPopup(testo, tipo) {
+  const cfg = POPUP_CFG[tipo] || POPUP_CFG.mistero;
+  document.getElementById('popup-icona').textContent = cfg.icona;
+  document.getElementById('popup-testo').textContent = testo;
+  const popup = document.getElementById('popup');
+  const pov   = document.getElementById('popup-overlay');
+  popup.style.display = 'block';
+  pov.style.display   = 'block';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => { popup.classList.add('visibile'); });
+  });
+  suonaPopup(tipo);
+  setTimeout(() => {
+    popup.classList.remove('visibile');
+    setTimeout(() => {
+      popup.style.display = 'none';
+      pov.style.display   = 'none';
+    }, 200);
+  }, cfg.durata);
+}
+
+// ══ MOTORE ══════════════════════════════════════════════════
+function aggiornaIndici() { /* display rimosso */ }
+
+function vai(scenaId) {
+  if (scenaId === '__restart__') {
+    eseguiRestart();
+    return;
+  }
+
+  const scena = SCENE[scenaId];
+  if (!scena) { console.warn('Scena non trovata:', scenaId); return; }
+
+  G.scene = scenaId;
+
+  if (scena.onEnter) scena.onEnter();
+
+  document.getElementById('scene-title').textContent = scena.titolo;
+  document.getElementById('text').innerHTML = typeof scena.testo === 'function' ? scena.testo() : scena.testo;
+
+  const contenitore = document.getElementById('choices');
+  contenitore.innerHTML = '';
+
+  const scelteVis = scena.scelte.filter(s => !s.condition || s.condition());
+  scelteVis.forEach(s => {
+    const btn = document.createElement('button');
+    btn.className = 'choice';
+    btn.textContent = s.testo;
+    btn.onclick = () => {
+      // lampeggia il tasto cliccato, sbiadisce gli altri
+      document.querySelectorAll('.choice').forEach(b => {
+        if (b === btn) b.classList.add('flash');
+        else b.classList.add('flash-altri');
+      });
+      // suono tac
+      suonaTac();
+      // delay 2s poi transizione
+      setTimeout(() => {
+        if (s.onScegli) s.onScegli();
+        vai(s.vai);
+      }, 2000);
+    };
+    contenitore.appendChild(btn);
+  });
+
+  aggiornaIndici();
+  window.scrollTo(0, 0);
+}
+
+function eseguiRestart() {
+  G.scene = 'intro';
+  G.indici.length = 0;
+  Object.keys(G.sospetti).forEach(k => delete G.sospetti[k]);
+  Object.keys(G.scelte).forEach(k => delete G.scelte[k]);
+  document.getElementById('page').style.display = 'none';
+  document.getElementById('splash').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+// ══ PANNELLO RESTART ════════════════════════════════════════
+document.getElementById('btn-restart').addEventListener('click', () => {
+  document.getElementById('restart-panel').style.display = 'block';
+  document.getElementById('overlay').style.display = 'block';
+});
+
+document.getElementById('btn-confirm-restart').addEventListener('click', () => {
+  document.getElementById('restart-panel').style.display = 'none';
+  document.getElementById('overlay').style.display = 'none';
+  eseguiRestart();
+});
+
+document.getElementById('btn-cancel-restart').addEventListener('click', () => {
+  document.getElementById('restart-panel').style.display = 'none';
+  document.getElementById('overlay').style.display = 'none';
+  vai(G.scene); // G.scene già valorizzato
+});
+
+// ══ AVVIO ═══════════════════════════════════════════════════
+document.getElementById('btn-inizia').addEventListener('click', () => {
+  document.getElementById('splash').style.display = 'none';
+  document.getElementById('page').style.display = 'block';
+  vai('intro');
+});
+</script>
+</body>
+</html>
