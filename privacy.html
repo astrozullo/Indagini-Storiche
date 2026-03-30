@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Le Indagini</title>
+<style>
+  :root {
+    --bg: #0d0800;
+    --or: #8b6914;
+    --or2: #c8a030;
+    --text: #c8b080;
+    --muted: #6b4c1a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    max-width: 680px;
+    margin: 3rem auto;
+    padding: 0 1.5rem 4rem;
+    line-height: 1.85;
+  }
+  a.back {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+  }
+  h1 {
+    font-size: 1.4rem;
+    font-weight: normal;
+    color: var(--or2);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+  .sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--or);
+    margin: 1.8rem 0;
+    opacity: 0.4;
+  }
+  h2 {
+    font-size: 0.7rem;
+    font-weight: normal;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--or);
+    margin-bottom: 0.75rem;
+    margin-top: 1.8rem;
+  }
+  p {
+    font-size: 0.88rem;
+    margin-bottom: 0.9rem;
+    color: var(--text);
+  }
+  a {
+    color: var(--or2);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(200,160,48,0.3);
+  }
+  .nota {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 2px solid var(--or);
+    padding-left: 12px;
+    margin: 1rem 0;
+  }
+  footer {
+    margin-top: 3rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: #3d2810;
+    font-style: italic;
+    text-align: center;
+    border-top: 1px solid rgba(139,105,20,0.15);
+    padding-top: 1rem;
+  }
+</style>
+</head>
+<body>
+
+<a class="back" href="index.html">← Torna alle Indagini</a>
+
+<h1>Privacy Policy</h1>
+<div class="sub">Le Indagini — Giochi di deduzione storici — Ultimo aggiornamento: marzo 2026</div>
+
+<h2>L'applicazione</h2>
+<p>Le Indagini è un'applicazione web statica (PWA) che non raccoglie, trasmette né elabora dati personali degli utenti. Non sono presenti form di registrazione, account, analytics di terze parti, cookie di profilazione o pubblicità.</p>
+
+<h2>Hosting — GitHub Pages</h2>
+<p>Questa applicazione è ospitata tramite <a href="https://pages.github.com" target="_blank" rel="noopener">GitHub Pages</a>. Quando visiti il sito, GitHub Inc. raccoglie automaticamente alcune informazioni tecniche, tra cui l'indirizzo IP del visitatore, per motivi di sicurezza e operativi. Questa raccolta è gestita interamente da GitHub e non è accessibile all'autore del gioco.</p>
+<p>Per i dettagli su come GitHub tratta questi dati, consulta:<br>
+<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub General Privacy Statement</a><br>
+<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection" target="_blank" rel="noopener">GitHub Pages — Data Collection</a>
+</p>
+
+<h2>Controllo aggiornamenti automatico</h2>
+<p>All'avvio dell'applicazione, viene effettuata automaticamente una richiesta al file <code>version.json</code> ospitato su GitHub Pages per verificare la disponibilità di nuovi contenuti. Questa richiesta comporta la trasmissione dell'indirizzo IP del dispositivo ai server di GitHub, secondo le modalità descritte nella loro privacy policy.</p>
+<div class="nota">Questa operazione avviene automaticamente senza azione da parte dell'utente. Lo scopo è esclusivamente verificare la presenza di aggiornamenti di gioco. Nessun dato viene trasmesso all'autore.</div>
+
+<h2>Service Worker e cache</h2>
+<p>L'applicazione utilizza un service worker per funzionare offline. I file di gioco (pagine HTML, icone) vengono memorizzati nella cache del browser sul dispositivo dell'utente. Questi dati restano locali e non vengono inviati a nessun server.</p>
+
+<h2>Archiviazione locale (localStorage)</h2>
+<p>L'applicazione utilizza il localStorage del browser per memorizzare sul dispositivo dell'utente la versione dell'aggiornamento già visualizzata, in modo da non mostrare lo stesso avviso più volte. Questo dato non lascia mai il dispositivo e non è accessibile a nessun server o terza parte.</p>
+
+<h2>Dati dei minori</h2>
+<p>L'applicazione non raccoglie consapevolmente dati di minori. Trattandosi di contenuti storici a tema investigativo, è consigliata per un pubblico adulto o con supervisione.</p>
+
+<h2>Contatti</h2>
+<p>Per qualsiasi domanda relativa alla privacy: <a href="mailto:zullo.spacehistory@gmail.com">zullo.spacehistory@gmail.com</a></p>
+
+<footer>Le Indagini — Andrea Zullo — <a href="https://github.com/astrozullo/Indagini-Storiche" target="_blank" rel="noopener">GitHub</a></footer>
+
+</body>
+</html>
