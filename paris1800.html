@@ -446,14 +446,176 @@
     background: rgba(10,5,0,0.45);
     z-index: 199;
   }
+
+/* ── INTRO ANIMATA PARIGI ─────────────────────── */
+#intro-anim {
+  position: fixed; inset: 0;
+  background: var(--ombre);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999; overflow: hidden;
+}
+#intro-anim.fade-out { animation: ipFadeOut .9s ease-out forwards; }
+@keyframes ipFadeOut { from{opacity:1;} to{opacity:0;pointer-events:none;} }
+
+.ip-scene { position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:700px; z-index:0; pointer-events:none; }
+
+/* Nebbia calda */
+.ip-fog { position:fixed; inset:0; pointer-events:none; z-index:1; }
+.ip-fog-l {
+  position:absolute; width:200%; height:100%;
+  background:radial-gradient(ellipse 65% 40% at 50% 88%,
+    rgba(42,26,8,0) 0%, rgba(42,26,8,.5) 45%, rgba(42,26,8,.92) 100%);
+  animation:ipDrift 20s ease-in-out infinite alternate;
+}
+.ip-fog-l:nth-child(2){animation-duration:27s;animation-direction:alternate-reverse;opacity:.5;}
+@keyframes ipDrift{from{transform:translateX(-7%)}to{transform:translateX(7%)}}
+
+/* Finestre */
+.ip-wins{position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:700px;height:220px;pointer-events:none;z-index:1;}
+.ip-win{position:absolute;width:6px;height:8px;
+  background:rgba(210,160,60,.6);border-radius:1px;
+  box-shadow:0 0 5px 2px rgba(210,160,60,.2);
+  animation:ipFlick var(--dur,3s) ease-in-out var(--del,0s) infinite alternate;}
+@keyframes ipFlick{0%{opacity:.25;}40%{opacity:.8;}70%{opacity:.4;}100%{opacity:.85;}}
+
+/* Mulino — pale che girano */
+.ip-mulino{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  z-index:2;pointer-events:none;
+  opacity:0;animation:ipRise 2s ease-out .5s forwards;}
+@keyframes ipRise{from{opacity:0;transform:translateX(-50%) translateY(10px);}
+  to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.ip-pale{
+  position:absolute;top:0;left:50%;transform-origin:0 0;
+  animation:ipGira 8s linear infinite;
+}
+@keyframes ipGira{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+/* Centro testi */
+.ip-center{position:relative;z-index:10;text-align:center;padding:20px;
+  margin-top:-60px;}
+.ip-pretitle{font-family:'Courier Prime',monospace;font-size:.56rem;
+  letter-spacing:.4em;text-transform:uppercase;
+  color:#6b4c1a;margin-bottom:10px;
+  opacity:0;animation:ipFadeUp .8s ease-out 1.5s forwards;}
+.ip-title{
+  font-family:'Cinzel Decorative','Georgia',serif;
+  font-size:2rem;font-weight:700;letter-spacing:.05em;
+  color:var(--or);line-height:1.3;margin-bottom:8px;white-space:nowrap;
+}
+.ip-sub{font-size:.68rem;letter-spacing:.18em;color:#6b4c1a;font-style:italic;
+  margin-bottom:6px;opacity:0;animation:ipFadeUp .8s ease-out 4.0s forwards;}
+.ip-date{font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.3em;
+  color:#4a3010;opacity:0;animation:ipFadeUp .8s ease-out 4.2s forwards;margin-bottom:24px;}
+.ip-rule{width:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--or),transparent);
+  margin:0 auto 22px;animation:ipRule 1.2s ease-out 3.8s forwards;}
+@keyframes ipRule{from{width:0;}to{width:160px;}}
+.ip-btn{opacity:0;animation:ipFadeUp .8s ease-out 4.6s forwards;
+  font-family:Georgia,serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:11px 30px;background:transparent;border:1px solid #6b4c1a;
+  color:var(--or);cursor:pointer;transition:border-color .2s;}
+.ip-btn:hover{border-color:var(--or);}
+@keyframes ipFadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes ipCursor{50%{opacity:0;}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<div id="intro-anim">
+
+  <!-- Tetti di Parigi + Montmartre -->
+  <svg class="ip-scene" viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cielo e luna -->
+    <circle cx="80" cy="50" r="22" fill="#1c1408" opacity=".95"/>
+    <circle cx="88" cy="44" r="18" fill="#2a1a08"/>
+    <!-- Tetti mansarde parigine -->
+    <path fill="#1a0e04" d="
+      M0,230 L0,170 L25,170 L25,140 L32,122 L39,140 L39,170
+      L55,170 L55,145 L60,130 L68,112 L72,98 L76,112 L80,130 L85,145 L85,170
+      L100,170 L100,148 L107,132 L114,148 L114,170
+      L128,170 L128,118 L134,98 L140,80 L144,65 L148,80 L154,98 L160,118 L160,170
+      L172,170 L172,138 L178,120 L185,105 L192,120 L198,138 L198,170
+      L212,170 L212,148 L217,138 L222,148 L222,170
+      L235,170 L235,120 L241,100 L248,80 L252,65 L256,80 L263,100 L269,120 L269,170
+      L282,170 L282,135 L288,118 L295,135 L295,170
+      L310,170 L310,128 L316,110 L322,92 L326,78 L330,92 L336,110 L342,128 L342,170
+      L356,170 L356,148 L361,135 L366,148 L366,170
+      L380,170 L380,115 L385,96 L392,78 L396,62 L400,78 L406,96 L412,115 L412,170
+      L426,170 L426,132 L431,115 L438,100 L445,115 L450,132 L450,170
+      L465,170 L465,142 L470,130 L477,142 L477,170
+      L492,170 L492,120 L498,102 L504,84 L508,70 L512,84 L518,102 L524,120 L524,170
+      L538,170 L538,138 L543,122 L550,138 L550,170
+      L564,170 L564,128 L569,110 L576,92 L580,78 L584,92 L590,110 L596,128 L596,170
+      L610,170 L610,148 L615,136 L621,148 L621,170
+      L635,170 L635,122 L640,108 L647,122 L647,170
+      L662,170 L662,148 L668,132 L676,148 L676,170
+      L700,170 L700,230 Z
+    "/>
+    <!-- Comignoli -->
+    <rect x="68" y="92" width="8" height="20" fill="#1a0e04"/>
+    <rect x="140" y="60" width="8" height="22" fill="#1a0e04"/>
+    <rect x="248" y="60" width="8" height="22" fill="#1a0e04"/>
+    <rect x="322" y="72" width="8" height="20" fill="#1a0e04"/>
+    <rect x="396" y="57" width="8" height="22" fill="#1a0e04"/>
+    <rect x="504" y="65" width="8" height="22" fill="#1a0e04"/>
+    <rect x="576" y="73" width="8" height="20" fill="#1a0e04"/>
+    <!-- Torre in lontananza -->
+    <rect x="340" y="30" width="20" height="80" fill="#140c02"/>
+    <polygon points="340,30 350,10 360,30" fill="#140c02"/>
+    <rect x="347" y="55" width="6" height="8" fill="#2a1a08"/>
+  </svg>
+
+  <!-- Mulino a vento Montmartre -->
+  <div class="ip-mulino" id="ip-mulino">
+    <svg width="90" height="110" viewBox="0 0 90 110" xmlns="http://www.w3.org/2000/svg">
+      <!-- Corpo mulino -->
+      <polygon points="32,108 58,108 54,40 36,40" fill="#3a2208"/>
+      <polygon points="36,40 54,40 50,22 40,22" fill="#4a2e0a"/>
+      <!-- Porta -->
+      <rect x="39" y="88" width="12" height="20" rx="6" fill="#1a0e04"/>
+      <!-- Finestre -->
+      <circle cx="45" cy="70" r="4" fill="#2a1a08"/>
+      <circle cx="45" cy="55" r="3" fill="#2a1a08"/>
+      <!-- Centro pale -->
+      <circle cx="45" cy="35" r="5" fill="#6b4c1a"/>
+      <!-- Pale (girano via JS/CSS) -->
+      <g id="ip-pale-g" style="transform-origin:45px 35px;animation:ipGira 8s linear infinite;">
+        <!-- Pala 1: su -->
+        <line x1="45" y1="35" x2="45" y2="3" stroke="#5a3a10" stroke-width="4"/>
+        <polygon points="42,3 48,3 50,18 40,18" fill="#6b4c1a" opacity=".9"/>
+        <!-- Pala 2: destra -->
+        <line x1="45" y1="35" x2="77" y2="35" stroke="#5a3a10" stroke-width="4"/>
+        <polygon points="77,32 77,38 62,40 62,30" fill="#6b4c1a" opacity=".9"/>
+        <!-- Pala 3: giù -->
+        <line x1="45" y1="35" x2="45" y2="67" stroke="#5a3a10" stroke-width="4"/>
+        <polygon points="42,67 48,67 50,52 40,52" fill="#6b4c1a" opacity=".9"/>
+        <!-- Pala 4: sinistra -->
+        <line x1="45" y1="35" x2="13" y2="35" stroke="#5a3a10" stroke-width="4"/>
+        <polygon points="13,32 13,38 28,40 28,30" fill="#6b4c1a" opacity=".9"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="ip-wins" id="ip-wins"></div>
+  <div class="ip-fog"><div class="ip-fog-l"></div><div class="ip-fog-l"></div></div>
+
+  <div class="ip-center">
+    <div class="ip-pretitle">Parigi &nbsp;&#xB7;&nbsp; Brumaio &nbsp;&#xB7;&nbsp; Anno VIII</div>
+    <div class="ip-title"><span id="ip-typed"></span><span id="ip-cursor" style="display:inline-block;width:2px;height:1.8rem;background:var(--or);margin-left:2px;vertical-align:middle;animation:ipCursor .7s step-end infinite;"></span></div>
+    <div class="ip-sub">Un&#x27;indagine nella Parigi napoleonica</div>
+    <div class="ip-date">Novembre 1800</div>
+    <div class="ip-rule"></div>
+    <button class="ip-btn" onclick="avviaGioco()">Aprire il fascicolo</button>
+  </div>
+</div>
+
+
 <!-- ══ SCHERMATA INIZIALE ══════════════════════════════════ -->
-<div id="splash">
+<div id="splash" style="display:none">
   <div class="titolo-grande">Il Caso<br>Deschênes</div>
   <div class="sottotitolo">Parigi — Brumaio, Anno VIII della Repubblica</div>
   <div class="badge-riga">
@@ -1416,5 +1578,50 @@ document.getElementById('btn-inizia').addEventListener('click', () => {
   vai('intro');
 });
 </script>
+
+<script>
+(function(){
+  const wc=document.getElementById('ip-wins');
+  if(wc){
+    [{l:'8%',b:'95px'},{l:'16%',b:'112px'},{l:'25%',b:'90px'},{l:'34%',b:'102px'},
+     {l:'42%',b:'120px'},{l:'50%',b:'132px'},{l:'58%',b:'118px'},{l:'67%',b:'100px'},
+     {l:'75%',b:'108px'},{l:'83%',b:'93px'},{l:'90%',b:'90px'}].forEach(p=>{
+      const w=document.createElement('div'); w.className='ip-win';
+      w.style.left=p.l; w.style.bottom=p.b;
+      w.style.setProperty('--dur',(2+Math.random()*4)+'s');
+      w.style.setProperty('--del',(Math.random()*3)+'s');
+      wc.appendChild(w);
+    });
+  }
+  // Typewriter — font Cinzel su due righe
+  const righe=['Il Caso','Deschênes'];
+  const el=document.getElementById('ip-typed');
+  let ri=0,ci=0;
+  if(el){
+    setTimeout(function _t(){
+      if(ri<righe.length){
+        if(ci<righe[ri].length){
+          el.innerHTML=righe.slice(0,ri).join('<br>')+(ri>0?'<br>':'')+righe[ri].slice(0,++ci);
+          setTimeout(_t,120);
+        } else { ri++;ci=0; if(ri<righe.length) setTimeout(_t,350);
+          else setTimeout(()=>{const c=document.getElementById('ip-cursor');if(c)c.style.display='none';},2000); }
+      }
+    },1800);
+  }
+})();
+
+function avviaGioco(){
+  const intro=document.getElementById('intro-anim');
+  if(intro){
+    intro.classList.add('fade-out');
+    setTimeout(()=>{
+      intro.style.display='none';
+      const sp=document.getElementById('splash');
+      if(sp) sp.style.display='';
+    },900);
+  }
+}
+</script>
+
 </body>
 </html>
