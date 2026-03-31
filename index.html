@@ -1,6 +1,3 @@
-Index · HTML
-Copy
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -87,7 +84,7 @@ Copy
     flex-direction: column;
     gap: 20px;
     width: 100%;
-    max-width: 480px;
+    max-width: 560px;
   }
  
   .card {
@@ -282,6 +279,21 @@ Copy
     color: #3d2810;
     font-style: italic;
   }
+
+  /* Londra — toni dorati notturni */
+  .card-londra {
+    border-color: #4a3a18;
+    background: #110e06;
+  }
+  .card-londra::before { background: rgba(180,150,40,0.06); }
+  .card-londra:hover { border-color: #8b6914; }
+  .card-londra .card-tag  { color: #6b5010; }
+  .card-londra .card-tag::after { background: #8b6914; }
+  .card-londra .card-title  { color: #e0cc90; }
+  .card-londra .card-subtitle  { color: #4a3818; }
+  .card-londra .card-desc  { color: #a09060; }
+  .card-londra .badge  { border-color: rgba(139,105,20,0.35); color: #6b5010; }
+  .card-londra .card-arrow  { color: #c8a030; }
   /* ── BANNER AGGIORNAMENTO ──────────────────── */
   #banner-update {
     display: none;
@@ -369,9 +381,9 @@ Copy
     <div class="card-subtitle">Parigi — Brumaio, Anno VIII · 1800</div>
     <div class="card-desc">Un notaio trovato morto nel suo studio. Una coltellata, una cassaforte forzata, due visitatori nella notte. Siete l'Ispettore Laval.</div>
     <div class="card-meta">
-      <span class="badge">👤 1 giocatore o in gruppo</span>
-      <span class="badge">🕯 Facile</span>
-      <span class="badge">⏱ 30–60 min</span>
+      <span class="badge">&#x1F9E9; Solitario / Gruppo</span>
+      <span class="badge">&#x1F56F; Facile</span>
+      <span class="badge">&#x23F1; 15&ndash;45 min</span>
     </div>
     <span class="card-arrow">›</span>
   </div>
@@ -382,15 +394,31 @@ Copy
     <div class="card-subtitle">Mosca — Ottobre 1968</div>
     <div class="card-desc">Un'indagine cooperativa nell'Unione Sovietica. Segreti, silenzi, e la burocrazia come ostacolo principale.</div>
     <div class="card-meta">
-      <span class="badge">👥 Cooperativo</span>
-      <span class="badge">☭ Medio</span>
+      <span class="badge">&#x1F465; 2&ndash;4 giocatori</span>
+      <span class="badge">&#x1F91D; Cooperativo</span>
+      <span class="badge">&#x262D; Medio</span>
+      <span class="badge">&#x23F1; 60&ndash;90 min</span>
     </div>
     <span class="card-arrow">›</span>
+  </div>
+
+  <div class="card card-londra" onclick="chiediConferma('the_document_v2.html','The Document &middot; Londra 1791','Londra &mdash; St. James&apos;s Palace, Dicembre 1791')">
+    <div class="card-tag">Caso III</div>
+    <div class="card-title">The Document &middot; Londra, 1791</div>
+    <div class="card-subtitle">St. James&apos;s Palace &mdash; Dicembre 1791</div>
+    <div class="card-desc">Un documento scompare negli appartamenti privati. Il Principe di Galles, Pitt, Fox, Lady Jersey. Un matrimonio segreto che nessuno dovrebbe conoscere. Trovate il colpevole prima dell&apos;alba.</div>
+    <div class="card-meta">
+      <span class="badge">&#x1F465; 2&ndash;4 giocatori</span>
+      <span class="badge">&#x2694; Competitivo</span>
+      <span class="badge">&#x1F56F; Difficile</span>
+      <span class="badge">&#x23F1; 75&ndash;120 min</span>
+    </div>
+    <span class="card-arrow">&rsaquo;</span>
   </div>
  
 </div>
  
-<footer>Giochi creati da Andrea Zullo &nbsp;·&nbsp; <a href="privacy.html" style="color:#3d2810;text-decoration:none;border-bottom:1px solid #3d2810">Privacy Policy</a></footer>
+<footer>Giochi creati da Andrea Zullo &nbsp;·&nbsp; <a href="privacy.html" style="color:#3d2810;text-decoration:none;border-bottom:1px solid #3d2810">Privacy Policy</a><br><span id="ver-label" style="opacity:.4">v—</span></footer>
  
 <div id="banner-update">
   <div class="ban-testo" id="ban-testo">Nuovi casi disponibili!</div>
@@ -425,6 +453,9 @@ Copy
   });
  
   // ── BANNER VERSIONE ────────────────────────────────────────
+  const VER_LOCALE = 2;
+  document.getElementById('ver-label').textContent = 'v' + VER_LOCALE;
+
   const VER_KEY = 'indagini_ver_visto';
   const VER_URL = 'https://astrozullo.github.io/Indagini-Storiche/version.json';
  
@@ -434,6 +465,8 @@ Copy
       if (!res.ok) return;
       const data = await res.json();
       const verOnline = parseInt(data.versione, 10);
+      const el = document.getElementById('ver-label');
+      if (el) el.textContent = 'v' + verOnline;
       const verVisto  = parseInt(localStorage.getItem(VER_KEY) || '0', 10);
       if (verOnline > verVisto) {
         const msg = data.novita
@@ -458,6 +491,16 @@ Copy
   }
  
   controllaVersione();
+
+  // Mostra versione nel footer
+  (async () => {
+    try {
+      const res = await fetch(VER_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      document.getElementById('ver-label').textContent = 'v' + data.versione;
+    } catch(e) {}
+  })();
 </script>
 </body>
 </html>
