@@ -1,10 +1,5 @@
 const CACHE = 'indagini-v4';
-const FILES = [
-  './index.html',
-  './paris1800.html',
-  './mosca1968.html',
-  './the_document_v2.html',
-  './privacy.html',
+const CACHE_FILES = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png'
@@ -12,7 +7,7 @@ const FILES = [
 
 self.addEventListener('install', e => {
   e.waitUntil(
-    caches.open(CACHE).then(cache => cache.addAll(FILES.filter(f => !f.includes('icon'))))
+    caches.open(CACHE).then(cache => cache.addAll(CACHE_FILES))
   );
   self.skipWaiting();
 });
@@ -27,6 +22,15 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  // File HTML: sempre freschi dalla rete, mai dalla cache
+  if (url.pathname.endsWith('.html') || url.pathname === '/') {
+    e.respondWith(
+      fetch(e.request).catch(() => caches.match(e.request))
+    );
+    return;
+  }
+  // Tutto il resto: cache first
   e.respondWith(
     caches.match(e.request).then(cached => cached || fetch(e.request))
   );
