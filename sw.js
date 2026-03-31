@@ -1,4 +1,4 @@
-const CACHE = 'indagini-v3';
+const CACHE = 'indagini-v4';
 const FILES = [
   './index.html',
   './paris1800.html',
@@ -9,14 +9,14 @@ const FILES = [
   './icon-192.png',
   './icon-512.png'
 ];
- 
+
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(cache => cache.addAll(FILES.filter(f => !f.includes('icon'))))
   );
   self.skipWaiting();
 });
- 
+
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
@@ -25,7 +25,7 @@ self.addEventListener('activate', e => {
   );
   self.clients.claim();
 });
- 
+
 self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(cached => cached || fetch(e.request))
