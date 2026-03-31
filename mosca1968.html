@@ -81,9 +81,260 @@ body{background:var(--bg);color:var(--text);font-family:'Playfair Display',Georg
 .vr{color:var(--red);font-weight:700}
 .choice.cha{border-color:#2a5a38}.choice.cha:hover:not(:disabled){background:#0a1f0f;border-color:#5aaa70}
 .choice.chb{border-color:#5a1010}
+
+/* ── INTRO MOSCA 1968 ─────────────────────────── */
+#intro-anim{
+  position:fixed;inset:0;
+  background:#0a0404;
+  display:flex;align-items:center;justify-content:center;
+  z-index:999;overflow:hidden;
+}
+#intro-anim.fade-out{animation:imFadeOut .9s ease-out forwards;}
+@keyframes imFadeOut{from{opacity:1;}to{opacity:0;pointer-events:none;}}
+
+/* Sfondo: righe di scansione CRT sovietico */
+#intro-anim::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,
+    transparent,transparent 3px,
+    rgba(180,20,20,.04) 3px,rgba(180,20,20,.04) 4px);
+  pointer-events:none;z-index:1;
+}
+
+/* Silhouette Piazza Rossa */
+.im-piazza{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:760px;
+  opacity:0;animation:imRise 2.5s ease-out .4s forwards;
+  z-index:2;pointer-events:none;
+}
+@keyframes imRise{
+  from{opacity:0;transform:translateX(-50%) translateY(12px);}
+  to{opacity:1;transform:translateX(-50%) translateY(0);}
+}
+
+/* Nebbia gelida — più bassa e densa */
+.im-fog{position:fixed;inset:0;pointer-events:none;z-index:3;}
+.im-fog-l{
+  position:absolute;width:200%;height:100%;
+  background:radial-gradient(ellipse 80% 35% at 50% 95%,
+    rgba(10,4,4,0) 0%,rgba(10,4,4,.6) 50%,rgba(10,4,4,.95) 100%);
+  animation:imDrift 22s ease-in-out infinite alternate;
+}
+.im-fog-l:nth-child(2){animation-duration:30s;animation-direction:alternate-reverse;opacity:.4;}
+@keyframes imDrift{from{transform:translateX(-6%);}to{transform:translateX(6%);}}
+
+/* Stella rossa che pulsa */
+.im-stella{
+  position:fixed;z-index:4;pointer-events:none;
+  opacity:0;animation:imStellaIn 1.5s ease-out 2s forwards;
+}
+@keyframes imStellaIn{from{opacity:0;transform:scale(.5);}to{opacity:1;transform:scale(1);}}
+.im-stella svg{animation:imPulse 2.5s ease-in-out infinite alternate;}
+@keyframes imPulse{
+  from{filter:drop-shadow(0 0 6px rgba(184,20,20,.8));}
+  to{filter:drop-shadow(0 0 18px rgba(220,40,40,1)) drop-shadow(0 0 35px rgba(180,20,20,.5));}
+}
+
+/* Centro */
+.im-center{position:relative;z-index:10;text-align:center;padding:20px;margin-top:-40px;}
+
+.im-pretitle{
+  font-family:'Courier Prime',monospace;
+  font-size:.55rem;letter-spacing:.45em;text-transform:uppercase;
+  color:var(--red2);margin-bottom:12px;
+  opacity:0;animation:imFadeUp .8s ease-out 1.6s forwards;
+}
+
+.im-title{
+  font-family:'Courier Prime',monospace;
+  font-size:2.6rem;font-weight:700;letter-spacing:.12em;
+  color:var(--red);line-height:1.1;margin-bottom:4px;
+  white-space:nowrap;
+  text-shadow: 0 0 20px rgba(184,20,20,.6);
+}
+
+.im-title-sub{
+  font-family:'Courier Prime',monospace;
+  font-size:.75rem;letter-spacing:.35em;
+  color:var(--red2);margin-bottom:8px;
+  opacity:0;animation:imFadeUp .8s ease-out 3.8s forwards;
+}
+
+.im-sub{
+  font-size:.7rem;letter-spacing:.15em;
+  color:var(--muted);font-style:italic;
+  margin-bottom:4px;
+  opacity:0;animation:imFadeUp .8s ease-out 4.0s forwards;
+}
+
+.im-date{
+  font-family:'Courier Prime',monospace;
+  font-size:.58rem;letter-spacing:.3em;
+  color:var(--red2);
+  opacity:0;animation:imFadeUp .8s ease-out 4.2s forwards;
+  margin-bottom:28px;
+}
+
+.im-rule{
+  width:0;height:1px;
+  background:linear-gradient(to right,transparent,var(--red2),transparent);
+  margin:0 auto 22px;
+  animation:imRule 1s ease-out 3.6s forwards;
+}
+@keyframes imRule{from{width:0;}to{width:160px;}}
+
+.im-btn{
+  opacity:0;animation:imFadeUp .8s ease-out 4.5s forwards;
+  font-family:'Courier Prime',monospace;
+  font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;
+  padding:11px 30px;background:transparent;
+  border:1px solid var(--red2);color:var(--red);
+  cursor:pointer;transition:border-color .2s;
+}
+.im-btn:hover{border-color:var(--red);}
+
+@keyframes imFadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes imCursor{50%{opacity:0;}}
+
+#back-idx{
+  position:fixed;bottom:16px;left:16px;
+  font-family:'Courier Prime',monospace;
+  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);background:none;border:none;cursor:pointer;
+  opacity:.45;transition:opacity .15s;z-index:50;
+  display:none;
+}
+#back-idx:hover{opacity:1;color:var(--red);}
+
+
+.im-topsecret{
+  font-family:'Courier Prime',monospace;
+  font-size:.72rem;font-weight:700;
+  letter-spacing:.35em;text-transform:uppercase;
+  color:#0a0404;
+  border:3px solid #0a0404;
+  padding:5px 16px 4px;
+  display:inline-block;
+  margin-bottom:16px;
+  transform:rotate(-5deg);
+  opacity:0;
+  animation:imStamp .12s ease-out 1.0s forwards;
+  background:rgba(180,20,20,.18);
+}
+@keyframes imStamp{
+  0%  {opacity:0;transform:rotate(-5deg) scale(2);}
+  70% {opacity:1;transform:rotate(-5deg) scale(.93);}
+  100%{opacity:1;transform:rotate(-5deg) scale(1);}
+}
+
+.im-emblem{
+  display:flex;align-items:center;justify-content:center;
+  gap:18px;margin-bottom:8px;
+  opacity:0;animation:imFadeUp .8s ease-out 3.5s forwards;
+}
+.im-emblem svg{
+  filter:drop-shadow(0 0 6px rgba(184,20,20,.5));
+}
 </style>
 </head>
-<body><div id="app"></div>
+<body>
+
+<div id="intro-anim">
+
+  <!-- Piazza Rossa: San Basilio + Cremlino in silhouette -->
+  <svg class="im-piazza" viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+    <!-- Mura del Cremlino -->
+    <path fill="#0f0404" d="
+      M0,240 L0,180
+      L20,180 L20,165 L28,165 L28,155 L36,155 L36,165 L44,165 L44,180
+      L60,180 L60,165 L68,165 L68,155 L76,155 L76,165 L84,165 L84,180
+      L100,180 L100,165 L108,165 L108,155 L116,155 L116,165 L124,165 L124,180
+    " />
+    <!-- Torre Spasskaya (Cremlino) con stella -->
+    <rect x="130" y="80" width="50" height="100" fill="#0f0404"/>
+    <rect x="138" y="60" width="34" height="25" fill="#0f0404"/>
+    <rect x="144" y="45" width="22" height="18" fill="#0f0404"/>
+    <rect x="149" y="30" width="12" height="18" fill="#0f0404"/>
+    <rect x="153" y="20" width="4" height="12" fill="#0f0404"/>
+    <!-- Mura continua -->
+    <path fill="#0f0404" d="
+      M180,180 L180,165 L188,165 L188,155 L196,155 L196,165 L204,165 L204,180
+      L220,180 L220,165 L228,165 L228,155 L236,155 L236,165 L244,165 L244,180
+    "/>
+    <!-- San Basilio — cupole cipolla -->
+    <!-- Cupola centrale grande -->
+    <rect x="330" y="120" width="100" height="90" fill="#100505"/>
+    <path fill="#100505" d="M355,120 Q380,60 405,120 Z"/>
+    <!-- Cupola sinistra -->
+    <rect x="288" y="148" width="50" height="70" fill="#100505"/>
+    <path fill="#100505" d="M296,148 Q313,100 330,148 Z"/>
+    <!-- Cupola destra -->
+    <rect x="422" y="148" width="50" height="70" fill="#100505"/>
+    <path fill="#100505" d="M430,148 Q447,100 464,148 Z"/>
+    <!-- Cupola sinistra piccola -->
+    <rect x="258" y="162" width="38" height="56" fill="#100505"/>
+    <path fill="#100505" d="M264,162 Q277,125 296,162 Z"/>
+    <!-- Cupola destra piccola -->
+    <rect x="464" y="162" width="38" height="56" fill="#100505"/>
+    <path fill="#100505" d="M464,162 Q477,125 494,162 Z"/>
+    <!-- Croce centrale -->
+    <line x1="380" y1="58" x2="380" y2="45" stroke="#100505" stroke-width="3"/>
+    <line x1="374" y1="52" x2="386" y2="52" stroke="#100505" stroke-width="2"/>
+    <!-- Mura destra -->
+    <path fill="#0f0404" d="
+      M520,180 L520,165 L528,165 L528,155 L536,155 L536,165 L544,165 L544,180
+      L560,180 L560,165 L568,165 L568,155 L576,155 L576,165 L584,165 L584,180
+      L600,180 L600,165 L608,165 L608,155 L616,155 L616,165 L624,165 L624,180
+      L640,180 L640,165 L648,165 L648,155 L656,155 L656,165 L664,165 L664,180
+      L680,180 L680,165 L688,165 L688,155 L696,155 L696,165 L704,165 L704,180
+      L720,180 L720,165 L728,165 L728,155 L736,155 L736,165 L744,165 L744,180
+      L760,180 L760,240 L0,240 Z
+    "/>
+  </svg>
+
+  <!-- Stella rossa in cima alla torre -->
+  <div class="im-stella" style="top:calc(50% - 160px);left:calc(50% - 228px);">
+    <svg width="24" height="24" viewBox="0 0 24 24">
+      <polygon points="12,2 14.9,9.3 22.9,9.3 16.5,14 18.9,21.3 12,17 5.1,21.3 7.5,14 1.1,9.3 9.1,9.3"
+        fill="#b81414"/>
+    </svg>
+  </div>
+
+  <div class="im-fog"><div class="im-fog-l"></div><div class="im-fog-l"></div></div>
+
+  <div class="im-center">
+    <div class="im-topsecret">TOP SECRET</div>
+    <div class="im-pretitle">Mosca &nbsp;·&nbsp; Ottobre 1968 &nbsp;·&nbsp; CCCP</div>
+    <div class="im-title">
+      <span id="im-typed"></span><span id="im-cursor" style="display:inline-block;width:3px;height:2.4rem;background:var(--red);margin-left:3px;vertical-align:middle;animation:imCursor .6s step-end infinite;"></span>
+    </div>
+    <div class="im-emblem">
+      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- Falce -->
+        <path d="M10,28 Q4,22 6,14 Q8,6 16,5 Q18,5 18,7 Q12,8 11,14 Q10,20 16,24 Q18,25 17,27 Q15,29 10,28Z"
+          fill="#7a0c0c" stroke="#b81414" stroke-width=".5"/>
+        <!-- Manico falce -->
+        <line x1="10" y1="28" x2="5" y2="33" stroke="#b81414" stroke-width="2" stroke-linecap="round"/>
+        <!-- Martello -->
+        <rect x="16" y="12" width="14" height="6" rx="1" fill="#7a0c0c" stroke="#b81414" stroke-width=".5"/>
+        <rect x="20" y="18" width="4" height="12" rx="1" fill="#7a0c0c" stroke="#b81414" stroke-width=".5"/>
+      </svg>
+      <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stella a 5 punte -->
+        <polygon points="18,4 21.5,14 32,14 23.5,20.5 26.5,31 18,25 9.5,31 12.5,20.5 4,14 14.5,14"
+          fill="#7a0c0c" stroke="#b81414" stroke-width=".8"/>
+      </svg>
+    </div>
+    <div class="im-title-sub">· MOSCA · 1968 ·</div>
+    <div class="im-sub">Un&#x27;indagine cooperativa in Guerra Fredda</div>
+    <div class="im-date">УРСС — Ottobre 1968</div>
+    <div class="im-rule"></div>
+    <button class="im-btn" onclick="avviaGioco()">Iniziare l&#x27;indagine</button>
+  </div>
+</div>
+<button id="back-idx" onclick="if(confirm('Tornare all\'indice?\')){window.location.href=\'index.html\';}">&#x2190; Indice</button>
+<div id="app" style="display:none"></div>
 <script>
 'use strict';
 const S={players:[],clues:new Set(),visited:new Set(),flags:{},history:[],current:null};
@@ -1950,4 +2201,41 @@ document.addEventListener('visibilitychange',()=>{
   if(document.hidden){ stopAmbient();if(actx)actx.suspend(); }
   else if(audioOn&&window._ambientType){ actx&&actx.resume().then(()=>startAmbient(window._ambientType)); }
 });
-</script></body></html>
+</script>
+<script>
+(function(){
+  // Typewriter cirillico
+  const testo = 'ИНДАГИНЕ';
+  const el = document.getElementById('im-typed');
+  let i = 0;
+  if(el){
+    setTimeout(function _t(){
+      if(i < testo.length){
+        el.textContent = testo.slice(0, ++i);
+        setTimeout(_t, 180);
+      } else {
+        setTimeout(()=>{
+          const cur = document.getElementById('im-cursor');
+          if(cur) cur.style.display = 'none';
+        }, 2500);
+      }
+    }, 1800);
+  }
+})();
+
+function avviaGioco(){
+  const intro = document.getElementById('intro-anim');
+  if(intro){
+    intro.classList.add('fade-out');
+    setTimeout(()=>{
+      intro.style.display = 'none';
+      const app = document.getElementById('app');
+      if(app) app.style.display = '';
+      const bk = document.getElementById('back-idx');
+      if(bk) bk.style.display = 'block';
+    }, 900);
+  }
+}
+</script>
+
+</body></html>
