@@ -1,0 +1,4016 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>THE DOCUMENT · Londra, 1791</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap');
+:root{
+  --bg:#07080e;--bg2:#0e0f1a;--bg3:#161724;
+  --gold:#c8a84b;--gold2:#7a6018;--gold3:#2e2208;
+  --text:#e8dfc4;--text2:#a09070;--muted:#504838;
+  --border:#1a1928;--border2:#2c2840;
+  --hilit:#d4b870;--green:#1e4a38;--gtext:#5aaa80;
+  --red:#8a2020;--rtext:#c05050;--navy:#0d1020;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Playfair Display',Georgia,serif;
+  min-height:100vh;display:flex;justify-content:center;
+  padding:0 16px 80px;
+  background-image:
+    radial-gradient(ellipse at 20% 20%,rgba(200,168,75,.04) 0%,transparent 60%),
+    repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(200,168,75,.008) 3px,rgba(200,168,75,.008) 4px);
+}
+#app{width:100%;max-width:560px;padding-top:58px}
+.s-hdr{font-family:'Courier Prime',monospace;font-size:.70em;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold3);padding-bottom:9px;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.s-hdr::before{content:'◆';color:var(--gold2);font-size:.7em}
+.s-body{font-size:.95em;line-height:1.85;margin-bottom:24px}
+.s-body p{margin-bottom:13px}.s-body p:last-child{margin-bottom:0}
+.s-body em{font-style:italic;color:var(--text2)}
+.hl{color:var(--hilit);font-style:italic}
+.dim{color:var(--muted);font-size:.88em;font-style:italic}
+/* FASE PUBBLICA */
+.fase-pub{border:1px solid var(--gold2);padding:18px 18px 14px;margin-bottom:16px;position:relative}
+.fase-lbl{font-family:'Courier Prime',monospace;font-size:.60em;letter-spacing:3px;text-transform:uppercase;color:var(--gold);background:var(--bg);position:absolute;top:-9px;left:14px;padding:0 8px}
+/* FASE PRIVATA */
+.fase-priv{border:1px dashed var(--gold2);padding:18px 18px 14px;margin-bottom:16px;position:relative;background:var(--navy)}
+.fase-priv .fase-lbl{color:var(--hilit);background:var(--navy)}
+.priv-reveal{filter:blur(6px);transition:filter .4s ease;cursor:pointer;user-select:none}
+.priv-reveal.shown{filter:none;cursor:default}
+.priv-hint{font-family:'Courier Prime',monospace;font-size:.65em;letter-spacing:2px;color:var(--muted);text-align:center;margin-top:10px}
+/* CHOICES */
+.c-wrap{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.choice{background:transparent;border:1px solid var(--border2);color:var(--text);padding:12px 15px;text-align:left;cursor:pointer;font-family:'Playfair Display',Georgia,serif;font-size:.88em;line-height:1.45;transition:background .12s,border-color .12s;width:100%}
+.choice:hover:not(:disabled){background:var(--bg3);border-color:var(--gold2)}
+.choice.sel{background:var(--gold3);border-color:var(--gold)}
+.choice:disabled{opacity:.35;cursor:not-allowed;font-style:italic;border-style:dashed}
+/* BUTTONS */
+.btn-g{background:var(--gold);border:none;color:#07080e;padding:13px 22px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:.80em;letter-spacing:2px;text-transform:uppercase;transition:background .12s}
+.btn-g:hover{background:var(--hilit)}.btn-g.full{width:100%;padding:15px}
+.btn-s{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:9px 16px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:.75em;letter-spacing:1.5px;transition:border-color .12s,color .12s}
+.btn-s:hover{border-color:var(--text2);color:var(--text2)}
+.nav{display:flex;gap:8px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;align-items:center}
+/* LOGO */
+.logo-wrap{text-align:center;padding:36px 0 30px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.logo-deco{font-family:'Courier Prime',monospace;font-size:.60em;letter-spacing:6px;color:var(--gold2);margin-bottom:10px;text-transform:uppercase}
+.logo{font-family:'Playfair Display',Georgia,serif;font-size:2.8em;color:var(--gold);letter-spacing:4px;margin-bottom:4px;font-style:italic}
+.logo-sub{font-family:'Courier Prime',monospace;color:var(--muted);font-size:.65em;letter-spacing:3.5px;text-transform:uppercase}
+.logo-rule{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);margin:12px auto}
+/* PLAYER TAG */
+.player-tag{font-family:'Courier Prime',monospace;font-size:.65em;letter-spacing:2px;color:var(--muted);text-align:right;margin-bottom:14px;padding-bottom:8px;border-bottom:1px dashed var(--border)}
+.player-tag span{color:var(--gold)}
+/* FORMS */
+.fld{margin-bottom:14px}
+.fld label{display:block;font-family:'Courier Prime',monospace;font-size:.65em;letter-spacing:2px;color:var(--muted);margin-bottom:6px;text-transform:uppercase}
+.fld input{background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:11px 13px;font-family:'Playfair Display',Georgia,serif;font-size:.9em;width:100%;outline:none}
+.fld input:focus{border-color:var(--gold2)}
+.fld input::placeholder{color:var(--muted);font-style:italic}
+/* INDIZI */
+.clues-bar{border-top:1px solid var(--border);padding-top:10px;margin-top:6px;font-size:.72em;line-height:1.9;font-family:'Courier Prime',monospace;color:var(--muted)}
+.clue{display:inline-block;background:var(--bg3);border:1px solid var(--gold3);color:var(--gold2);padding:1px 8px;margin:2px 3px;letter-spacing:.5px;font-size:.95em}
+/* PROGRESS */
+.progress-bar{display:flex;gap:6px;margin-bottom:22px;align-items:center}
+.prog-dot{width:28px;height:4px;background:var(--border2);transition:background .3s}
+.prog-dot.done{background:var(--gold2)}
+.prog-dot.active{background:var(--gold)}
+.prog-lbl{font-family:'Courier Prime',monospace;font-size:.60em;letter-spacing:2px;color:var(--muted);margin-left:4px}
+/* PASS SCREEN */
+.pass-screen{text-align:center;padding:50px 20px;border:1px solid var(--border2);background:var(--bg2)}
+.pass-icon{font-size:3.5em;margin-bottom:20px;display:block}
+.pass-name{color:var(--gold);font-size:1.3em;font-style:italic;margin-bottom:6px}
+.pass-sub{font-family:'Courier Prime',monospace;font-size:.65em;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:28px}
+/* INFO BOX */
+.info-box{border:1px solid var(--border2);padding:14px 16px;margin-bottom:20px;font-size:.85em;line-height:1.7;color:var(--text2)}
+.info-box strong{color:var(--hilit)}
+/* SOSPETTATI */
+.suspect-card{border:1px solid var(--border2);padding:12px 15px;margin-bottom:8px;cursor:pointer;transition:background .12s,border-color .12s}
+.suspect-card:hover{background:var(--bg3);border-color:var(--gold2)}
+.suspect-card.sel{background:var(--gold3);border-color:var(--gold)}
+.suspect-name{font-size:.95em;margin-bottom:2px}
+.suspect-role{font-family:'Courier Prime',monospace;font-size:.65em;letter-spacing:1px;color:var(--muted);display:block}
+/* SCORE */
+.score-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border:1px solid var(--border2);margin-bottom:7px;font-size:.88em}
+.score-name{font-style:italic;color:var(--text2)}
+.score-val{font-family:'Courier Prime',monospace;font-size:.85em;letter-spacing:2px;color:var(--gold)}
+.verdict{border:1px solid var(--border);padding:22px;margin:18px 0;line-height:1.75}
+.verdict.ok{border-color:var(--green)}.verdict.ko{border-color:var(--red)}
+.v-title{font-family:'Courier Prime',monospace;font-size:.80em;letter-spacing:2px;margin-bottom:14px;text-transform:uppercase}
+.verdict.ok .v-title{color:var(--gtext)}.verdict.ko .v-title{color:var(--rtext)}
+/* SPLASH */
+.splash{position:fixed;inset:0;background:rgba(4,4,10,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:1000;animation:splashIn .18s ease}
+.splash-emoji{font-size:4em;animation:splashBounce .5s ease infinite alternate}
+.splash-label{font-family:'Courier Prime',monospace;font-size:.76em;letter-spacing:3px;color:var(--text2);margin-top:16px;text-transform:uppercase;text-align:center;padding:0 24px}
+/* FOOTER */
+.footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--border);font-family:'Courier Prime',monospace;font-size:.60em;letter-spacing:2px;color:var(--muted);text-align:center;line-height:2.2}
+@keyframes splashIn{from{opacity:0}to{opacity:1}}
+@keyframes splashBounce{from{transform:scale(1) rotate(-3deg)}to{transform:scale(1.12) rotate(3deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes pulseGold{0%,100%{opacity:1}50%{opacity:.4}}
+#app>div{animation:fadeIn .22s ease}
+#snd-btn{position:fixed;top:12px;right:12px;z-index:500;background:rgba(7,8,14,.85);border:1px solid var(--border2);color:var(--muted);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.05em;display:flex;align-items:center;justify-content:center;transition:border-color .15s,color .15s;backdrop-filter:blur(4px)}
+#snd-btn:hover{border-color:var(--gold2);color:var(--text)}
+
+/* MINIGAME */
+.mg-wrap{padding:28px 0 18px;text-align:center}
+.mg-emoji{font-size:3em;display:block;margin-bottom:10px}
+.mg-title{font-family:'Courier Prime',monospace;font-size:.72em;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.mg-desc{font-size:.88em;line-height:1.7;color:var(--text2);margin-bottom:24px;font-style:italic}
+.mg-track{position:relative;height:22px;background:var(--bg2);border:1px solid var(--border2);margin:0 auto 20px;max-width:340px;overflow:hidden}
+.mg-zone{position:absolute;top:0;height:100%;background:rgba(200,168,75,.25);border-left:1px solid var(--gold2);border-right:1px solid var(--gold2)}
+.mg-cursor{position:absolute;top:0;width:4px;height:100%;background:var(--gold);transition:none}
+.mg-btn{background:var(--gold);border:none;color:#07080e;padding:13px 40px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:.80em;letter-spacing:2px;text-transform:uppercase}
+.mg-btn:disabled{opacity:.4;cursor:not-allowed}
+.mg-result{font-family:'Courier Prime',monospace;font-size:.72em;letter-spacing:2px;margin-top:18px;padding:12px 16px;text-align:center}
+.mg-result.ok{border:1px solid var(--green);color:var(--gtext)}
+.mg-result.ko{border:1px solid var(--red);color:var(--rtext)}
+
+/* PERGAMENA */
+.parchment{
+  background:#f5e6c0;
+  border:2px solid #8b6914;
+  box-shadow:inset 0 0 18px rgba(100,60,0,.18), 2px 4px 12px rgba(0,0,0,.5);
+  padding:28px 24px;
+  margin:18px 0 22px;
+  position:relative;
+  color:#2a1a06;
+}
+.parchment::before{
+  content:'';position:absolute;inset:4px;
+  border:1px solid rgba(139,105,20,.35);pointer-events:none;
+}
+.parchment-title{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:1.05em;font-weight:700;font-style:italic;
+  text-align:center;margin-bottom:18px;
+  color:#3a2008;letter-spacing:1px;
+  border-bottom:1px solid #8b6914;padding-bottom:10px;
+}
+.parchment-entry{
+  margin-bottom:16px;padding-bottom:14px;
+  border-bottom:1px dashed rgba(139,105,20,.3);
+}
+.parchment-entry:last-child{border-bottom:none;margin-bottom:0}
+.parchment-name{
+  font-family:'Playfair Display',Georgia,serif;
+  font-weight:700;font-size:.95em;color:#2a1a06;
+  margin-bottom:3px;
+}
+.parchment-role{
+  font-family:'Courier Prime',monospace;font-size:.65em;
+  letter-spacing:1.5px;color:#6b4c1a;text-transform:uppercase;
+  margin-bottom:5px;
+}
+.parchment-desc{
+  font-size:.83em;line-height:1.7;color:#3a2810;font-style:italic;
+}
+.parchment-seal{
+  text-align:right;margin-top:18px;padding-top:12px;
+  border-top:1px solid #8b6914;
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:.75em;font-style:italic;color:#5a3a10;
+}
+.parchment-partial .parchment-title{color:#7a4010}
+
+/* CARTE FARO */
+.faro-grid{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:22px}
+.faro-card{
+  display:flex;flex-direction:column;justify-content:space-between;
+  width:44px;height:62px;flex-shrink:0;
+  background:#f4edd8;border:1px solid #c8a84b;border-radius:4px;
+  padding:4px 5px;cursor:pointer;box-sizing:border-box;
+  transition:background .12s,border-color .12s,transform .1s;
+  position:relative;
+}
+.faro-card:hover{background:#ffe8a0;border-color:#a07828;transform:translateY(-2px)}
+.faro-card.sel{background:#c8a84b;border-color:#7a6018;transform:translateY(-3px)}
+.faro-card.sel .fc-rank,.faro-card.sel .fc-suit{color:#07080e}
+.fc-rank{font-family:'Courier Prime',monospace;font-size:.72em;font-weight:700;line-height:1;color:#1a1208}
+.fc-rank.bot{text-align:right;transform:rotate(180deg)}
+.fc-suit{font-size:1.1em;text-align:center;line-height:1;align-self:center}
+.fc-red .fc-rank,.fc-red .fc-suit{color:#7a1010}
+.faro-card.sel.fc-red .fc-rank,.faro-card.sel.fc-red .fc-suit{color:#3a0808}
+
+/* READER BOX */
+.reader-box{
+  border:1px solid var(--gold2);background:var(--gold3);
+  padding:12px 16px;margin-bottom:16px;text-align:center;
+}
+.reader-label{
+  font-family:'Courier Prime',monospace;font-size:.60em;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:4px;
+}
+.reader-name{
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:1.18em;color:var(--gold);
+  font-style:italic;font-weight:700;
+}
+.reader-sub{
+  font-family:'Courier Prime',monospace;font-size:.58em;
+  letter-spacing:2px;color:var(--muted);
+  display:block;margin-top:3px;text-transform:uppercase;
+}
+
+/* CONFIRM PANEL */
+.confirm-panel{
+  display:none;
+  border:1px solid var(--gold2);background:var(--gold3);
+  padding:14px 16px;margin-top:10px;text-align:center;
+}
+.confirm-panel.visible{display:block}
+.confirm-label{
+  font-family:'Courier Prime',monospace;font-size:.68em;
+  letter-spacing:2px;color:var(--text2);text-transform:uppercase;
+  display:block;margin-bottom:10px;
+}
+.confirm-btns{display:flex;gap:8px;justify-content:center}
+.btn-confirm{
+  background:var(--gold);border:none;color:#07080e;
+  padding:10px 24px;cursor:pointer;
+  font-family:'Courier Prime',monospace;font-size:.75em;
+  letter-spacing:2px;text-transform:uppercase;
+}
+.btn-cancel{
+  background:transparent;border:1px solid var(--border2);
+  color:var(--muted);padding:10px 24px;cursor:pointer;
+  font-family:'Courier Prime',monospace;font-size:.75em;
+  letter-spacing:2px;text-transform:uppercase;
+}
+.btn-cancel:hover{border-color:var(--text2);color:var(--text)}
+
+/* CONFIRM INLINE */
+.btn-confirm-wrap{display:flex;gap:8px;align-items:center;margin-top:0}
+.btn-confirm-yes{background:var(--gold);border:none;color:#07080e;padding:11px 20px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:.78em;letter-spacing:2px;text-transform:uppercase;flex:1}
+.btn-confirm-yes:hover{background:var(--hilit)}
+.btn-confirm-no{background:transparent;border:1px solid var(--border2);color:var(--muted);padding:11px 16px;cursor:pointer;font-family:'Courier Prime',monospace;font-size:.78em;letter-spacing:1.5px;flex:0 0 auto}
+.btn-confirm-no:hover{border-color:var(--text2);color:var(--text2)}
+.confirm-ask{font-family:'Courier Prime',monospace;font-size:.65em;letter-spacing:2px;color:var(--muted);text-transform:uppercase;flex:0 0 auto}
+
+/* PERGAMENA RIEPILOGO */
+.pergamena{
+  background: linear-gradient(160deg, #2a1e0a 0%, #1e1508 40%, #2a1e0a 100%);
+  border: 1px solid #8a6830;
+  border-radius: 3px;
+  padding: 22px 20px;
+  margin: 14px 0;
+  position: relative;
+  box-shadow: inset 0 0 30px rgba(0,0,0,.5), 0 2px 12px rgba(0,0,0,.4);
+}
+.pergamena::before{
+  content:'';
+  position:absolute;top:6px;left:6px;right:6px;bottom:6px;
+  border:1px solid rgba(138,104,48,.25);
+  border-radius:2px;pointer-events:none;
+}
+.pergamena-title{
+  font-family:'Courier Prime',monospace;
+  font-size:.60em;letter-spacing:3px;text-transform:uppercase;
+  color:#8a6830;text-align:center;margin-bottom:14px;
+  border-bottom:1px solid rgba(138,104,48,.3);padding-bottom:10px;
+}
+.pergamena-item{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-size:.88em;
+  color:#d4b870;line-height:1.7;
+  padding: 4px 0;
+  border-bottom:1px solid rgba(138,104,48,.15);
+}
+.pergamena-item:last-child{border-bottom:none;}
+.pergamena-item::before{
+  content:'◆ ';
+  font-style:normal;font-size:.7em;
+  color:#8a6830;
+}
+.pergamena-empty{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;color:#504838;
+  font-size:.85em;text-align:center;padding:10px 0;
+}
+
+/* RESTART BUTTON */
+.restart-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  padding:8px 16px;
+  background:rgba(7,8,14,.92);
+  border-top:1px solid var(--border1);
+  display:flex;justify-content:flex-end;
+  z-index:50;
+}
+.restart-btn{
+  font-family:'Courier Prime',monospace;
+  font-size:.58em;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);background:none;border:none;cursor:pointer;
+  padding:4px 8px;
+  opacity:.5;
+  transition:opacity .15s;
+}
+.restart-btn:hover{opacity:1;color:var(--rtext);}
+</style>
+</head>
+<body><div class="restart-bar" style="display:flex;justify-content:space-between;align-items:center"><button class="restart-btn" id="back-btn" onclick="confirmBtn('back-btn','window.location.href=\'index.html\'')" style="opacity:.35">&#x2190; Indice</button><button class="restart-btn" id="restart-btn" onclick="confirmBtn('restart-btn','location.reload()')">&#x2715; Ricomincia</button></div>
+<div id="app"></div>
+<script>
+'use strict';
+
+
+// ── CONFIRM INLINE ───────────────────────────────────────────────
+function confirmBtn(btnId, action){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+  // Sostituisce il bottone con wrap conferma
+  const wrap = document.createElement('div');
+  wrap.className = 'btn-confirm-wrap';
+  wrap.innerHTML =
+    '<span class="confirm-ask">Sei sicuro?</span>' +
+    '<button class="btn-confirm-no" onclick="cancelConfirm(\''+btnId+'\',this.parentNode)">Annulla</button>' +
+    '<button class="btn-confirm-yes" onclick="playTap();'+action.replace(/'/g,"\'")+';this.parentNode.remove()">Conferma</button>';
+  btn.style.display='none';
+  btn.parentNode.insertBefore(wrap, btn.nextSibling);
+}
+function cancelConfirm(btnId, wrap){
+  playTap();
+  const btn=document.getElementById(btnId);
+  if(btn) btn.style.display='';
+  if(wrap) wrap.remove();
+}
+// ── CONFIRM HELPER (legacy) ─────────────────────────────────────────
+function askConfirm(triggerId, panelId, yesAction){
+  const btn = document.getElementById(triggerId);
+  const panel = document.getElementById(panelId);
+  if(btn) btn.style.display='none';
+  if(panel) panel.classList.add('visible');
+  window['confirm_yes_'+panelId] = function(){
+    playTap();
+    eval(yesAction);
+  };
+  window['confirm_no_'+panelId] = function(){
+    playTap();
+    if(panel) panel.classList.remove('visible');
+    if(btn) btn.style.display='';
+  };
+}
+
+
+
+// ══════════════════════════════════════════════
+//  SOLUZIONE FISSA
+// ══════════════════════════════════════════════
+const TRUE_THIEF  = 'jersey';
+const TRUE_DOC    = 'debt';
+const TRUE_MOTIVE = "Proteggere il Principe da un'umiliazione pubblica";
+
+// ══════════════════════════════════════════════
+//  STATO
+// ══════════════════════════════════════════════
+const G = {
+  players:  [],   // [{nome, clues:Set, moves:0, accusation:null}]
+  cur:      0,    // indice giocatore attivo
+  scene:    'title',
+  miniResult: false,  // true = successo minigame
+  faroPlayed: 0,      // quanti giocatori hanno giocato al Faro
+  faroWins:   [],     // risultati per indizio
+  listPlayed: 0,      // quanti giocatori hanno fatto la scena lista
+  pittInterrogator: -1,  // indice giocatore estratto per interrogare Pitt
+  pittAsked: false,      // se la domanda è stata fatta
+  ballPlayed: 0,         // giocatori che hanno fatto la scena ballo
+  ballInterrogator: -1,  // giocatore estratto per primo al ballo
+  interrogPlayed: 0,     // giocatori che hanno completato gli interrogatori
+  fitzAnswer: null,      // risposta collettiva su Fitzherbert
+  fitzDomanda: null,     // domanda scelta collettivamente
+  _confessioneDone: false,
+  _jerseyMuroDone: false,
+  soldatiReader: '',
+  foxReader: '',
+  corridoioReader: '',
+  sharedClues: new Set(), // indizi già condivisi con Pitt (non riproponibili)
+};
+
+// ══════════════════════════════════════════════
+//  DATI FISSI
+// ══════════════════════════════════════════════
+const SUSPECTS = [
+  {id:'wales',       name:'S.A.R. il Principe di Galles', role:'Erede al trono d\'Inghilterra'},
+  {id:'pitt',        name:'William Pitt il Giovane',      role:'Primo Ministro di Sua Maestà'},
+  {id:'fox',         name:'Charles James Fox',            role:'Leader dell\'Opposizione Whig'},
+  {id:'jersey',      name:'Lady Jersey',                  role:'Dama di corte — favorita del Principe'},
+  {id:'fitzherbert', name:'Mrs. Fitzherbert',             role:'Confidente del Principe di Galles'},
+  {id:'burke',       name:'Edmund Burke',                 role:'Filosofo e deputato Whig'},
+];
+
+const MOTIVES = {
+  wales:       [
+    "Distruggere la prova di un debito insolvibile",
+    "Prevenire uno scandalo prima del voto parlamentare",
+    "Recuperare un documento firmato sotto pressione",
+  ],
+  pitt:        [
+    "Usare il debito come leva politica sul Principe",
+    "Impedire che il documento venisse usato contro il governo in Parlamento",
+    "Proteggere la stabilità della Corona da uno scandalo",
+  ],
+  fox:         [
+    "Usare il documento come arma in Parlamento",
+    "Ricattare la corte per finanziare il partito",
+    "Smascherare la corruzione del governo Pitt",
+  ],
+  jersey:      [
+    "Proteggere il Principe da un'umiliazione pubblica",
+    "Mantenere la propria posizione di favorita a corte",
+    "Impedire che il documento raggiungesse i creditori",
+  ],
+  fitzherbert: [
+    "Difendere il Principe da una crisi matrimoniale",
+    "Nascondere la prova di un legame segreto",
+    "Cedere il documento a un emissario straniero",
+  ],
+  burke:       [
+    "Ricattare il Principe e Fitzherbert sul matrimonio segreto del 1785",
+    "Vendere il documento all'emissario francese tramite Fitzherbert",
+    "Usarlo come leva politica personale contro la Corona",
+  ],
+};
+
+const CLUES_LBL = {
+  c_guanto:       'Guanto di seta avorio — corridoio est, taglia femminile',
+  c_cera:         'Sigillo di cera rossa — stemma non identificato',
+  c_chiave:       'Chiave duplicata delle anticamere private',
+  c_carrozza:     'Carrozza coperta ripartita vuota — ore 18:30',
+  c_agenda:       'Appuntamento cancellato — data del furto',
+  c_ink:          'Macchia di inchiostro fresco — sala ritratti',
+  c_lettera_j:    'Appuntamento cancellato — iniziale «J.»',
+  c_voce:         'Testimonianza: voce femminile nel corridoio est',
+  c_debitore:     'Nome cancellato nel registro debiti',
+  c_fiocco:       'Nastro di seta sul davanzale — colore Carlton House',
+  c_finestra:     'Finestra forzata dall\'interno',
+  c_ora:          'Figura vista alle 18:00 — corridoio est',
+  c_corridoio:    'Figura vista vicino agli appartamenti — prima dell\'allerta',
+  c_mantello:     'Oggetto piatto nascosto sotto il mantello',
+  c_fox_guanto:   'Fox — guanto avorio avvistato nel corridoio',
+  c_firma:         'Firma parziale sul tavolo — grafia maschile, affrettata',
+  c_fox_uscita:   'Fox visto uscire di fretta — uscita secondaria',
+  c_wales_nome:   'Il Principe mormora un nome — non distinguibile',
+  c_wales_jersey: 'Il Principe mormora un nome — sembra «Jersey»',
+  c_caminetto:    'Frammento bruciato nel caminetto — cifre parziali',
+  c_registro:     'Frammento bruciato — formato registro di pagamenti',
+  c_coltello:     'Coltello trovato accanto a Burke — Fitzherbert inginocchiata vicino',
+  c_chiave_fiz:   'Fitzherbert: chiave perduta — copia non autorizzata delle anticamere',
+  c_sigillo_jersey:'Fitzherbert: sigillo rosso è di Lady Jersey — corrispondenza privata',
+  c_fiz_corridoio: 'Fitzherbert: passi nel corridoio est — tarda notte',
+  c_fox_studio:    'Fox sapeva che la chiave delle anticamere apriva anche lo studio privato',
+  c_fiz_emissario: 'Fitzherbert: niente da dare all\'emissario francese — cosa intendeva?',
+  c_appunto_burke: 'Appunto di Burke — matrimonio segreto, Principe e Fitzherbert, 1785',
+  c_doc_segreto:   'Sergente: il documento contiene prove del matrimonio segreto del 1785',
+  c_pitt_commento: 'Pitt: Fitzherbert sapeva da anni — e il Principe lo lasciava fare',
+  c_frammento:    'Frammento di lettera bruciata — parole parziali',
+};
+
+
+// ══════════════════════════════════════════════
+//  MINIGAME CONFIG
+// ══════════════════════════════════════════════
+// Indice corrisponde a G.cur % 4
+
+// ══════════════════════════════════════════════
+//  DESCRIZIONI SOSPETTATI (lista regia)
+// ══════════════════════════════════════════════
+// Pitt non compare — convoca lui stesso la scena
+const SUSPECTS_DESC = {
+  wales: {
+    nome: 'S.A.R. il Principe di Galles',
+    ruolo: 'Erede al trono d\'Inghilterra',
+    desc: 'Noto per vita dissoluta e debiti considerevoli. Frequenta Carlton House lontano dagli occhi del Re. Gode di accesso illimitato a St. James\'s Palace e conosce ogni corridoio.'
+  },
+  fox: {
+    nome: 'Charles James Fox',
+    ruolo: 'Leader dell\'Opposizione Whig',
+    desc: 'Avversario dichiarato del Primo Ministro. Giocatore compulsivo, spesso presente nelle sale del palazzo fino a tarda notte. Conosce molte persone che non dovrebbe conoscere.'
+  },
+  jersey: {
+    nome: 'Lady Jersey',
+    ruolo: 'Dama di corte — favorita del Principe',
+    desc: 'Si muove con disinvoltura tra gli appartamenti privati. Ambiziosa, discreta quando serve, visibile quando conviene. Il suo accesso al palazzo è praticamente illimitato.'
+  },
+  fitzherbert: {
+    nome: 'Mrs. Fitzherbert',
+    ruolo: 'Confidente del Principe di Galles',
+    desc: 'Legata al Principe da un vincolo che la Corte non riconosce ufficialmente. Sa cose che nessun altro sa. Fedele — ma a chi, esattamente, non è del tutto chiaro.'
+  },
+  burke: {
+    nome: 'Edmund Burke',
+    ruolo: 'Filosofo e deputato Whig',
+    desc: 'Uomo di principi dichiarati. Ma i principi, se abbastanza forti, giustificano qualunque mezzo. Era presente al palazzo quella sera per ragioni non del tutto chiarite.'
+  }
+};
+
+// Lista parziale: 3 dei 5 — i più politici, omette Jersey e Fitzherbert
+const SUSPECTS_DESC_PARTIAL = ['wales','fox','burke'];
+const MINIGAME_CFG = [
+  { // giocatore 0 — serratura
+    emoji: '🔑',
+    titolo: 'La serratura',
+    desc: 'Pitt e Fox discutono animatamente. Per un attimo entrambi si voltano verso la finestra. Il davanzale — là, sotto il tendaggio pesante — è a portata di mano. Avete un solo istante prima che si rigirino.',
+    btnLabel: 'Agire',
+  },
+  { // giocatore 1 — bicchiere
+    emoji: '👁',
+    titolo: 'Lo sguardo',
+    desc: 'Pitt è in piedi davanti alla finestra, di spalle. Sulla scrivania, un\'agenda aperta. Avete pochi secondi prima che si rigiri — dovete aspettare il momento esatto in cui si sporge verso il vetro e non può vedervi.',
+    btnLabel: 'Guardare',
+  },
+  { // giocatore 2 — serratura
+    emoji: '🔑',
+    titolo: 'La serratura',
+    desc: 'Fox si allontana per un momento verso l\'altra estremità della galleria. Vicino a voi, un piccolo cabinet di mogano — chiuso a chiave. Fox vi aveva gettato uno sguardo nervoso prima di girarsi. Il grimaldello è già in mano: serve il momento giusto.',
+    btnLabel: 'Fare leva',
+  },
+  { // giocatore 3 — bicchiere
+    emoji: '🥃',
+    titolo: 'Il bicchiere',
+    desc: 'Nella sala oltre la galleria ovest, qualcuno sta discutendo a voce bassa. Il muro è spesso, ma il bicchiere appoggiate alla parete fa il suo lavoro. La conversazione è a tratti — lunghi silenzi, poi brevi raffiche di parole. Dovete cogliere il momento in cui una voce si avvicina.',
+    btnLabel: 'Tenere fermo',
+  },
+];
+
+function doMiniGame(targetScene){
+  const cfg = MINIGAME_CFG[G.cur % 4];
+  const zoneStart = 30 + (G.cur * 11) % 28;
+  const zoneWidth = 14 + (G.cur * 3) % 8;
+  const baseSpeed = 0.88 + (G.cur % 2) * 0.12; // -20% rispetto a prima
+
+  // ── Schermata di preavviso ─────────────────
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">${cfg.emoji} ${cfg.titolo}</div>
+    <div class="fase-priv" style="margin-bottom:20px">
+      <span class="fase-lbl">🔒 Solo per te</span>
+      <div class="s-body">
+        <p>${cfg.desc}</p>
+      </div>
+    </div>
+    <div class="info-box" style="font-size:.80em;margin-bottom:22px">
+      <strong>Come funziona:</strong> una barra scorrerà da sinistra a destra e tornerà indietro.
+      Premi <em>${cfg.btnLabel}</em> quando il cursore si trova nella
+      <span style="color:var(--gold)">zona dorata</span>.
+      Troppo presto o troppo tardi — e l'occasione è persa.
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();startMiniGame()">Sono pronto →</button>
+    </div>
+  </div>`);
+
+  // ── Avvio effettivo (chiamato dal bottone) ─
+  window.startMiniGame = function(){
+    let pos = 0, dir = 1, rafId = null, done = false, bounces = 0;
+    render(`<div>
+      ${renderProgress()}
+      <div class="player-tag">Turno di <span>${P().nome}</span></div>
+      <div class="s-hdr">${cfg.emoji} ${cfg.titolo}</div>
+      <div class="mg-wrap">
+        <span class="mg-emoji">${cfg.emoji}</span>
+        <div class="mg-title">${cfg.titolo}</div>
+        <div class="mg-track" id="mg-track">
+          <div class="mg-zone" id="mg-zone"
+            style="left:${zoneStart}%;width:${zoneWidth}%"></div>
+          <div class="mg-cursor" id="mg-cursor"></div>
+        </div>
+        <button class="mg-btn" id="mg-btn" onclick="mgPress()">${cfg.btnLabel}</button>
+        <div class="mg-result" id="mg-result" style="display:none"></div>
+      </div>
+    </div>`);
+
+    // Avvia animazione
+    let lastT = null;
+    function animate(t){
+      if(done) return;
+      if(!lastT) lastT = t;
+      const dt = (t - lastT) / 1000;
+      lastT = t;
+      const curSpeed = Math.min(baseSpeed * 2.2, baseSpeed * (1 + bounces * 0.25)); // accelera, cap a 2.2x
+      pos += dir * curSpeed * dt * 100;
+      if(pos >= 96){ pos = 96; dir = -1; bounces++; }
+      if(pos <= 0){  pos = 0;  dir =  1; bounces++; }
+      const el = document.getElementById('mg-cursor');
+      if(el) el.style.left = pos + '%';
+      rafId = requestAnimationFrame(animate);
+    }
+    rafId = requestAnimationFrame(animate);
+
+    window.mgPress = function(){
+      if(done) return;
+      done = true;
+      cancelAnimationFrame(rafId);
+      const hit = (pos >= zoneStart && pos <= zoneStart + zoneWidth);
+      G.miniResult = hit;
+      playTap();
+      const resEl = document.getElementById('mg-result');
+      const btn   = document.getElementById('mg-btn');
+      if(btn) btn.disabled = true;
+      if(resEl){
+        resEl.style.display = 'block';
+        if(hit){
+          resEl.className = 'mg-result ok';
+          resEl.textContent = '✓ Riuscito — procedete';
+        } else {
+          resEl.className = 'mg-result ko';
+          resEl.textContent = '✗ Mancato — ma non vi arrendete';
+        }
+      }
+      setTimeout(()=>go(targetScene), 1400);
+    };
+  }; // fine startMiniGame
+}
+
+// ══════════════════════════════════════════════
+//  AUDIO
+// ══════════════════════════════════════════════
+let audioOn=true, actx=null;
+let ambNodes=[], ambToken={alive:false}, ambPhrase=0;
+
+// ── MELODIA GLOBALE PERSISTENTE ───────────────
+let melPlaying=false, melNextTime=0, melNoteIdx=0, melTimer=null;
+
+const BPM=72, BEAT=60/72;
+const G2=196,D2=146.8,C2=130.8,A2=220,E2=164.8,B2=246.9;
+const G3=196,A3=220,B3=247,C4=261.6,D4=293.7,E4=329.6,Fs4=370,G4=392;
+const G5=784,Fs5=740,E5=659.3,D5=587.3,C5=523.3,B4=493.9,A4=440,G4b=392;
+
+const THEME_A=[
+  [G4b,G2,1],[E4,G2,1],[D4,G2,1],[E4,G2,1],
+  [Fs4,D2,1],[D4,D2,1],[E4,D2,1],[Fs4,D2,1],
+  [G4b,G2,1],[B4,G2,0.5],[A4,G2,0.5],[G4b,G2,1],[E4,G2,1],
+  [D4,C2,2],[D4,D2,2],
+  [E5,G2,1],[D5,G2,1],[C5,G2,1],[B4,G2,1],
+  [A4,A2,1],[C5,A2,1],[B4,A2,1],[A4,A2,1],
+  [G4b,D2,1],[Fs4,D2,1],[E4,D2,0.5],[Fs4,D2,0.5],[G4b,D2,1],
+  [D4,G2,1],[B3,G2,1],[G3,G2,2],
+];
+const THEME_B=[
+  [B4,G2,0.5],[C5,G2,0.5],[B4,G2,0.5],[A4,G2,0.5],[G4b,G2,1],[E4,G2,1],
+  [Fs4,D2,0.5],[G4b,D2,0.5],[A4,D2,0.5],[G4b,D2,0.5],[Fs4,D2,2],
+  [E5,E2,1],[Fs5,E2,0.5],[E5,E2,0.5],[D5,G2,1],[C5,G2,1],
+  [B4,G2,0.5],[A4,E2,0.5],[G4b,D2,0.5],[Fs4,D2,0.5],[G4b,G2,2],
+  [G4b,G2,1],[E4,G2,1],[D4,G2,1],[E4,G2,1],
+  [Fs4,D2,1],[E4,A2,1],[D4,D2,1],[C4,G2,1],
+  [B3,G2,0.5],[C4,G2,0.5],[D4,G2,0.5],[E4,G2,0.5],[Fs4,D2,2],
+  [G4b,G2,1],[Fs4,D2,0.5],[E4,D2,0.5],[D4,G2,1],[G3,G2,1],
+];
+const MEL_SEQ=[...THEME_A,...THEME_A,...THEME_B,...THEME_A];
+
+function harp(freq,time,vol=0.22){
+  const ctx=getACtx();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  const filter=ctx.createBiquadFilter();
+  filter.type='lowpass';
+  filter.frequency.setValueAtTime(3200,time);
+  filter.Q.value=0.5;
+  osc.type='sawtooth';
+  osc.frequency.setValueAtTime(freq,time);
+  gain.gain.setValueAtTime(0,time);
+  gain.gain.linearRampToValueAtTime(vol,time+0.015);
+  gain.gain.exponentialRampToValueAtTime(vol*0.35,time+0.07);
+  gain.gain.exponentialRampToValueAtTime(0.0001,time+0.30);
+  osc.connect(filter); filter.connect(gain); gain.connect(ctx.destination);
+  osc.start(time); osc.stop(time+0.34);
+}
+function bassN(freq,time,dur,vol=0.055){
+  const ctx=getACtx();
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.type='triangle';
+  osc.frequency.setValueAtTime(freq,time);
+  gain.gain.setValueAtTime(0,time);
+  gain.gain.linearRampToValueAtTime(vol,time+0.08);
+  gain.gain.setValueAtTime(vol,time+dur-0.1);
+  gain.gain.linearRampToValueAtTime(0,time+dur);
+  osc.connect(gain); gain.connect(ctx.destination);
+  osc.start(time); osc.stop(time+dur+0.05);
+}
+function melSchedule(){
+  if(!melPlaying||!audioOn) return;
+  const ctx=getACtx(), now=ctx.currentTime;
+  while(melNextTime < now+0.1){
+    const [mel,bass,beats]=MEL_SEQ[melNoteIdx%MEL_SEQ.length];
+    const dur=beats*BEAT;
+    harp(mel,melNextTime);
+    bassN(bass,melNextTime,dur*0.9);
+    if(beats>=1&&Math.random()>0.75){
+      const upper=mel*Math.pow(2,2/12);
+      harp(upper,melNextTime+0.04,0.08);
+      harp(mel,melNextTime+0.10,0.12);
+    }
+    melNextTime+=dur;
+    melNoteIdx++;
+  }
+  melTimer=setTimeout(melSchedule,50);
+}
+function startMelody(){
+  if(melPlaying) return;
+  const ctx=getACtx();
+  if(ctx.state==='suspended') ctx.resume();
+  melPlaying=true;
+  melNextTime=ctx.currentTime+0.2;
+  melSchedule();
+}
+function pauseMelody(){
+  melPlaying=false;
+  clearTimeout(melTimer);
+}
+function resumeMelody(){
+  if(!audioOn) return;
+  if(!melPlaying){
+    melPlaying=true;
+    const ctx=getACtx();
+    melNextTime=ctx.currentTime+0.1;
+    melSchedule();
+  }
+}
+
+function getACtx(){
+  if(!actx) actx=new(window.AudioContext||window.webkitAudioContext)();
+  if(actx.state==='suspended') actx.resume();
+  return actx;
+}
+function mNote(a,f,v,start,dur,type='triangle'){
+  const o=a.createOscillator(),g=a.createGain();
+  o.type=type; o.frequency.value=f;
+  o.connect(g); g.connect(a.destination);
+  g.gain.setValueAtTime(0,start);
+  g.gain.linearRampToValueAtTime(v,start+Math.min(.08,dur*.25));
+  g.gain.setValueAtTime(v,start+dur*.55);
+  g.gain.linearRampToValueAtTime(0,start+dur);
+  o.start(start); o.stop(start+dur+.05);
+  ambNodes.push(o);
+}
+function stopAmb(){
+  ambToken.alive=false;
+  ambNodes.forEach(n=>{try{n.stop();}catch(e){}});
+  ambNodes=[]; ambPhrase=0;
+}
+function loopCourt(tok){
+  if(!tok.alive||!audioOn) return;
+  const a=getACtx(),t=a.currentTime;
+  const ph=[
+    [[330,.22,.18],[392,.18,.15],[440,.24,.20],[392,.16,.28],[349,.20,.35],[330,.14,.50]],
+    [[293,.20,.22],[330,.18,.18],[369,.22,.20],null,[330,.16,.30],[293,.20,.40],[261,.14,.55]],
+    [[440,.18,.14],[494,.16,.12],[523,.20,.18],null,null,[440,.18,.28],[392,.16,.40],[349,.12,.55]],
+    [null,[330,.16,.25],null,[349,.14,.20],[369,.18,.30],null,[330,.16,.50],[293,.12,.65]],
+  ][ambPhrase%4];
+  let off=0;
+  ph.forEach(n=>{
+    if(n){const[f,v,d]=n; mNote(a,f,v,t+off,d,'triangle'); if(Math.random()>.72) mNote(a,f*.5,.07,t+off+.03,d*.7,'sine');}
+    off+=.42+Math.random()*.28;
+  });
+  ambPhrase++;
+  setTimeout(()=>loopCourt(tok),(off+.8+Math.random()*1.4)*1000);
+}
+function loopTension(tok){
+  if(!tok.alive||!audioOn) return;
+  const a=getACtx(),t=a.currentTime;
+  const ph=[[
+    [220,.30,.16],[246,.26,.14],[261,.22,.18],[277,.34,.26],[261,.20,.18],[246,.16,.16]],
+    [[246,.28,.12],[246,.22,.10],[246,.18,.10],null,[220,.30,.28],[196,.18,.40]],
+    [null,[233,.26,.40],null,null,[220,.22,.50],null,[207,.14,.65]],
+  ][ambPhrase%3];
+  let off=0;
+  ph.forEach((n,i)=>{
+    if(n){const[f,v,d]=n; mNote(a,f,v,t+off,d,'sawtooth');}
+    if(i===0){
+      const o=a.createOscillator(),g=a.createGain();
+      o.type='sine'; o.frequency.value=110;
+      o.frequency.exponentialRampToValueAtTime(55,t+off+.18);
+      o.connect(g); g.connect(a.destination);
+      g.gain.setValueAtTime(.45,t+off);
+      g.gain.exponentialRampToValueAtTime(.001,t+off+.22);
+      o.start(t+off); o.stop(t+off+.24); ambNodes.push(o);
+    }
+    off+=ambPhrase%3===2?.52:.22;
+  });
+  ambPhrase++;
+  setTimeout(()=>loopTension(tok),(off+.5+Math.random()*.9)*1000);
+}
+function loopSetup(tok){
+  if(!tok.alive||!audioOn) return;
+  const a=getACtx(),t=a.currentTime;
+  const mel=[[440,494,523,494,440,392,440],[392,440,494,0,440,392,349,392],[523,494,440,0,392,440,494,523]][ambPhrase%3];
+  let off=0;
+  mel.forEach(f=>{
+    if(f>0) mNote(a,f,.14+Math.random()*.05,t+off,.30+Math.random()*.12,'triangle');
+    off+=.46+Math.random()*.18;
+  });
+  ambPhrase++;
+  setTimeout(()=>loopSetup(tok),(off+1.2+Math.random()*.8)*1000);
+}
+function _startAmb(type){
+    if(!audioOn) return;
+  const tok=ambToken={alive:true}; ambPhrase=0;
+  if(type==='court')   setTimeout(()=>loopCourt(tok),200);
+  else if(type==='tension') setTimeout(()=>loopTension(tok),150);
+  else if(type==='setup')   setTimeout(()=>loopSetup(tok),300);
+}
+function startAmb(type){
+  if(!audioOn) return;
+  const a=getACtx();
+  if(a.state==='suspended') a.resume().then(()=>_startAmb(type));
+  else _startAmb(type);
+}
+
+// ── IMPATTO SOLDATI ───────────────────────────────────────────────
+function playSoldatiImpact(){
+  if(!audioOn) return;
+  try{
+    const a=getACtx(), t=a.currentTime+0.3;
+    // Colpo grave — basso percussivo
+    const o1=a.createOscillator(), g1=a.createGain();
+    o1.type='sine'; o1.frequency.setValueAtTime(80,t);
+    o1.frequency.exponentialRampToValueAtTime(30,t+0.4);
+    g1.gain.setValueAtTime(0,t); g1.gain.linearRampToValueAtTime(0.7,t+0.01);
+    g1.gain.exponentialRampToValueAtTime(0.001,t+0.45);
+    o1.connect(g1); g1.connect(a.destination);
+    o1.start(t); o1.stop(t+0.5);
+    // Rumore bianco breve sopra
+    const buf=a.createBuffer(1,a.sampleRate*0.12,a.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+    const src=a.createBufferSource(), g2=a.createGain();
+    const f=a.createBiquadFilter();
+    f.type='lowpass'; f.frequency.value=400;
+    src.buffer=buf; src.connect(f); f.connect(g2); g2.connect(a.destination);
+    g2.gain.setValueAtTime(0.5,t); g2.gain.exponentialRampToValueAtTime(0.001,t+0.12);
+    src.start(t);
+    // Secondo colpo più leggero dopo 0.6s
+    const o2=a.createOscillator(), g3=a.createGain();
+    o2.type='sine'; o2.frequency.setValueAtTime(60,t+0.65);
+    o2.frequency.exponentialRampToValueAtTime(25,t+0.95);
+    g3.gain.setValueAtTime(0,t+0.65); g3.gain.linearRampToValueAtTime(0.35,t+0.66);
+    g3.gain.exponentialRampToValueAtTime(0.001,t+0.95);
+    o2.connect(g3); g3.connect(a.destination);
+    o2.start(t+0.65); o2.stop(t+1.0);
+  }catch(e){}
+}
+function playTap(){
+  if(!audioOn) return;
+  try{
+    const a=getACtx(), t=a.currentTime;
+    // Rumore impulsivo breve — simula click fisico
+    const buf=a.createBuffer(1,a.sampleRate*0.04,a.sampleRate);
+    const data=buf.getChannelData(0);
+    for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,3);
+    const src=a.createBufferSource();
+    const g=a.createGain();
+    const f=a.createBiquadFilter();
+    f.type='bandpass'; f.frequency.value=1800; f.Q.value=0.8;
+    src.buffer=buf;
+    src.connect(f); f.connect(g); g.connect(a.destination);
+    g.gain.setValueAtTime(0.18,t);
+    g.gain.exponentialRampToValueAtTime(0.001,t+0.04);
+    src.start(t);
+  }catch(e){}
+}
+function playReveal(){
+  if(!audioOn) return;
+  try{const a=getACtx();
+    [0,90,180].forEach((d,i)=>{
+      const o=a.createOscillator(),g=a.createGain();
+      o.connect(g);g.connect(a.destination);
+      o.type='triangle';
+      o.frequency.setValueAtTime([330,440,554][i],a.currentTime+d/1000);
+      g.gain.setValueAtTime(0,a.currentTime+d/1000);
+      g.gain.linearRampToValueAtTime(.10,a.currentTime+d/1000+.05);
+      g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d/1000+.45);
+      o.start(a.currentTime+d/1000); o.stop(a.currentTime+d/1000+.5);
+    });}catch(e){}
+}
+function toggleSound(){
+  audioOn=!audioOn;
+  document.getElementById('snd-btn').textContent=audioOn?'🔊':'🔇';
+  if(!audioOn){ stopAmb(); pauseMelody(); } else { resumeMelody(); }
+}
+window.addEventListener('beforeunload',stopAmb);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAmb();});
+
+// ══════════════════════════════════════════════
+//  HELPERS
+// ══════════════════════════════════════════════
+const app=document.getElementById('app');
+function P(){return G.players[G.cur];}
+function addClue(key){P().clues.add(key);}
+
+function render(html){
+  app.innerHTML=html; window.scrollTo({top:0,behavior:'smooth'});
+  if(!document.getElementById('snd-btn')){
+    const b=document.createElement('button');
+    b.id='snd-btn';b.title='Suono on/off';b.textContent='🔊';b.onclick=toggleSound;
+    document.body.appendChild(b);
+  }
+}
+
+function showSplash(emoji,label,ms,cb){
+  const el=document.createElement('div');
+  el.className='splash';
+  el.innerHTML=`<div class="splash-emoji">${emoji}</div><div class="splash-label">${label}</div>`;
+  document.body.appendChild(el);
+  setTimeout(()=>{el.remove();if(cb)cb();},ms||2000);
+}
+
+function revealPriv(id){
+  const el=document.getElementById(id);
+  if(el){el.classList.add('shown');playReveal();}
+  const h=document.getElementById('hint-'+id);
+  if(h) h.style.display='none';
+}
+
+function renderClues(){
+  const keys=[...P().clues];
+  if(!keys.length) return '';
+  return `<div class="clues-bar">Prove in tuo possesso: ${keys.map(k=>`<span class="clue">${CLUES_LBL[k]||k}</span>`).join('')}</div>`;
+}
+
+function renderProgress(){
+  const n=G.players.length;
+  const dots=G.players.map((_,i)=>`<div class="prog-dot ${i<G.cur?'done':i===G.cur?'active':''}"></div>`).join('');
+  return `<div class="progress-bar">${dots}<span class="prog-lbl">Turno ${G.cur+1} di ${n}</span></div>`;
+}
+
+// ══════════════════════════════════════════════
+//  PUNTEGGIO
+// ══════════════════════════════════════════════
+function calcScore(p){
+  if(!p.accusation) return 0;
+  let s=0;
+  if(p.accusation.suspect===TRUE_THIEF)  s+=20;
+  if(p.accusation.motive ===TRUE_MOTIVE) s+=10;
+  s+=p.clues.size*7;
+  return Math.max(0,s);
+}
+
+// ══════════════════════════════════════════════
+//  ROUTING
+// ══════════════════════════════════════════════
+// Ogni giocatore ha la sua scena: 0→s1, 1→s2, 2→s3, 3→s4
+// Dopo la fase privata: se ci sono altri giocatori → pass screen
+// Dopo l'ultimo giocatore → fase accuse
+
+function afterPrivate(){
+  // Tutti i giocatori hanno completato la loro scena?
+  if(G.cur >= G.players.length-1){
+    // Inizia giro accuse
+    G.cur=0;
+    G.listPlayed=0;
+    showSplash('📜','Pitt vi convoca.',1600,()=>go('list_intro'));
+  } else {
+    G.cur++;
+    go('pass');
+  }
+}
+
+function go(scene){
+  G.scene=scene;
+  if(scene==='title')   doTitle();
+  else if(scene==='istruzioni') doIstruzioni();
+  else if(scene==='setup')   doSetup();
+  else if(scene==='intro')      doIntro();
+  else if(scene==='tavolo')       doTavolo();
+  else if(scene==='faro_intro')  doFaroIntro();
+  else if(scene==='faro_pass')   doFaroPass();
+  else if(scene==='faro_play')   doFaroPlay();
+  else if(scene==='s1_pub')  doS1Pub();
+  else if(scene==='s1_priv') doS1Priv();
+  else if(scene==='s2_pub')  doS2Pub();
+  else if(scene==='s2_priv') doS2Priv();
+  else if(scene==='s3_pub')  doS3Pub();
+  else if(scene==='s3_priv') doS3Priv();
+  else if(scene==='s4_pub')  doS4Pub();
+  else if(scene==='s4_priv') doS4Priv();
+  else if(scene==='list_intro') doListIntro();
+  else if(scene==='list_pass')  doListPass();
+  else if(scene==='list_play')  doListPlay();
+  else if(scene==='ball_intro')  doBallIntro();
+  else if(scene==='ball_d1')     doBallD1();
+  else if(scene==='ball_d2')     doBallD2();
+  else if(scene==='ball_pass')   doBallPass();
+  else if(scene==='ball_play')      doBallPlay();
+  else if(scene==='interrog_intro') doInterrogIntro();
+  else if(scene==='interrog_pass')  doInterrogPass();
+  else if(scene==='interrog_select')doInterrogSelect();
+  else if(scene==='interrog_scene') doInterrogScene();
+  else if(scene==='colpo')           doColpo();
+  else if(scene==='colpo2')          doColpo2();
+  else if(scene==='soldati')         doSoldati();
+  else if(scene==='fiz_interrog')    doFizInterrog();
+  else if(scene==='fiz_domande')     doFizDomande();
+  else if(scene==='fiz_risposta')    doFizRisposta();
+  else if(scene==='fox_entra')       doFoxEntra();
+  else if(scene==='corridoio')       doCorridoio();
+  else if(scene==='appunto')         doAppunto();
+  else if(scene==='sergente')        doSergente();
+  else if(scene==='serg_verita')     doSergVerita();
+  else if(scene==='alba_scena')      doAlbaScena();
+  else if(scene==='serg_bugia')      doSergBugia();
+  else if(scene==='fine_fiz1')       doFineFiz1();
+  else if(scene==='fine_fiz2')       doFineFiz2();
+  else if(scene==='fine_fiz3')       doFineFiz3();
+  else if(scene==='nota_storica')    doNotaStorica();
+  else if(scene==='fine_fiz4')       doFineFiz4();
+  else if(scene==='fine_fiz5')       doFineFiz5();
+  else if(scene==='pass')    doPass();
+  else if(scene==='riepilogo') doRiepilogo();
+  else if(scene==='accuse')  doAccuse();
+  else if(scene==='confessione') doConfessione();
+  else if(scene==='jersey_muro') doJerseyMuro();
+  else if(scene==='final')   doFinal();
+}
+
+// La scena giusta per il giocatore corrente
+function goMyScene(){
+  const scenes=['s1_pub','s2_pub','s3_pub','s4_pub'];
+  go(scenes[G.cur]||'s1_pub');
+}
+
+
+// ══════════════════════════════════════════════
+//  FARO — SCENA CON FOX
+// ══════════════════════════════════════════════
+const FARO_RANKS = ['2','3','4','5','6','7','8','9','10','J','Q','K','A'];
+
+const FARO_SUITS = {
+  '2':'♠','3':'♥','4':'♦','5':'♣',
+  '6':'♠','7':'♥','8':'♦','9':'♣',
+  '10':'♠','J':'♥','Q':'♦','K':'♣','A':'♠'
+};
+const FARO_RED = {'3':1,'4':1,'7':1,'8':1,'J':1,'Q':1};
+
+
+function drawFaro(chosen){
+  // Pesca due ranghi distinti a caso
+  const pool=[...FARO_RANKS];
+  const li=Math.floor(Math.random()*pool.length);
+  const loser=pool.splice(li,1)[0];
+  const wi=Math.floor(Math.random()*pool.length);
+  const winner=pool.splice(wi,1)[0];
+  if(chosen===winner) return 'win';
+  if(chosen===loser)  return 'lose';
+  return 'neutral'; // bet stands
+}
+
+
+// ══════════════════════════════════════════════
+//  SCENA TAVOLO — FOX E PITT PRIMA DEL FARO
+// ══════════════════════════════════════════════
+function doTavolo(){
+  render(`<div>
+    <div class="s-hdr">📢 Sala da gioco — ore 19:45</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Quando entrate nella sala,
+        <span class="hl">Fox</span> e
+        <span class="hl">Pitt</span>
+        sono già al tavolo.</p>
+
+        <p>Non è insolito vederli nello stesso posto —
+        è insolito vederli seduti uno di fronte all'altro
+        senza che ci sia un banco del Parlamento in mezzo.
+        Sul tavolo: un mazzo, due pile di markers,
+        un candeliere quasi consumato.</p>
+
+        <p>Fox ha appena vinto una mano.
+        Lo si capisce dalla posizione delle pile
+        e dall'espressione di Pitt —
+        quella di chi ha perso qualcosa
+        e sta decidendo se importargliene.</p>
+
+        <p>Fox raccoglie i markers con la lentezza
+        di chi vuole essere visto farlo.
+        <em>«Un'altra?»</em></p>
+
+        <p>Pitt non risponde subito.
+        Si alza. Sistema la giacca.
+        Lascia i suoi markers sul tavolo —
+        non li raccoglie, non li conta.
+        Il gesto di chi non ha bisogno
+        di portarsi via i resti.</p>
+
+        <p>Poi, già voltato verso la porta:</p>
+
+        <p><em>«I vostri debiti vi seppelliranno
+        prima di quelli del Principe.»</em></p>
+
+        <p>Esce senza aspettare risposta.</p>
+
+        <p>Fox lo guarda andare.
+        Per un momento — uno solo —
+        smette di sorridere.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__faro_intro__" onclick="confirmBtn('btn_nav_go__faro_intro__','go(\\\'faro_intro\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doFaroIntro(){
+  // Reset contatore — tutti devono giocare
+  G.faroPlayed=0; G.faroWins=[];
+  G.cur=0;
+  render(`<div>
+    <div class="s-hdr">📢 Sala dei giochi — Charles James Fox</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Vi trovate tutti insieme quando <span class="hl">Charles James Fox</span>
+        vi si avvicina con quella disinvoltura teatrale che usa
+        quando vuole qualcosa. Un sorriso. Un gesto verso il tavolo verde
+        in fondo alla sala.</p>
+        <p><em>&#xAB;${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()} &#x2014; ho visto qualcosa stasera. Qualcosa che vi interessa,
+        ne sono certo.»</em> Una pausa. <em>«Ma io non parlo
+        per niente. Giocate con me — ognuno di voi, un turno.
+        Chi vince, sente di più. Chi perde... sente lo stesso,
+        ma meno chiaramente.»</em></p>
+        <p>Fox si siede. Mischia le carte con la velocità
+        di chi le ha tenute in mano tutta la vita.
+        <em>«Chi è il primo?»</em></p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__faro_pass__" onclick="confirmBtn('btn_nav_go__faro_pass__','go(\\\'faro_pass\\\')')"">Al tavolo →</button>
+    </div>
+  </div>`);
+}
+
+function doFaroPass(){
+    render(`<div>
+    <div class="pass-screen">
+      <span class="pass-icon">🃏</span>
+      <div class="pass-name">${P().nome}</div>
+      <div class="pass-sub">Al tavolo con Fox</div>
+      <div class="s-body" style="text-align:center;font-size:.85em;margin-bottom:28px">
+        <p class="dim">Passa il dispositivo.<br>Gli altri non devono guardare.</p>
+      </div>
+      <button class="btn-g" id="btn_nav_go__faro_play__" onclick="confirmBtn('btn_nav_go__faro_play__','go(\\\'faro_play\\\')')"">Sedersi al tavolo →</button>
+    </div>
+  </div>`);
+}
+
+function doFaroPlay(){
+  let chosen=null;
+
+  render(`<div>
+    <div class="player-tag">Al tavolo: <span>${P().nome}</span></div>
+    <div class="s-hdr">🃏 Faro — il tuo turno</div>
+    <div class="fase-pub" style="margin-bottom:20px">
+      <span class="fase-lbl">◆ Solo per te</span>
+      <div class="s-body">
+        <p>Fox dispone le carte sul tavolo.
+        Vi fissa con quell'aria di chi sa già come andrà a finire.
+        <em>&#xAB;${P().nome} &#x2014; scegliete un rango. Una carta sola. Poi vediamo.&#xBB;</em></p>
+      </div>
+    </div>
+    <div class="info-box" style="font-size:.80em;margin-bottom:18px">
+      <strong>Come funziona:</strong> Fox pesca due carte —
+      la prima è la carta <em>perdente</em>, la seconda è la carta <em>vincente</em>.<br>
+      Se il rango che hai scelto esce <strong>secondo</strong> → hai vinto.<br>
+      Se esce <strong>primo</strong> → hai perso.<br>
+      Se non esce → esito neutro, la puntata resta.
+    </div>
+    <div class="faro-grid" id="rank-grid">
+      ${FARO_RANKS.map(r=>`
+        <button class="faro-card${FARO_RED[r]?' fc-red':''}" id="rk-${r}"
+          onclick="pickRank('${r}')">
+          <span class="fc-rank">${r}</span>
+          <span class="fc-suit">${FARO_SUITS[r]}</span>
+          <span class="fc-rank bot">${r}</span>
+        </button>`).join('')}
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn-faro" disabled onclick="confirmBtn('btn-faro','resolveFaro()')">
+        Puntare →
+      </button>
+    </div>
+  </div>`);
+
+  window.pickRank=function(r){
+    chosen=r; playTap();
+    document.querySelectorAll('#rank-grid .faro-card').forEach(b=>b.classList.remove('sel'));
+    document.getElementById('rk-'+r).classList.add('sel');
+    document.getElementById('btn-faro').disabled=false;
+  };
+
+  window.resolveFaro=function(){
+    // Pesca loser e winner visibili
+    const pool=[...FARO_RANKS];
+    const li=Math.floor(Math.random()*pool.length);
+    const loser=pool.splice(li,1)[0];
+    const wi=Math.floor(Math.random()*pool.length);
+    const winner=pool.splice(wi,1)[0];
+    const esito = chosen===winner ? 'win' : chosen===loser ? 'lose' : 'neutral';
+    G.faroWins.push(esito);
+    G.faroPlayed++;
+    const esitoRiga = esito==='win'
+      ? `Hai puntato su <strong>${chosen}</strong> · Fox pesca <strong>${loser}</strong> (perdente) — <strong>${winner}</strong> (vincente) · <span style="color:var(--gtext)">✓ La tua carta è uscita vincente.</span>`
+      : esito==='lose'
+      ? `Hai puntato su <strong>${chosen}</strong> · Fox pesca <strong>${loser}</strong> (perdente) — <strong>${winner}</strong> (vincente) · <span style="color:var(--rtext)">✗ La tua carta è uscita perdente.</span>`
+      : `Hai puntato su <strong>${chosen}</strong> · Fox pesca <strong>${loser}</strong> (perdente) — <strong>${winner}</strong> (vincente) · <span style="color:var(--muted)">— La tua carta non è uscita.</span>`;
+
+    // Indizio: stesso fatto, densità diversa
+    const clueWin = `<p>Fox abbassa la voce.
+      <em>«Ero nel corridoio est verso le sei.
+      Avevo perso alcune carte durante la partita del pomeriggio —
+      erano sparse sul pavimento, le stavo raccogliendo.
+      È allora che l'ho vista.»</em></p>
+      <p><em>«Qualcuno entrava negli appartamenti del Lord Ciambellano.
+      Non era un servo. Camminava come chi ha il diritto di stare lì —
+      ma aveva fretta. E stringeva qualcosa sotto il mantello.»</em>
+      Fa una pausa. <em>«Una cosa piccola. Piatta.
+      Come un documento piegato.»</em></p>
+      <p class="dim">Lo ha visto di sfuggita, tra una carta raccolta e l'altra.
+      Non abbastanza da riconoscerlo — o almeno,
+      così dice.</p>`;
+
+    const clueNeutral = `<p>Fox si stringe nelle spalle.
+      <em>«Stavo raccogliendo delle carte da gioco nel corridoio est —
+      le avevo perse durante la partita del pomeriggio.
+      Ho visto una figura vicino agli appartamenti del Lord Ciambellano.
+      Di sfuggita. Non era nessuno della servitù.
+      Camminava in fretta.»</em>
+      Si ferma. <em>«Non ho visto cos'aveva con sé.»</em></p>`;
+
+    const cluelose = `<p>Fox sorride.
+      <em>«Stavo raccogliendo delle carte nel corridoio.
+      Ho visto una figura. Un corridoio, una porta.
+      Non vi dico di più — avete perso il diritto ai dettagli.»</em>
+      Vi guarda stringere gli occhi.
+      <em>«Ma era qualcuno che conosce questo palazzo molto bene.»</em></p>`;
+
+    const clueText = esito==='win' ? clueWin : esito==='neutral' ? clueNeutral : cluelose;
+    const esitoBadge = esito==='win'
+      ? '<div class="mg-result ok" style="margin-bottom:16px">✓ Hai vinto la mano</div>'
+      : esito==='neutral'
+      ? '<div class="mg-result" style="margin-bottom:16px;border:1px solid var(--border2);color:var(--muted)">— Pari — la puntata resta</div>'
+      : '<div class="mg-result ko" style="margin-bottom:16px">✗ Hai perso la mano</div>';
+
+    // Aggiunge clue di base sempre, clue bonus se vince
+    addClue('c_corridoio');
+    if(esito==='win') addClue('c_mantello');
+
+    render(`<div>
+      <div class="player-tag">Al tavolo: <span>${P().nome}</span></div>
+      <div class="s-hdr">🃏 Fox parla</div>
+      <div class="info-box" style="font-size:.78em;margin-bottom:14px">${esitoRiga}</div>
+      ${esitoBadge}
+      <div class="fase-priv">
+        <span class="fase-lbl">🔒 Solo per te</span>
+        <div class="s-body">${clueText}</div>
+      </div>
+      <div class="nav">
+        <button class="btn-g" id="btn_nav_afterFaro__" onclick="confirmBtn('btn_nav_afterFaro__','afterFaro()')"">Congedarsi →</button>
+      </div>
+    </div>`);
+  };
+}
+
+function afterFaro(){
+  if(G.faroPlayed < G.players.length){
+    // Prossimo giocatore al tavolo
+    G.cur++;
+    go('faro_pass');
+  } else {
+    // Tutti hanno giocato — inizia i turni individuali
+    G.cur=0;
+    showSplash('🕯️','Il tavolo è chiuso. Indagate.',1800,()=>go('pass'));
+  }
+}
+
+
+// ══════════════════════════════════════════════
+//  SCENA LISTA — PITT CONVOCA
+// ══════════════════════════════════════════════
+function renderParchment(full){
+  const keys = full
+    ? ['wales','fox','jersey','fitzherbert','burke']
+    : SUSPECTS_DESC_PARTIAL;
+  const entries = keys.map(k=>{
+    const s=SUSPECTS_DESC[k];
+    return `<div class="parchment-entry">
+      <div class="parchment-name">${s.nome}</div>
+      <div class="parchment-role">${s.ruolo}</div>
+      <div class="parchment-desc">${s.desc}</div>
+    </div>`;
+  }).join('');
+  const title = 'Elenco delle persone da interrogare — per ordine di Sua Maestà Giorgio III';
+  return `<div class="parchment">
+    <div class="parchment-title">${title}</div>
+    ${entries}
+    <div class="parchment-seal">St. James\'s Palace, 14 novembre 1791 · G.R.</div>
+  </div>`;
+}
+
+function doListIntro(){
+  G.cur=0;
+  G.pittAsked=false;
+  G.pittInterrogator=Math.floor(Math.random()*G.players.length);
+  render(`<div>
+    <div class="s-hdr">📢 Sala delle anticamere — William Pitt</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p><span class="hl">William Pitt il Giovane</span> entra nella sala
+        con l'aria di chi non ha dormito. Si ferma al centro, aspetta
+        che il silenzio sia completo.</p>
+        <p><em>«Sua Maestà ha predisposto un elenco delle persone
+        che ritiene debbano essere interrogate. Ve lo consegnerò
+        prima che vi separiate.»</em></p>
+        <p>Una pausa. <em>«Ma prima — voglio sapere cosa avete
+        scoperto stasera. Ognuno di voi, a turno, in privato.
+        Sono tutto orecchi.»</em></p>
+        <p>Vi guarda uno per uno. Nessuno parla.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__list_pass__" onclick="confirmBtn('btn_nav_go__list_pass__','go(\\\'list_pass\\\')')"">Rispondere a turno →</button>
+    </div>
+  </div>`);
+}
+
+function doListPass(){
+    render(`<div>
+    <div class="pass-screen">
+      <span class="pass-icon">🗣️</span>
+      <div class="pass-name">${P().nome}</div>
+      <div class="pass-sub">Pitt ti ascolta</div>
+      <div class="s-body" style="text-align:center;font-size:.85em;margin-bottom:28px">
+        <p class="dim">Passa il dispositivo.<br>Gli altri non devono guardare.</p>
+      </div>
+      <button class="btn-g" id="btn_nav_go__list_play__" onclick="confirmBtn('btn_nav_go__list_play__','go(\\\'list_play\\\')')"">Sono pronto →</button>
+    </div>
+  </div>`);
+}
+
+function doListPlay(){
+  // Solo gli indizi non ancora condivisi da altri giocatori
+  const myClues=[...P().clues].filter(k=>!G.sharedClues.has(k));
+  let selClue=null;
+
+  // Nessun indizio disponibile → lista completa automatica (punto 3)
+  if(myClues.length===0){
+    G.listPlayed++;
+    P().sharedWithPitt=false;
+    render(`<div>
+      <div class="player-tag">Risposta di <span>${P().nome}</span></div>
+      <div class="s-hdr">📜 La lista di Sua Maestà</div>
+      <div class="s-body">
+        <p>Pitt vi osserva un momento. Poi, con un gesto quasi
+        impercettibile, estrae un foglio dalla tasca interna.
+        <em>«La vedo in difficoltà. Tenga.»</em></p>
+      </div>
+      ${renderParchment(true)}
+      <div class="nav">
+        <button class="btn-g" id="btn_nav_afterList___0" onclick="confirmBtn('btn_nav_afterList___0','afterList()')"">Congedarsi →</button>
+      </div>
+    </div>`);
+    return;
+  }
+
+  const isInterrogator = (G.cur === G.pittInterrogator) && !G.pittAsked;
+
+  render(`<div>
+    <div class="player-tag">Risposta di <span>${P().nome}</span></div>
+    <div class="s-hdr">🗣️ Pitt ti ascolta — in privato</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Solo per te</span>
+      <div class="s-body">
+        <p>Pitt vi fissa. La sua espressione non tradisce nulla.
+        Aspetta. Avete la sensazione che sappia già più di quanto
+        lasci intendere.</p>
+        <p>Avete queste prove a disposizione. Scegliete se condividerne una.</p>
+        ${isInterrogator ? `<p style="margin-top:12px;color:var(--gold);font-size:.88em">
+          <em>Avete anche la possibilità di chiedergli dove si trovava oggi.</em>
+        </p>` : ''}
+      </div>
+    </div>
+    <div class="c-wrap" style="margin-top:4px" id="clue-list">
+      ${myClues.map(k=>`
+        <button class="choice" id="cl-${k}" onclick="playTap();pickClue('${k}')">
+          ${CLUES_LBL[k]||k}
+        </button>`).join('')}
+    </div>
+    <div class="c-wrap">
+      <button class="choice" id="cl-none" onclick="playTap();pickClue(null)"
+        style="border-style:dashed;color:var(--muted)">
+        Preferisco tacere
+      </button>
+      ${isInterrogator ? `
+      <button class="choice" id="cl-ask" onclick="playTap();pickClue('__ask__')"
+        style="border-color:var(--gold2);color:var(--gold)">
+        🗣 Chiedere a Pitt dove si trovava oggi
+      </button>` : ''}
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn-list" disabled onclick="confirmBtn('btn-list','resolveList()')">
+        Rispondere →
+      </button>
+    </div>
+  </div>`);
+
+  window.pickClue=function(k){
+    selClue=k;
+    document.querySelectorAll('#clue-list .choice, #cl-none, #cl-ask').forEach(b=>b.classList.remove('sel'));
+    const el=document.getElementById(k?'cl-'+k:'cl-none');
+    if(k==='__ask__'){
+      const askEl=document.getElementById('cl-ask');
+      if(askEl) askEl.classList.add('sel');
+    } else if(el){
+      el.classList.add('sel');
+    }
+    document.getElementById('btn-list').disabled=false;
+  };
+
+  window.resolveList=function(){
+    // Gestione scelta speciale: interrogare Pitt
+    if(selClue==='__ask__'){
+      G.pittAsked=true;
+      // Mostra risposta pubblica — tutti leggono ad alta voce
+      render(`<div>
+        <div class="s-hdr">📢 Risposta di Pitt</div>
+        <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${P().nome}</span><span class="reader-sub">tutti ascoltano</span></div>
+        <div class="fase-pub">
+          <span class="fase-lbl">◆ Pubblico</span>
+          <div class="s-body">
+            <p><span class="hl">${P().nome}</span> si schiarisce la voce.
+            <em>«Signor Pitt — dove si trovava oggi pomeriggio?»</em></p>
+            <p>Un silenzio brevissimo. Pitt non si irrigidisce — è troppo
+            esperto per farlo. Si limita a correggere appena la postura.</p>
+            <p><em>«Dal Re»</em>, risponde con la naturalezza di chi
+            ha risposto mille volte a domande difficili.
+            <em>«Sua Maestà aveva necessità di nuove forniture —
+            penne d'oca. Le ultime ordinate perdono inchiostro
+            in modo inaccettabile. Ho personalmente supervisionato
+            l'ordine.»</em></p>
+            <p>Un sorriso cortese. Un passo verso la porta.
+            <em>«Vi prego di scusarmi — ho ancora molto da fare
+            stanotte.»</em></p>
+            <p>Ed è già fuori prima che possiate replicare.</p>
+          </div>
+        </div>
+        <div class="nav">
+          <button class="btn-g" id="btn_nav_continueAfterPitt__" onclick="confirmBtn('btn_nav_continueAfterPitt__','continueAfterPitt()')"">Continuare →</button>
+        </div>
+      </div>`);
+      window.continueAfterPitt=function(){
+        // Ora il giocatore riceve la sua lista normalmente (senza condividere indizi)
+        G.listPlayed++;
+        P().sharedWithPitt=false;
+        render(`<div>
+          <div class="player-tag">Risposta di <span>${P().nome}</span></div>
+          <div class="s-hdr">📜 La lista di Sua Maestà</div>
+          <div class="s-body">
+            <p>Prima di uscire, Pitt estrae un foglio e ve lo passa
+            senza una parola.</p>
+          </div>
+          ${renderParchment(false)}
+          <div class="nav">
+            <button class="btn-g" id="btn_nav_afterList___1" onclick="confirmBtn('btn_nav_afterList___1','afterList()')"">Congedarsi →</button>
+          </div>
+        </div>`);
+      };
+      return;
+    }
+
+    const shared = selClue!==null;
+    G.listPlayed++;
+    P().sharedWithPitt=shared;
+    if(shared) G.sharedClues.add(selClue);
+
+    const full=shared;
+    render(`<div>
+      <div class="player-tag">Risposta di <span>${P().nome}</span></div>
+      <div class="s-hdr">📜 La lista di Sua Maestà</div>
+      <div class="s-body">
+        ${full
+          ? '<p>Pitt annuisce appena. Estrae dalla giacca un foglio e ve lo porge.</p>'
+          : '<p>Pitt non commenta. Estrae un foglio — lo piega a metà prima di passarvelo.</p>'
+        }
+      </div>
+      ${renderParchment(full)}
+      <div class="nav">
+        <button class="btn-g" id="btn_nav_afterList___2" onclick="confirmBtn('btn_nav_afterList___2','afterList()')"">Congedarsi →</button>
+      </div>
+    </div>`);
+  };
+}
+
+function afterList(){
+  if(G.listPlayed < G.players.length){
+    G.cur++;
+    go('list_pass');
+  } else {
+    G.cur=0;
+    G.ballPlayed=0;
+    G.ballInterrogator=Math.floor(Math.random()*G.players.length);
+    showSplash('🎻','Qualcuno sta suonando al piano di sotto.',1800,()=>go('ball_intro'));
+  }
+}
+
+
+// ══════════════════════════════════════════════
+//  SCENA BALLO
+// ══════════════════════════════════════════════
+function doBallIntro(){
+  G.cur=0;
+  pauseMelody(); stopAmb();
+  ambToken={alive:true}; const _btok=ambToken; setTimeout(()=>loopCourt(_btok),200);
+  render(`<div>
+    <div class="s-hdr">📢 Sala nascosta — piano inferiore</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>🕯️ Scendete una scala di servizio che non avevate mai notato.
+        In fondo, una porta socchiusa lascia filtrare luce calda
+        e il suono di un violino.</p>
+
+        <p>🎻 La sala è piccola, affrescata, quasi soffocante.
+        Una dozzina di candele. Un musicista in un angolo.
+        Sui tavoli: bottiglie, bicchieri, carte abbandonate.
+        Le persone qui dentro non vogliono essere viste —
+        eppure ridono, ballano, bevono come se il mondo
+        fuori non esistesse.</p>
+
+        <p>🥂 Riconoscete alcune facce. Nobili, segretari,
+        almeno una dama di corte. Nessuno vi chiede
+        cosa ci fate qui. Nessuno lo chiede a nessuno.</p>
+
+        <p>💃 Per un momento sembra che il furto,
+        il documento, Pitt e i suoi fogli non esistano.
+        Poi vedete <span class="hl">Fox</span> in un angolo —
+        e accanto a lui, appena arrivato, con l'aria
+        di chi preferirebbe essere altrove,
+        <span class="hl">il Principe di Galles</span>.</p>
+
+        <p>🕯️ Si avvicinano. Le loro voci si abbassano.
+        Poi non si abbassano più.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__ball_d1__" onclick="confirmBtn('btn_nav_go__ball_d1__','go(\\\'ball_d1\\\')')"">Assistere alla lite →</button>
+    </div>
+  </div>`);
+}
+
+function doBallD1(){
+  render(`<div>
+    <div class="s-hdr">📢 La lite — prima parte</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>😤 Fox alza la voce per primo — non abbastanza da fermare
+        il ballo, ma abbastanza da far girare qualche testa.</p>
+
+        <p><em>«Sapete benissimo dov'era quella carta, George.
+        E sapete benissimo perché doveva sparire.»</em></p>
+
+        <p>Il Principe abbassa la voce, teso.
+        <em>«State dicendo cose pericolose per entrambi.»</em></p>
+
+        <p>🃏 <em>«Pericolose.»</em> Fox ride — un suono corto,
+        senza allegria. <em>«Dovevate tremila sterline a tre creditori
+        entro la fine del mese. Quel documento era la prova firmata.
+        Ora non esiste più. Molto comodo.»</em></p>
+
+        <p><em>«Chiunque poteva volerlo.»</em></p>
+
+        <p><em>«Chiunque non aveva una chiave duplicata
+        delle anticamere private.»</em></p>
+
+        <p>😶 Un silenzio. Il Principe si irrigidisce.
+        <em>«Fate attenzione, Fox. Anche voi avevate ragioni
+        per farlo sparire. Quel documento menzionava certi...
+        prestiti informali. A voi, tra gli altri.»</em></p>
+
+        <p>Fox non risponde subito. Beve.
+        <em>«Allora siamo pari.»</em></p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__ball_d2__" onclick="confirmBtn('btn_nav_go__ball_d2__','go(\\\'ball_d2\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doBallD2(){
+  render(`<div>
+    <div class="s-hdr">📢 La lite — seconda parte</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>❄️ <em>«No»</em>, dice il Principe, con una calma improvvisa
+        più fredda di qualsiasi urlo.
+        <em>«Non siamo pari. Perché io so con chi eravate stanotte
+        prima che tutto questo cominciasse.
+        E quella persona ha un guanto in meno.»</em></p>
+
+        <p>Fox si irrigidisce.
+        <em>«Non sapete niente.»</em></p>
+
+        <p><em>«So abbastanza.»</em></p>
+
+        <p>🚶 Il Principe si gira e si allontana verso il fondo
+        della sala senza aspettare risposta.
+        Fox resta immobile un momento, poi posa il bicchiere
+        sul davanzale con un gesto troppo preciso per chi ha
+        bevuto quanto ha bevuto lui.
+        Si avvia verso il corridoio.</p>
+
+        <p>🎻 La musica copre tutto.
+        La maggior parte dei presenti non ha capito niente.</p>
+
+        <p>Voi sì.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__ball_pass__" onclick="confirmBtn('btn_nav_go__ball_pass__','go(\\\'ball_pass\\\')')"">Decidere cosa fare →</button>
+    </div>
+  </div>`);
+}
+
+function doBallPass(){
+    render(`<div>
+    <div class="pass-screen">
+      <span class="pass-icon">🎻</span>
+      <div class="pass-name">${P().nome}</div>
+      <div class="pass-sub">Cosa fai?</div>
+      <div class="s-body" style="text-align:center;font-size:.85em;margin-bottom:28px">
+        <p class="dim">Passa il dispositivo.<br>Gli altri non devono guardare.</p>
+      </div>
+      <button class="btn-g" id="btn_nav_go__ball_play__" onclick="confirmBtn('btn_nav_go__ball_play__','go(\\\'ball_play\\\')')"">Sono pronto →</button>
+    </div>
+  </div>`);
+}
+
+function doBallPlay(){
+  render(`<div>
+    <div class="player-tag">Decisione di <span>${P().nome}</span></div>
+    <div class="s-hdr">🕯️ Il ballo — solo per te</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Privato</span>
+      <div class="s-body">
+        <p>Fox si dirige verso il corridoio.
+        Il Principe rimane solo, scosso, con un bicchiere in mano.
+        In fondo alla sala, nel caminetto quasi spento,
+        qualcosa brucia ancora.</p>
+        <p>Avete pochi secondi per scegliere.</p>
+      </div>
+    </div>
+    <div class="c-wrap" style="margin-top:8px">
+      <button class="choice" onclick="playTap();resolveBall('fox')">
+        🚶 Seguire Fox nel corridoio
+      </button>
+      <button class="choice" onclick="playTap();resolveBall('wales')">
+        🥂 Avvicinarsi al Principe che resta
+      </button>
+      <button class="choice" onclick="playTap();resolveBall('fire')">
+        🔥 Andare verso il caminetto
+      </button>
+    </div>
+  </div>`);
+
+  window.hasClue=k=>P().clues.has(k)||G.sharedClues.has(k);
+  window.resolveBall=function(choice){
+    let privaText='', newClues=[];
+
+    if(choice==='fox'){
+      if(hasClue('c_guanto')){
+        privaText=`<p>Lo seguite nel corridoio. Fox si ferma sotto
+          un applique, estrae qualcosa dalla tasca interna —
+          <span class="hl">un guanto di seta avorio</span>.
+          Lo esamina un momento, poi lo nasconde di nuovo.
+          Non si è accorto di voi.</p>
+          <p>Lo stesso guanto. Ne siete certi.</p>`;
+        newClues=['c_fox_guanto'];
+      } else {
+        privaText=`<p>Lo seguite nel corridoio. Fox si ferma
+          sotto un applique, controlla qualcosa nella tasca interna,
+          poi riprende a camminare verso l'uscita secondaria.
+          Non ha visto nessuno. Non ha parlato con nessuno.</p>
+          <p>Eppure aveva fretta. Come se sapesse dove andare.</p>`;
+        newClues=['c_fox_uscita'];
+      }
+    } else if(choice==='wales'){
+      if(hasClue('c_fiocco')||hasClue('c_carrozza')){
+        privaText=`<p>Il Principe vi nota. Non parla — beve.
+          Poi, quasi tra sé, mormora un nome.
+          Solo tre sillabe, appena udibili sopra la musica.</p>
+          <p><span class="hl">«Jersey.»</span></p>
+          <p>Non aggiunge altro. Non sembra nemmeno
+          accorgersi che qualcuno lo abbia sentito.</p>`;
+        newClues=['c_wales_jersey'];
+      } else {
+        privaText=`<p>Il Principe vi nota. Non parla — beve.
+          Poi mormora qualcosa, quasi tra sé.
+          La musica copre quasi tutto.
+          Sentite una sillaba, forse due.
+          Un nome, probabilmente. Ma non riuscite a distinguerlo.</p>`;
+        newClues=['c_wales_nome'];
+      }
+    } else {
+      if(hasClue('c_debitore')){
+        privaText=`<p>Nel caminetto, tra la cenere, un frammento
+          ancora leggibile. Cifre, colonne, date.
+          Riconoscete il formato — è lo stesso
+          del <span class="hl">registro dei debiti</span>
+          che avete già incrociato.
+          Qualcuno stava bruciando una copia.</p>
+          <p>In fondo al frammento, una cifra: tremila.</p>`;
+        newClues=['c_registro'];
+      } else {
+        privaText=`<p>Nel caminetto, tra la cenere,
+          un frammento ancora leggibile.
+          Cifre, colonne — un documento contabile,
+          forse. Qualcuno stava cercando di bruciarlo
+          ma è stato interrotto.
+          Non riuscite a capire di cosa si tratti.</p>`;
+        newClues=['c_caminetto'];
+      }
+    }
+
+    newClues.forEach(k=>P().clues.add(k));
+    G.ballPlayed++;
+
+    render(`<div>
+      <div class="player-tag">Decisione di <span>${P().nome}</span></div>
+      <div class="s-hdr">🕯️ Cosa avete visto</div>
+      <div class="fase-priv">
+        <span class="fase-lbl">🔒 Solo per te</span>
+        <div class="s-body">${privaText}</div>
+      </div>
+      ${renderClues()}
+      <div class="nav">
+        <button class="btn-g" id="btn_nav_afterBall__" onclick="confirmBtn('btn_nav_afterBall__','afterBall()')"">Congedarsi →</button>
+      </div>
+    </div>`);
+  };
+}
+
+function afterBall(){
+  if(G.ballPlayed < G.players.length){
+    G.cur++;
+    go('ball_pass');
+  } else {
+    G.cur=0;
+    G.interrogPlayed=0;
+    showSplash('🕯️','La notte avanza. È tempo di interrogare.',1800,()=>go('interrog_intro'));
+  }
+}
+
+
+// ══════════════════════════════════════════════
+//  INTERROGATORI
+// ══════════════════════════════════════════════
+
+// Lista sospettati interrogabili (Pitt escluso)
+const INTERROG_FULL    = ['wales','fox','jersey','fitzherbert','burke'];
+const INTERROG_PARTIAL = ['wales','fox','burke'];
+
+// Testi per ogni sospettato — variano con hasClue()
+function getInterrogText(id){
+  const P_ = P();
+
+  if(id==='wales'){
+    const base = `<p>Il Principe di Galles vi riceve in piedi,
+      senza invitarvi a sedere. La giacca ha ancora un bottone
+      abbottonato storto — si è vestito in fretta.</p>
+      <p><em>«Sì, quel documento esiste. Esisteva.
+      Dovevo del denaro — non è un segreto tra persone
+      di buon senso. Ma vi assicuro che non ho toccato nulla.
+      Non avevo bisogno di farlo.»</em></p>
+      <p>Una pausa. <em>«Chiedete piuttosto a chi
+      frequenta i miei appartamenti senza che io lo inviti.
+      C'è chi si preoccupa per me più di quanto sia necessario.
+      E chi ha più da perdere di me se quel documento
+      fosse diventato pubblico.»</em></p>`;
+    const bonus = `<p style="margin-top:10px"><em>«Quella firma che avete visto —»</em>
+      Si ferma. Vi guarda con attenzione.
+      <em>«Non è la mia. Non scrivo così
+      quando ho fretta. Qualcuno ha usato
+      quella scrivania dopo di me.»</em></p>`;
+    return base + (hasClue('c_firma') ? bonus : '');
+  }
+
+  if(id==='fox'){
+    const base = `<p>Fox è seduto con le gambe allungate,
+      come se fosse lui a ricevervi. Un bicchiere in mano —
+      ancora.</p>
+      <p><em>«Io? Ho giocato a carte fino alle undici passate.
+      Ci sono testimoni. Molti testimoni.»</em>
+      Sorride. <em>«Cercate qualcuno che non abbia
+      un alibi così rumoroso.»</em></p>
+      <p><em>«Burke, per esempio. Era qui stasera
+      senza una ragione plausibile. L'ho visto
+      aggirarsi vicino agli uffici del piano di sopra
+      due ore prima che si scoprisse il furto.
+      Non me ne ricordavo — ora me ne ricordo.»</em></p>`;
+    const bonus = `<p style="margin-top:10px">I suoi occhi scendono un istante
+      sulle vostre mani — cercano qualcosa.
+      <em>«Quel guanto... l'avete trovato voi?
+      Non so di cosa parlate»</em>, dice con
+      quella disinvoltura che usa quando mente benissimo.</p>`;
+    return base + (hasClue('c_guanto')||hasClue('c_fox_guanto') ? bonus : '');
+  }
+
+  if(id==='jersey'){
+    const base = `<p>Lady Jersey vi accoglie con la composta
+      eleganza di chi non ha nulla da nascondere —
+      o ha avuto tutta la notte per decidere cosa dire.</p>
+      <p><em>«Capisco la curiosità. Ma vi assicuro
+      che ho trascorso la serata in compagnia.
+      Potete verificare.»</em></p>
+      <p>Un sorriso. <em>«Se cercate qualcuno
+      con un movente reale — chiedete a Mrs. Fitzherbert.
+      Il Principe le ha confidato cose che nessun altro
+      dovrebbe sapere. E lei ha molto da perdere
+      se certi... accordi privati venissero alla luce.»</em></p>`;
+    const bonusGuanto = `<p style="margin-top:10px">I suoi occhi non tradiscono nulla.
+      Ma le mani — per un istante brevissimo —
+      cercano qualcosa che non c'è.
+      <em>«I guanti? Ne ho perso uno questa settimana.
+      Un dispiacere, erano di ottima fattura.»</em>
+      Lo dice con troppa naturalezza.</p>`;
+    const bonusJ = `<p style="margin-top:10px"><em>«Pitt mi teneva d'occhio
+      da mesi. Quella J. nella sua agenda —
+      non sono la sola persona con quel nome
+      alla corte di Londra.»</em>
+      Vi guarda. <em>«Ma voi lo sapete già, vero?»</em></p>`;
+    return base +
+      (hasClue('c_guanto') ? bonusGuanto : '') +
+      (hasClue('c_lettera_j') ? bonusJ : '');
+  }
+
+  if(id==='fitzherbert'){
+    const base = `<p>Mrs. Fitzherbert è l'unica che
+      non finge di essere calma. Siede con le mani
+      strette in grembo.</p>
+      <p><em>«Il Principe era disperato.
+      Non dormiva da giorni per via di quei debiti.
+      Tremila sterline — per lui non è una cifra,
+      è un'umiliazione pubblica.
+      Avrebbe fatto qualunque cosa.»</em></p>
+      <p><em>«Non sto dicendo che l'ha fatto lui.
+      Sto dicendo che aveva il movente più forte
+      di tutti. E l'accesso. E le chiavi.»</em>
+      Una pausa. <em>«Alcune chiavi.»</em></p>`;
+    const bonus = `<p style="margin-top:10px"><em>«Quel sigillo di cera rossa —
+      l'ho visto anch'io. Non appartiene
+      agli appartamenti del Principe.
+      Lo stemma è diverso. Più piccolo.
+      Qualcuno ha usato quella stanza
+      senza che lui lo sapesse.»</em></p>`;
+    return base + (hasClue('c_cera') ? bonus : '');
+  }
+
+  if(id==='burke'){
+    const base = `<p>Burke vi aspetta in piedi vicino alla finestra.
+      Niente bicchiere. Niente sorriso.</p>
+      <p><em>«Ero qui per questioni parlamentari.
+      Questioni che non riguardano questo palazzo
+      né questo furto.»</em></p>
+      <p><em>«Ma vi dirò una cosa — perché è giusta,
+      non perché mi convenga.
+      Fox deve dei soldi. Tanti. E alcuni di quei nomi
+      erano in quel documento. Non solo il Principe.
+      Anche Fox aveva tutto l'interesse che sparisse.
+      Forse più di chiunque altro.»</em></p>
+      <p><em>«Io non avevo debiti con nessuno
+      in quella carta. Cercate chi ce li aveva.»</em></p>`;
+    const bonus = `<p style="margin-top:10px">I suoi occhi si spostano verso il caminetto.
+      <em>«Ho visto qualcuno chinarsi su quel fuoco
+      più tardi. Non ho visto il viso.
+      Solo una figura. Elegante.
+      Che si muoveva come chi sa dove sta andando.»</em></p>`;
+    return base + (hasClue('c_caminetto')||hasClue('c_registro') ? bonus : '');
+  }
+
+  return '<p>Questa persona non vuole parlare.</p>';
+}
+
+function doInterrogIntro(){
+  G.cur=0;
+  stopAmb(); resumeMelody();
+  render(`<div>
+    <div class="s-hdr">📢 Corridoio nord — ore 23:40</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>🕯️ La notte è inoltrata. Il palazzo si è svuotato
+        di quasi tutti gli ospiti. Restano solo voi
+        e le persone che non potevano andarsene.</p>
+        <p>Lord Pemberton si avvicina con aria sfinita.
+        <em>«Sua Maestà vuole che ognuno di voi
+        senta direttamente le persone di interesse.
+        Non c'è tempo per sentirle tutte —
+        sceglierete voi chi interrogare.
+        Le stanze sono già predisposte.»</em></p>
+        <p>🚪 Vi separano. Ognuno verso
+        una stanza diversa. Il corridoio si svuota
+        in silenzio.</p>
+        <p class="dim">Ogni giocatore può interrogare
+        due persone dalla propria lista.
+        In privato. Senza che gli altri sentano.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__interrog_pass__" onclick="confirmBtn('btn_nav_go__interrog_pass__','go(\\\'interrog_pass\\\')')"">Separarsi →</button>
+    </div>
+  </div>`);
+}
+
+function doInterrogPass(){
+    render(`<div>
+    <div class="pass-screen">
+      <span class="pass-icon">🚪</span>
+      <div class="pass-name">${P().nome}</div>
+      <div class="pass-sub">La tua stanza ti aspetta</div>
+      <div class="s-body" style="text-align:center;font-size:.85em;margin-bottom:28px">
+        <p class="dim">Passa il dispositivo.<br>Gli altri non devono guardare.</p>
+      </div>
+      <button class="btn-g" id="btn_nav_go__interrog_select_" onclick="confirmBtn('btn_nav_go__interrog_select_','go('interrog_select')')"">Entrare →</button>
+    </div>
+  </div>`);
+}
+
+function doInterrogSelect(){
+  // Lista disponibile in base alla lista regia ricevuta
+  // Lista completa se ha condiviso un indizio con Pitt
+  const pool = P().sharedWithPitt ? INTERROG_FULL : INTERROG_PARTIAL;
+  let selected = [];
+
+  P().interrogList = [];
+  P().interrogIdx  = 0;
+
+  const suspNames = {
+    wales:'S.A.R. il Principe di Galles',
+    fox:'Charles James Fox',
+    jersey:'Lady Jersey',
+    fitzherbert:'Mrs. Fitzherbert',
+    burke:'Edmund Burke'
+  };
+  const suspRoles = {
+    wales:'Erede al trono',
+    fox:'Leader Opposizione Whig',
+    jersey:'Dama di corte',
+    fitzherbert:'Confidente del Principe',
+    burke:'Filosofo e deputato'
+  };
+
+  render(`<div>
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">🚪 Chi vuoi interrogare?</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Solo per te</span>
+      <div class="s-body">
+        <p>Hai tempo per due interrogatori.
+        Scegli con cura — non tutti diranno
+        la stessa cosa.</p>
+      </div>
+    </div>
+    <div class="c-wrap" id="susp-sel">
+      ${pool.map(id=>`
+        <div class="suspect-card" id="isel-${id}" onclick="playTap();toggleInterrog('${id}')">
+          <div class="suspect-name">${suspNames[id]}</div>
+          <span class="suspect-role">${suspRoles[id]}</span>
+        </div>`).join('')}
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn-interrog" disabled onclick="confirmBtn('btn-interrog','startInterrog()')">
+        Iniziare gli interrogatori →
+      </button>
+    </div>
+  </div>`);
+
+  window.toggleInterrog=function(id){
+    const idx=selected.indexOf(id);
+    if(idx>=0){
+      selected.splice(idx,1);
+      document.getElementById('isel-'+id).classList.remove('sel');
+    } else if(selected.length<2){
+      selected.push(id);
+      document.getElementById('isel-'+id).classList.add('sel');
+    }
+    document.getElementById('btn-interrog').disabled=(selected.length!==2);
+  };
+
+  window.startInterrog=function(){
+    P().interrogList=[...selected];
+    P().interrogIdx=0;
+    go('interrog_scene');
+  };
+}
+
+function doInterrogScene(){
+  const id  = P().interrogList[P().interrogIdx];
+  const num = P().interrogIdx+1;
+  const suspNames={
+    wales:'S.A.R. il Principe di Galles',
+    fox:'Charles James Fox',
+    jersey:'Lady Jersey',
+    fitzherbert:'Mrs. Fitzherbert',
+    burke:'Edmund Burke'
+  };
+  const txt = getInterrogText(id);
+
+  render(`<div>
+    <div class="player-tag">Turno di <span>${P().nome}</span> — Interrogatorio ${num}/2</div>
+    <div class="s-hdr">🚪 ${suspNames[id]}</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Solo per te</span>
+      <div class="s-body">${txt}</div>
+    </div>
+    ${renderClues()}
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_nextInterrog__" onclick="confirmBtn('btn_nav_nextInterrog__','nextInterrog()')"">${P().interrogIdx<1 ? 'Prossimo interrogatorio →' : 'Concludere →'}</button>
+    </div>
+  </div>`);
+
+  window.nextInterrog=function(){
+    if(P().interrogIdx<1){
+      P().interrogIdx++;
+      go('interrog_scene');
+    } else {
+      G.interrogPlayed++;
+      if(G.interrogPlayed<G.players.length){
+        G.cur++;
+        go('interrog_pass');
+      } else {
+        G.cur=0;
+        showSplash('🕯️','La notte non è ancora finita.',1800,()=>go('colpo'));
+      }
+    }
+  };
+}
+
+
+// ══════════════════════════════════════════════
+//  COLPO DI SCENA — BURKE
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+//  SOLDATI — INTERROGATORIO COLLETTIVO
+// ══════════════════════════════════════════════
+function doSoldati(){
+  stopAmb(); resumeMelody();
+  playSoldatiImpact();
+  // Estrae giocatore random per leggere
+  const reader = G.players[Math.floor(Math.random()*G.players.length)].nome;
+  G.soldatiReader = reader;
+  render(`<div>
+    <div class="s-hdr">📢 Stanza di Burke — ore 02:31</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${reader}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>⚔️ Il rumore di stivali pesanti nel corridoio.
+        Poi la porta si spalanca e tre soldati della
+        <span class="hl">Guardia Reale</span> entrano
+        senza chiedere permesso.</p>
+
+        <p><em>&#xAB;${P().nome !== undefined ? P().nome : G.players[0].nome} &#x2014; e tutti voi &#x2014; nessuno si muove. Ordine di Sua Maest&#xe0;.&#xBB;</em></p>
+
+        <p>Il sergente vi guarda uno per uno,
+        poi fissa Mrs. Fitzherbert — ancora
+        in piedi accanto al corpo,
+        la mano che tremava un momento fa.</p>
+
+        <p><em>«Voi. Restate dove siete.»</em></p>
+
+        <p>🕯️ Siete tutti bloccati nella stanza.
+        Nessuno può andarsene. I soldati restano
+        agli angoli in silenzio.</p>
+
+        <p>Il sergente si avvicina a voi.
+        <em>«${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} — parlate voi.
+        Cosa avete visto quando siete entrati?»</em></p>
+
+        <p class="dim" style="margin-top:12px">
+          <span class="hl">${reader}</span> legge ad alta voce.
+          Decidete tutti insieme.
+        </p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fiz_interrog__" onclick="confirmBtn('btn_nav_go__fiz_interrog__','go(\\\'fiz_interrog\\\')')"">Rispondere al sergente →</button>
+    </div>
+  </div>`);
+}
+
+function doFizInterrog(){
+  render(`<div>
+    <div class="s-hdr">⚖️ La prima domanda</div>
+    <div class="info-box">
+      <strong>Decidete tutti insieme — poi scegliete una risposta</strong>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Il sergente indica Mrs. Fitzherbert.</p>
+        <p><em>«Quando siete entrati —
+        questa donna aveva il coltello in mano
+        o lo stava raccogliendo dal pavimento?»</em></p>
+        <p>Vi guardate. Ognuno di voi ha visto
+        la stessa cosa. Ma le parole che scegliete
+        ora cambieranno tutto.</p>
+      </div>
+    </div>
+    <div class="c-wrap" style="margin-top:8px">
+      <button class="choice" onclick="playTap();G.fitzAnswer='raccoglieva';document.querySelectorAll('.c-wrap .choice').forEach(b=>b.classList.remove('sel'));this.classList.add('sel');document.getElementById('btn-fiz').disabled=false">
+        Stava raccogliendo il coltello da terra
+      </button>
+      <button class="choice" onclick="playTap();G.fitzAnswer='suo';document.querySelectorAll('.c-wrap .choice').forEach(b=>b.classList.remove('sel'));this.classList.add('sel');document.getElementById('btn-fiz').disabled=false">
+        Il coltello sembrava essere suo
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn-fiz" disabled onclick="confirmBtn('btn-fiz','confermaFiz()')">
+        Rispondere al sergente →
+      </button>
+    </div>
+  </div>`);
+
+  window.confermaFiz = function(){
+    const ans = G.fitzAnswer;
+    render(`<div>
+      <div class="s-hdr">⚖️ La vostra risposta</div>
+      <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+      <div class="fase-pub">
+        <span class="fase-lbl">◆ Pubblico</span>
+        <div class="s-body">
+          <p>Il sergente annota qualcosa.
+          Non commenta. Non ringrazia.
+          <em>«Bene. Restate qui.»</em></p>
+          <p>Mrs. Fitzherbert vi guarda —
+          ${ans==='raccoglieva'
+            ? '<em>con qualcosa che potrebbe essere sollievo. O gratitudine. O la paura di qualcosa che non è ancora successo.</em>'
+            : '<em>con un\'espressione che non riuscite a leggere. Non è sorpresa. Non è panico. È qualcos\'altro.</em>'}
+          </p>
+          <p>Il sergente si allontana verso la porta
+          e parla sottovoce con uno dei soldati.
+          Mrs. Fitzherbert rimane in piedi al centro della stanza.
+          Le sue mani non tremano più.</p>
+          <p>Avete un momento. Potete farle
+          ancora una domanda.</p>
+        </div>
+      </div>
+      <div class="nav">
+        <button class="btn-g" id="btn_nav_go__fiz_domande__" onclick="confirmBtn('btn_nav_go__fiz_domande__','go(\\\'fiz_domande\\\')')"">Fare una domanda →</button>
+      </div>
+    </div>`);
+  };
+}
+
+function doFizDomande(){
+  render(`<div>
+    <div class="s-hdr">⚖️ Una domanda a Mrs. Fitzherbert</div>
+    <div class="info-box">
+      <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Mrs. Fitzherbert aspetta.
+        Il sergente è distratto. È il momento.</p>
+      </div>
+    </div>
+    <div class="c-wrap" style="margin-top:8px">
+      <button class="choice" onclick="playTap();G.fitzDomanda='chiave';document.querySelectorAll('.c-wrap .choice').forEach(b=>b.classList.remove('sel'));this.classList.add('sel');document.getElementById('btn-domanda').disabled=false">
+        🗝️ «Stava cercando la sua chiave nelle tasche?»
+      </button>
+      <button class="choice" onclick="playTap();G.fitzDomanda='sigillo';document.querySelectorAll('.c-wrap .choice').forEach(b=>b.classList.remove('sel'));this.classList.add('sel');document.getElementById('btn-domanda').disabled=false">
+        🔴 «Conosce quel sigillo di cera rossa?»
+      </button>
+      <button class="choice" onclick="playTap();G.fitzDomanda='corridoio';document.querySelectorAll('.c-wrap .choice').forEach(b=>b.classList.remove('sel'));this.classList.add('sel');document.getElementById('btn-domanda').disabled=false">
+        🚶 «Perché non dormiva stanotte?»
+      </button>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn-domanda" disabled onclick="confirmBtn('btn-domanda','go(\\'fiz_risposta\\')')">
+        Fare la domanda →
+      </button>
+    </div>
+  </div>`);
+}
+
+function doFizRisposta(){
+  const d = G.fitzDomanda;
+  let testo = '';
+
+  if(d==='chiave'){
+    testo = `<p>Una pausa brevissima. Le dita di Fitzherbert
+      si muovono verso la tasca — un gesto involontario —
+      poi si fermano.</p>
+      <p><em>«Ho perso la mia chiave questa sera.
+      Non so dove.»</em></p>
+      <p>Vi guarda. <em>«Quella chiave apriva
+      le anticamere private. Ma non solo quelle —
+      c'è uno studio adiacente che pochissimi conoscono.
+      Anche quello. Una copia era stata fatta
+      settimane fa. Io non l'ho autorizzata.
+      Non so chi l'abbia ordinata.»</em></p>
+      <p>Si ferma. <em>«Qualcuno sapeva
+      di quello studio. E sapeva cosa conteneva.»</em></p>`;
+    // Aggiunge indizio a tutti
+    G.players.forEach(p=>p.clues.add('c_chiave_fiz'));
+  } else if(d==='sigillo'){
+    testo = `<p>Fitzherbert non risponde subito.
+      Guarda il frammento di lettera bruciata
+      sul tappeto.</p>
+      <p><em>«Quel sigillo... sì. Lo conosco.»</em>
+      Una voce quasi inaudibile.
+      <em>«Non è uno stemma di famiglia.
+      È un sigillo personale. Di corrispondenza privata.
+      Lo usa una sola persona che conosco
+      per lettere che non devono essere tracciate.»</em></p>
+      <p>Si ferma. Non dice il nome.
+      Ma i suoi occhi si spostano —
+      un istante soltanto —
+      verso la finestra che dà sul cortile.</p>`;
+    G.players.forEach(p=>p.clues.add('c_sigillo_jersey'));
+  } else {
+    testo = `<p><em>«Non dormivo»</em>, ripete,
+      come se la domanda la sorprendesse.
+      <em>«Ho sentito qualcosa nel corridoio est
+      verso le undici. Una porta. Poi passi —
+      veloci, leggeri. Come chi conosce ogni
+      asse del pavimento e sa dove non far rumore.»</em></p>
+      <p>Abbassa la voce. <em>«Ho aspettato.
+      Non sono uscita. Forse avrei dovuto.»</em></p>
+      <p>Gli orari coincidono con le ore 18:00
+      dei primi avvistamenti — e con
+      qualcosa che si è mosso molto più tardi,
+      quando tutti avrebbero dovuto dormire.</p>`;
+    G.players.forEach(p=>p.clues.add('c_fiz_corridoio'));
+  }
+
+  render(`<div>
+    <div class="s-hdr">⚖️ La risposta di Mrs. Fitzherbert</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">${testo}</div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fox_entra__" onclick="confirmBtn('btn_nav_go__fox_entra__','go(\\\'fox_entra\\\')')"">Qualcuno entra →</button>
+    </div>
+  </div>`);
+}
+
+
+// ══════════════════════════════════════════════
+//  FOX ENTRA — LA PAROLA DI TROPPO
+// ══════════════════════════════════════════════
+function doFoxEntra(){
+  // Lettore diverso da soldatiReader
+  const others = G.players.filter(p=>p.nome!==G.soldatiReader);
+  const reader = others.length>0
+    ? others[Math.floor(Math.random()*others.length)].nome
+    : G.players[0].nome;
+  G.foxReader = reader;
+
+  // Aggiunge indizio a tutti
+  G.players.forEach(p=>p.clues.add('c_fox_studio'));
+
+  render(`<div>
+    <div class="s-hdr">📢 Stanza di Burke — ore 02:44</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${reader}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>La porta si riapre.</p>
+
+        <p><span class="hl">Charles James Fox</span> entra
+        con l'aria di chi stava già camminando
+        nel corridoio — come se sapesse già
+        dove andare.</p>
+
+        <p>I suoi occhi percorrono la stanza.
+        Il corpo di Burke. I soldati agli angoli.
+        Voi. Mrs. Fitzherbert.</p>
+
+        <p>Poi si fermano — un secondo appena,
+        ma lo vedete tutti —
+        sul <span class="hl">frammento di lettera bruciata</span>
+        sul bordo del tappeto.</p>
+
+        <p><em>«Quella lettera»</em>, dice sottovoce,
+        quasi tra sé.
+        <em>«Burke non avrebbe dovuto tenerla.»</em></p>
+
+        <p>Silenzio. Fox si rende conto
+        di quello che ha appena detto.
+        Si raddrizza.</p>
+
+        <p><em>«Intendo dire — è ovvio che
+        certi documenti andrebbero distrutti.
+        Per prudenza.»</em></p>
+
+        <p>Qualcuno gli chiede cosa ci facesse
+        in questa ala del palazzo a quell'ora.
+        Fox apre la bocca, poi la chiude.
+        Poi:</p>
+
+        <p><em>«Ero preoccupato per Burke.
+        Avevamo parlato durante gli interrogatori.
+        Volevo assicurarmi che stesse bene.»</em></p>
+
+        <p>Qualcuno gli chiede come mai
+        sapesse dove trovarlo — in questa ala,
+        a quest'ora.</p>
+
+        <p><em>«Lo sapevo e basta.
+        Certe cose si sanno.»</em></p>
+
+        <p>Mrs. Fitzherbert interviene, piano:
+        <em>«Ha appena detto che sapeva
+        dove si trovava Burke.
+        Ma questo corridoio non è di passaggio.
+        Non ci si arriva per caso.»</em></p>
+
+        <p>Fox la guarda. Poi aggiunge —
+        e qui commette l'errore:</p>
+
+        <p><em>«La chiave delle anticamere private
+        apre anche lo studio in fondo al corridoio.
+        Per puro caso — una serratura sbagliata,
+        un errore di fabbricazione.
+        Lo sapevano in <span class="hl">pochissimi</span>.
+        Io ero tra questi.»</em></p>
+
+        <p>Silenzio.</p>
+
+        <p>Quella chiave. La stessa chiave
+        trovata con il nastro Carlton House.
+        La stessa chiave di cui Fitzherbert
+        ha appena detto che era sparita.
+        E Fox sapeva che apriva anche lo studio
+        dove il documento era custodito.</p>
+
+        <p>Fox capisce. Stringe le labbra.
+        Non aggiunge altro.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__corridoio__" onclick="confirmBtn('btn_nav_go__corridoio__','go(\\\'corridoio\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  CORRIDOIO — TUTTI INSIEME — IL MESSAGGERO
+// ══════════════════════════════════════════════
+function doCorridoio(){
+
+  // Terzo lettore — diverso dai due precedenti
+  const used = [G.soldatiReader, G.foxReader];
+  const others = G.players.filter(p=>!used.includes(p.nome));
+  const reader = others.length>0
+    ? others[Math.floor(Math.random()*others.length)].nome
+    : G.players[0].nome;
+  G.corridoioReader = reader;
+
+  G.players.forEach(p=>p.clues.add('c_fiz_emissario'));
+
+  render(`<div>
+    <div class="s-hdr">📢 Corridoio nord — ore 03:02</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${reader}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>🚪 I soldati vi cacciano fuori dalla stanza di Burke.
+        Siete tutti nel corridoio nord —
+        <span class="hl">il Principe di Galles, Pitt, Fox,
+        Lady Jersey, Mrs. Fitzherbert</span>.
+        E voi.</p>
+
+        <p>🕯️ Le candele sono quasi consumate.
+        Nessuno parla. Ognuno guarda
+        da un'altra parte.</p>
+
+        <p>Poi si sentono passi veloci
+        dal fondo del corridoio.
+        Un <span class="hl">messaggero in livrea</span>
+        — non della Guardia Reale, una livrea
+        che non riconoscete —
+        si avvicina diretto.</p>
+
+        <p>Si ferma davanti a Fox.
+        Si china verso di lui.
+        Gli sussurra qualcosa all'orecchio.</p>
+
+        <p>Fox non sorride — ma qualcosa
+        nel suo viso si allenta.
+        Come chi riceve una notizia
+        che aspettava da ore.
+        <em>Stranissimo, vista la situazione.</em></p>
+
+        <p>Pitt lo osserva.
+        Poi, sottovoce, quasi tra sé:</p>
+
+        <p><em>«Ora hai la strada spianata, eh.»</em></p>
+
+        <p>Fox non risponde.
+        Non ha bisogno di farlo.</p>
+
+        <p style="margin-top:16px">Il messaggero si raddrizza
+        e annuncia ad alta voce —
+        come se il corridoio fosse una sala di corte:</p>
+
+        <p><em>«L'emissario francese è arrivato
+        a Londra questa notte.
+        Ha preso alloggio al Clarendon.
+        Domani mattina chiede udienza
+        con Sua Altezza Reale
+        e con Mrs. Fitzherbert.»</em></p>
+
+        <p>Il Principe annuisce appena —
+        con la distrazione di chi ha
+        altri pensieri.</p>
+
+        <p>Mrs. Fitzherbert si volta
+        verso il messaggero.
+        La sua voce è ferma:</p>
+
+        <p><em>«Dite all'emissario che
+        l'udienza non potrà aver luogo.
+        Siamo trattenuti qui
+        per ragioni che conosce già
+        chi di dovere.»</em></p>
+
+        <p>Una pausa.</p>
+
+        <p><em>«E comunque —
+        non c'è più niente da dargli.»</em></p>
+
+        <p>Il silenzio nel corridoio
+        è diverso da prima.</p>
+
+        <p>Lady Jersey non si è mossa.
+        Non ha detto nulla.
+        Ma i suoi occhi sono andati
+        su Fitzherbert — un istante —
+        con qualcosa che non è sorpresa.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__appunto__" onclick="confirmBtn('btn_nav_go__appunto__','go(\\\'appunto\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  APPUNTO DI BURKE — IL SERGENTE TORNA
+// ══════════════════════════════════════════════
+function doAppunto(){
+
+  const used = [G.soldatiReader, G.foxReader, G.corridoioReader];
+  const others = G.players.filter(p=>!used.includes(p.nome));
+  const reader = others.length>0
+    ? others[Math.floor(Math.random()*others.length)].nome
+    : G.players[0].nome;
+
+  G.players.forEach(p=>p.clues.add('c_appunto_burke'));
+
+  render(`<div>
+    <div class="s-hdr">📢 Corridoio nord — ore 03:18</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${reader}</span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Il sergente rientra nel corridoio.
+        Non è solo — ha con sé uno dei soldati
+        che ha perquisito la stanza di Burke.</p>
+
+        <p>Tiene in mano un foglio.
+        Lo esamina un momento,
+        poi alza gli occhi su di voi.</p>
+
+        <p><em>«Abbiamo trovato questo
+        nella fodera interna della giacca.»</em></p>
+
+        <p>Legge ad alta voce, senza inflessione:</p>
+
+        <p><em>«"Conosco il contenuto del documento.
+        Non solo i debiti. C'è altro —
+        qualcosa che risale al novembre 1785.
+        Una cerimonia. Due testimoni.
+        Tutto documentato.
+        Se entro venerdì non ricevo risposta,
+        consegnerò la mia copia
+        a chi di dovere."»</em></p>
+
+        <p>Il sergente abbassa il foglio.
+        Nel corridoio nessuno parla.</p>
+        <p>Pitt è in piedi contro il muro.
+        Non si è mai allontanato da quella parte del palazzo.</p>
+
+        <p>Il Principe di Galles guarda
+        il pavimento.</p>
+
+        <p>Mrs. Fitzherbert guarda
+        il Principe.</p>
+
+        <p>Lady Jersey non guarda nessuno.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__sergente__" onclick="confirmBtn('btn_nav_go__sergente__','go(\\\'sergente\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+
+// ══════════════════════════════════════════════
+//  SERGENTE — DOMANDA AI GIOCATORI
+// ══════════════════════════════════════════════
+function doSergente(){
+  render(`<div>
+    <div class="s-hdr">⚖️ Corridoio nord — ore 03:24</div>
+    <div class="reader-box">
+      <span class="reader-label">Decidete tutti insieme</span>
+      <span class="reader-name">Cosa rispondete?</span>
+      <span class="reader-sub">scelta collettiva</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Il sergente piega l'appunto con cura
+        e lo mette nella tasca della giubba.
+        Pitt osserva in silenzio da un lato.
+        Poi il sergente si volta verso di voi.</p>
+        <p><em>«E voi — cosa ci fate qui
+        a quest'ora? Non siete della Guardia.
+        Non siete magistratura. Siete...»</em>
+        Vi guarda uno per uno.
+        <em>«...ospiti. Ospiti che indagano.»</em></p>
+        <p>Una pausa.</p>
+        <p><em>«Vi chiedo una cosa sola, ${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()}.
+        Cosa state cercando?»</em></p>
+      </div>
+    </div>
+    <div class="c-wrap" style="margin-top:8px">
+      <button class="choice" onclick="playTap();go('serg_verita')">📜 La verità — stiamo cercando un documento scomparso</button>
+      <button class="choice" onclick="playTap();go('serg_bugia')">🎭 Una bugia — eravamo ospiti, non sappiamo nulla</button>
+    </div>
+  </div>`);
+}
+
+function doSergVerita(){
+  // Aggiunge indizio a tutti
+  G.players.forEach(p=>p.clues.add('c_doc_segreto'));
+
+  render(`<div>
+    <div class="s-hdr">📜 La verità</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Il sergente vi ascolta senza interrompere.
+        Quando finite, annuisce lentamente.</p>
+        <p><em>«Un documento scomparso.»</em>
+        Una pausa lunga.
+        <em>«So di quale documento si tratta.»</em></p>
+        <p>Vi guarda. <em>«Non è solo un atto di debito.
+        Contiene prove di un matrimonio contratto
+        nel novembre del 1785 — in violazione
+        del Royal Marriages Act del 1772.
+        Un matrimonio illegale. Segreto.
+        Tra il Principe di Galles
+        e Mrs. Fitzherbert.»</em></p>
+        <p>Nel corridoio il Principe non si muove.
+        Mrs. Fitzherbert chiude gli occhi
+        un istante.</p>
+        <p><em>«Chi ha quel documento»</em>,
+        continua il sergente sottovoce,
+        <em>«tiene in mano una crisi costituzionale.
+        E chi lo ha rubato lo sapeva.»</em></p>
+        <p>Vi guarda ancora.
+        <em>«Trovate quel documento.
+        Prima dell'alba.»</em></p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_to_alba" onclick="go('alba_scena')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doSergBugia(){
+  // Aggiunge indizio su Pitt a tutti
+  G.players.forEach(p=>p.clues.add('c_pitt_commento'));
+
+  render(`<div>
+    <div class="s-hdr">🎭 La bugia</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Il sergente vi ascolta.
+        Il suo viso non cambia espressione.</p>
+        <p><em>«Ospiti.»</em>
+        Una pausa.
+        <em>«Bene.»</em></p>
+        <p>Si volta verso i soldati.
+        <em>«Mrs. Fitzherbert —
+        in custodia. Subito.»</em></p>
+        <p>🚔 Due soldati si avvicinano.
+        Fitzherbert non oppone resistenza —
+        ma prima di essere portata via
+        si ferma un istante e vi guarda.
+        Non dice nulla.</p>
+        <p>Pitt osserva la scena.
+        Poi, quasi tra sé, abbastanza forte
+        da essere sentito:</p>
+        <p><em>«Lei sapeva da anni
+        cosa conteneva quel documento.
+        E il Principe la lasciava fare.
+        Conveniva a entrambi
+        che certe cose restassero
+        dove stavano.»</em></p>
+        <p>Nessuno risponde a Pitt.
+        Fitzherbert scompare in fondo al corridoio.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fine_fiz1__" onclick="confirmBtn('btn_nav_go__fine_fiz1__','go(\\\'fine_fiz1\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+
+// ══════════════════════════════════════════════
+//  FINALE — FIZ ARRESTATA — PERCORSO BUGIA
+// ══════════════════════════════════════════════
+function doFineFiz1(){
+  render(`<div>
+    <div class="s-hdr">📢 Corridoio nord — ore 03:31</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>I soldati si portano via Fitzherbert.
+        Il corridoio torna silenzioso.</p>
+        <p>Poi il messaggero in livrea —
+        quello che aveva portato la notizia
+        dell'emissario francese —
+        si avvicina al Principe con un inchino.</p>
+        <p><em>«Scusate, Altezza —
+        cosa devo riferire
+        al Clarendon?»</em></p>
+        <p>Un silenzio.</p>
+        <p>Il Principe lo guarda.
+        Poi guarda voi.
+        Poi il pavimento.</p>
+        <p><em>«Ditegli... ditegli che
+        l'udienza è rimandata
+        a data da destinarsi.»</em></p>
+        <p>Il messaggero annuisce e sparisce.
+        Nessuno ride. Ma c'è qualcosa
+        nell'aria che assomiglia all'imbarazzo
+        di chi sa di aver sentito troppo.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fine_fiz2__" onclick="confirmBtn('btn_nav_go__fine_fiz2__','go(\\\'fine_fiz2\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doFineFiz2(){
+  render(`<div>
+    <div class="s-hdr">📢 Corridoio nord — ore 03:38</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Il Principe si appoggia al muro
+        con le spalle. Guarda il soffitto.
+        Poi dice, lentamente:</p>
+        <p><em>«A questo punto —
+        trovare il documento,
+        che importanza ha?»</em></p>
+        <p>Nessuno risponde subito.</p>
+        <p>Poi Fox, con quella voce
+        che usa quando vuole sembrare
+        disinteressato: <em>«Nessuna,
+        direi. Ormai.»</em></p>
+        <p>Pitt non dice nulla.
+        Ma non contraddice.</p>
+        <p>Lady Jersey guarda
+        fuori dalla finestra.</p>
+        <p>Lentamente, senza che nessuno
+        lo proponga formalmente,
+        tutti sono d'accordo.</p>
+        <p>Il documento può restare
+        dov'è.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fine_fiz3__" onclick="confirmBtn('btn_nav_go__fine_fiz3__','go(\\\'fine_fiz3\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doFineFiz3(){
+  render(`<div>
+    <div class="s-hdr">📢 Mesi dopo</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Al processo, Fitzherbert confessa.</p>
+        <p>Burke la ricattava da mesi —
+        prima con i soldi, cifre sempre più alte,
+        poi con qualcosa di peggio:
+        favori politici, nomi, informazioni
+        riservate da far arrivare a Parigi.</p>
+        <p>Ciò che nessuno in quella corte
+        sapeva ancora — ciò che Fitzherbert
+        non aveva capito fino all'ultimo —
+        è che il documento conteneva
+        <span class="hl">molto più dei debiti del Principe</span>.</p>
+        <p>I debiti erano noti a molti,
+        in forma vaga. Tremila sterline,
+        creditori, voci di corridoio.
+        Niente di irreparabile, per chi
+        siede sul trono.</p>
+        <p>Ma nelle ultime pagine —
+        in quella che sembrava
+        una clausola notarile —
+        c'era altro. Date. Nomi.
+        Due testimoni. Una cerimonia.
+        <em>Novembre 1785.</em></p>
+        <p>Una prova scritta di un matrimonio
+        contratto in violazione
+        del Royal Marriages Act del 1772.
+        Un matrimonio che avrebbe reso
+        illegittima qualsiasi futura
+        successione al trono.</p>
+        <p>Burke lo sapeva.
+        Fitzherbert lo sapeva.
+        E quasi nessun altro.</p>
+        <p><em>«Non sapevo»</em>, dice con voce
+        ferma davanti alla corte,
+        <em>«che altri conoscessero
+        quella storia. Credevo
+        di essere la sola.
+        E credevo che eliminandolo
+        tutto sarebbe finito.»</em></p>
+        <p>La corte si prende
+        quattordici minuti.</p>
+        <p>Poi accade qualcosa che nessuno
+        si aspettava — o forse tutti
+        si aspettavano, e non lo dicono.</p>
+        <p>Un uomo viene portato in aula.
+        Un nome sconosciuto.
+        Un garzone di stalla che quella notte
+        si trovava nel corridoio sbagliato.
+        Testimoni compiacenti.
+        Un avvocato pagato bene.</p>
+        <p>In ventitré minuti,
+        la colpa viene trasferita.</p>
+        <p>Mrs. Fitzherbert lascia il tribunale
+        a braccio di un funzionario di corte.
+        L'uomo senza nome viene impiccato
+        a Newgate tre settimane dopo.</p>
+        <p class="dim">Nessuno chiede spiegazioni.
+        Nessuno le pretende.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__nota_storica__" onclick="confirmBtn('btn_nav_go__nota_storica__','go(\\\'nota_storica\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doNotaStorica(){
+  render(`<div>
+    <div class="logo-wrap">
+      <div class="logo-deco" style="font-size:.65em;letter-spacing:3px">◆ NOTA STORICA ◆</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div class="s-body">
+      <p>Quello che avete appena letto è fiction.</p>
+      <p>La vera <span class="hl">Mrs. Fitzherbert</span>
+      non fu mai arrestata, né processata, né giustiziata.
+      Nel 1791 — l'anno di questa storia —
+      era al culmine del suo periodo più felice
+      con il Principe di Galles.</p>
+      <p>Tre anni dopo, nel 1794,
+      fu abbandonata con una lettera.
+      A convincere il Principe a lasciarla
+      fu <span class="hl">Lady Jersey</span> —
+      che lo persuase a sposare invece
+      la cugina protestante Carolina di Brunswick,
+      per far pagare i suoi debiti dal Parlamento.</p>
+      <p>Il Principe sposò Carolina nel 1795.
+      Tre giorni dopo la nascita dell'unica figlia,
+      scrisse il suo testamento
+      lasciando tutto a
+      <em>«Maria Fitzherbert, mia moglie»</em>.
+      A Carolina lasciò uno scellino.</p>
+      <p>Fitzherbert e il Principe si riconciliarono poi,
+      si separarono di nuovo,
+      e lei visse fino a ottant'anni a Brighton.
+      Fu sepolta nella chiesa che aveva costruito con i suoi fondi.
+      La scultura funebre la mostra
+      con <span class="hl">tre fedi nuziali al dito</span>.</p>
+      <p class="dim">Di <span class="hl">Lady Jersey</span>, invece,
+      la storia ricorda soprattutto
+      che apriva le lettere private di Carolina,
+      le leggeva, e ne distribuiva il contenuto.
+      Nel 1807 perse la posizione di corte.
+      Morì a Cheltenham nel 1821, quasi dimenticata.</p>
+      <p class="dim">Una licenza narrativa: <span class="hl">Edmund Burke</span>
+      in questa storia muore quella notte.
+      Nella realtà sopravvisse — morì nel 1797, sei anni dopo,
+      avendo rotto definitivamente con Fox
+      sulla Rivoluzione Francese.
+      Una frattura che nel 1791 era già nell'aria.</p>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fine_fiz4__" onclick="confirmBtn('btn_nav_go__fine_fiz4__','go(\\\'fine_fiz4\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doFineFiz4(){
+    const nomi = G.players.map(p=>p.nome);
+  const n = nomi.length;
+  const amici = nomi.slice(0,2).join(' e ');
+  const tutti  = nomi.join(', ');
+  const ultimo = nomi[n-1];
+  const primo  = nomi[0];
+  const secondo = nomi.length>1?nomi[1]:nomi[0];
+
+  render(`<div>
+    <div class="logo-wrap">
+      <div class="logo-deco">Londra · Primavera 1792</div>
+      <div class="logo" style="font-size:1.8em">Fine</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div class="s-body">
+      <p>Mrs. Fitzherbert lascia
+      il palazzo quella stessa settimana.
+      Si stabilisce a Brighton.
+      Il palazzo non parla di lei.
+      Il documento — qualunque cosa contenesse —
+      non viene mai ritrovato.</p>
+      <p>Qualche settimana dopo,
+      <span class="hl">${amici}</span>
+      si ritrovano per caso
+      in un caffè di Pall Mall.
+      Ordinano due tè. Fuori piove.</p>
+      <p>Stanno ancora decidendo se parlare
+      di quella notte quando la porta
+      del caffè si apre.</p>
+      <p>Entra il sergente —
+      in borghese, senza uniforme.
+      Li vede. Si ferma un istante.
+      Poi fa un cenno appena percettibile
+      con la testa — come chi riconosce
+      qualcuno che avrebbe preferito
+      non incontrare — e si siede
+      dall'altra parte della sala.</p>
+      <p>Poco dopo passa una carrozza
+      fuori dalla finestra.
+      <span class="hl">${primo}</span> la segue con gli occhi.
+      Sul lato della portiera —
+      lo stemma reale.
+      Dentro, il profilo del Principe di Galles,
+      che guarda dritto avanti
+      come se il mondo fuori
+      non esistesse.</p>
+      <p>Nessuno dice niente.</p>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__fine_fiz5__" onclick="confirmBtn('btn_nav_go__fine_fiz5__','go(\\\'fine_fiz5\\\')')"">Continuare →</button>
+    </div>
+  </div>`);
+}
+
+function doFineFiz5(){
+  const nomi = G.players.map(p=>p.nome);
+  const n = nomi.length;
+  const tutti  = nomi.join(', ');
+  const ultimo = nomi[n-1];
+  const secondo = nomi.length>1?nomi[1]:nomi[0];
+
+  render(`<div>
+    <div class="s-hdr">◆ Epilogo</div>
+    <div class="s-body">
+      <p>Poi la porta si riapre.</p>
+      <p><span class="hl">Charles James Fox</span>
+      entra con quella disinvoltura
+      che non lo abbandona mai —
+      come se fosse lui ad aver convocato
+      tutti quanti in quel caffè
+      e stesse semplicemente
+      arrivando in orario.</p>
+      <p>Vede il tavolo.
+      Li vede.
+      Sorride.</p>
+      <p><em>«Che coincidenza.»</em>
+      Si avvicina, prende una sedia,
+      la gira e ci si siede sopra
+      al contrario come al solito.</p>
+      <p>Poi, con la naturalezza di chi
+      sta chiedendo l'ora:</p>
+      <p><em>«Una mano di Faro?»</em></p>
+      <p>Sul tavolo nessuno ha risposto ancora.
+      <span class="hl">${secondo}</span> guarda
+      gli altri. Gli altri guardano Fox.
+      Fox guarda tutti con quell'aria
+      di chi sa già come andrà a finire.</p>
+      <p class="dim" style="margin-top:16px">
+        Fuori, Londra continua
+        a fare quello che fa sempre —
+        piovere, intrigare, dimenticare.</p>
+      <p class="dim">
+        <span class="hl">${ultimo}</span>
+        pensa ancora a quella domanda.
+        <em>Chi ha preso il documento?</em></p>
+      <p class="dim">Ma adesso c'è
+        una partita da giocare.</p>
+    </div>
+    <div class="s-hdr" style="margin-top:8px">Risultati</div>
+    ${G.players.map((p,i)=>{
+      const s = p.clues.size*7;
+      return '<div class="score-row"><span class="score-name">'+p.nome+'</span><span class="score-val">'+s+' pt <span style="color:var(--muted);font-size:.85em">— nessuna accusa formulata</span></span></div>';
+    }).join('')}
+    <div class="info-box" style="margin-top:14px;color:var(--muted);font-size:.82em">
+      Il documento è perduto. La storia continua.<br>
+      Nessuno ha accusato il colpevole del furto.
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();location.reload()">Nuova partita</button>
+    </div>
+    <div class="footer">
+      <div>◆ THE DOCUMENT · Londra, 1791 ◆</div>
+      <div>Disegno e testi: <strong style="color:var(--text2)">Andrea Zullo</strong></div>
+      <div>Astronomia Spiccia · 2025</div>
+    </div>
+  </div>`);
+}
+
+
+// ══════════════════════════════════════════════
+//  ALBA — SCENA FINALE PRIMA DELLE ACCUSE
+// ══════════════════════════════════════════════
+function doAlbaScena(){
+  render(`<div>
+    <div class="s-hdr">&#x1F4E2; Corridoio nord &#x2014; ore 03:48</div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">&#x25C6; Pubblico</span>
+      <div class="s-body">
+        <p>Il sergente ha finito di parlare.
+        Nel corridoio nessuno si muove.</p>
+
+        <p>Poi Pitt si schiarisce la voce
+        con quella precisione di chi
+        ha aspettato il momento esatto.</p>
+        <p><em>&#xAB;Permettetemi un&#x2019;osservazione, ${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()}.&#xBB;</em>
+        Non guarda il sergente. Guarda il Principe.
+        <em>&#xAB;Chi volesse davvero far sparire
+        quel documento avrebbe fatto
+        esattamente il contrario.
+        Finch&#xe9; restava nell&#x2019;ufficio &#x2014; sigillato,
+        dimenticato &#x2014; non minacciava nessuno.
+        Il momento in cui sparisce,
+        il primo sospettato &#xe8; chi aveva
+        pi&#xf9; da perdere.
+        Cio&#xe8;: chi lo custodiva.&#xBB;</em>
+        Una pausa.
+        <em>&#xAB;Rifletteteci.&#xBB;</em></p>
+
+        <p>Il Principe raddrizza la schiena.
+        Quando parla, la voce &#xe8; pi&#xf9; ferma del previsto.</p>
+        <p><em>&#xAB;Ha ragione.
+        Rubare quel documento era
+        l&#x2019;ultima cosa che avrei fatto.
+        Chiunque abbia un minimo di logica lo capisce.&#xBB;</em>
+        Si guarda intorno.
+        <em>&#xAB;Sono disposto a coprire
+        con tutto quello che ho
+        chiunque si trovi in questa stanza &#x2014;
+        pur di evitare che questa storia
+        diventi pubblica.
+        Ma non ho rubato nulla.
+        E non ho ucciso nessuno.&#xBB;</em></p>
+
+        <p>Silenzio.</p>
+
+        <p>Fox non dice niente.
+        Si avvicina a un tavolino,
+        prende una bottiglia di brandy
+        e beve direttamente dal collo.</p>
+        <p>La poggia sul tavolo.
+        <em>&#xAB;A questo punto ci sta.&#xBB;</em></p>
+
+        <p>Dal fondo del corridoio &#x2014;
+        lontano, appena percettibile &#x2014;
+        si sente il rumore di una carrozza.</p>
+
+        <p><span class="hl">Lady Jersey</span> si volta
+        verso la finestra. Veloce.
+        Un movimento che non le somiglia.</p>
+
+        <p>Guarda fuori in silenzio.
+        Poi le spalle si abbassano
+        di un centimetro.</p>
+
+        <p>Fox si avvicina alla stessa finestra.
+        Guarda anche lui.
+        <em>&#xAB;La carrozza sta andando via.&#xBB;</em>
+        Lo dice senza tono.
+        Come per riempire il silenzio.</p>
+
+        <p>Lady Jersey non risponde.</p>
+
+        <p>Fuori comincia ad albeggiare.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_accuse_final" onclick="confirmBtn('btn_nav_accuse_final','avviaAccuse()')">
+        All&#x2019;alba &#x2014; formulare le accuse &#x2192;
+      </button>
+    </div>
+  </div>`);
+}
+function avviaAccuse(){showSplash('⚖️','Alba. Accusate.',1800,()=>{G.cur=0;doPassAccuse();});}
+
+function doColpo(){
+  pauseMelody(); stopAmb();
+  ambToken={alive:true}; const _ctok=ambToken; setTimeout(()=>loopTension(_ctok),150);
+  render(`<div>
+    <div class="s-hdr">📢 Corridoio nord — ore 02:17</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>💤 Il palazzo dorme. O almeno, fa finta di dormire.</p>
+
+        <p>🕯️ Alle due e diciassette minuti, un tonfo sordo
+        percorre il corridoio nord. Pesante. Definitivo.
+        Poi silenzio. Poi —</p>
+
+        <p>😱 Un urlo.</p>
+
+        <p>La voce è di <span class="hl">Mrs. Fitzherbert</span>.
+        Viene da dietro la porta di Edmund Burke.</p>
+
+        <p>🚪 Arrivate tutti nello stesso momento —
+        chi in vestaglia, chi ancora vestito.
+        La porta è aperta.</p>
+
+        <p>Sul pavimento, <span class="hl">Edmund Burke</span>.
+        Non respira.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__colpo2__" onclick="confirmBtn('btn_nav_go__colpo2__','go(\\\'colpo2\\\')')"">Avvicinarsi →</button>
+    </div>
+  </div>`);
+}
+
+function doColpo2(){
+  // Aggiunge automaticamente i nuovi indizi a tutti i giocatori
+  G.players.forEach(p=>{
+    p.clues.add('c_coltello');
+    p.clues.add('c_frammento');
+  });
+
+  render(`<div>
+    <div class="s-hdr">📢 Stanza di Burke — ore 02:19</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>🔍 Vi avvicinate. Burke è caduto vicino alla scrivania.
+        La sedia è rovesciata.</p>
+
+        <p>Mrs. Fitzherbert è inginocchiata sul pavimento,
+        la mano tesa verso <span class="hl">un coltello a lama corta</span>
+        che giace accanto al corpo.
+        Quando vi sente entrare si blocca — la mano
+        a pochi centimetri dalla lama.
+        Non capite se stava per raccoglierlo
+        o se lo aveva appena lasciato cadere.</p>
+
+        <p>📄 Vicino al caminetto, sul bordo del tappeto,
+        <span class="hl">un frammento di lettera bruciata</span>.
+        Le parole leggibili sono poche.
+        <em>«...non dirò nulla... fino a quando...
+        il documento...»</em>
+        Il resto è cenere.</p>
+
+        <p>🕯️ Pitt arriva per ultimo. Il suo viso
+        è di un bianco che non è sonno.
+        Vi guarda uno per uno.
+        Non dice niente.</p>
+
+        <p>Mrs. Fitzherbert si rialza lentamente.
+        <em>«L'ho sentito cadere»</em>, dice piano.
+        <em>«Stavo ancora camminando nel corridoio.
+        Non dormivo.»</em></p>
+
+        <p>⚖️ Il documento è ancora là fuori.
+        Burke sapeva qualcosa — e adesso non può
+        più dirlo. Qualcuno si è assicurato di questo.</p>
+
+        <p>Avete tempo fino all'alba.
+        <span class="hl">Accusate chi ha rubato il documento.</span>
+        La morte di Burke è un'altra storia —
+        ma forse la stessa persona.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__soldati__" onclick="confirmBtn('btn_nav_go__soldati__','go(\\\'soldati\\\')')"">Cosa succede adesso →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  TITLE
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+//  ISTRUZIONI PRE-GIOCO
+// ══════════════════════════════════════════════
+function doIstruzioni(){
+  render(`<div>
+    <div class="s-hdr">📜 Prima di cominciare</div>
+    <div class="s-body">
+      <p>Tre cose che vi chiediamo prima di entrare a St. James's Palace.</p>
+      <p style="font-family:'Courier Prime',monospace;font-size:.72em;letter-spacing:2px;color:var(--muted);margin-top:6px">⏱ Durata stimata: <strong style="color:var(--gold)">75–120 minuti</strong> &nbsp;·&nbsp; 2–4 giocatori</p>
+    </div>
+
+    <div class="fase-pub" style="margin-bottom:14px">
+      <span class="fase-lbl">◆ Prima cosa</span>
+      <div class="s-body">
+        <p>✒️ <strong>Procuratevi carta e penna.</strong></p>
+        <p>O calamaio e piuma d'oca, se la circostanza lo richiede.</p>
+        <p>Durante la serata raccoglierete indizi, osserverete
+        personaggi, sentirete cose che gli altri non hanno sentito.
+        Tenete nota di tutto — anche di quello che sembra irrilevante.
+        Il giocatore con più indizi e l'accusa giusta vince.
+        Ma l'accusa giusta la fa chi ha le idee chiare.</p>
+      </div>
+    </div>
+
+    <div class="fase-pub" style="margin-bottom:14px">
+      <span class="fase-lbl">◆ Seconda cosa</span>
+      <div class="s-body">
+        <p>🔒 <strong>I vostri appunti non si mostrano.</strong></p>
+        <p>Siete in competizione. Quando il dispositivo passa a voi,
+        leggete la vostra parte in privato, annotate quello che volete —
+        ma non fate vedere il foglio agli altri.
+        E quando nelle schermate vi viene chiesto qualcosa,
+        fate esattamente quello che serve. Niente di più.</p>
+        <p class="dim">Esempio: se dovete condividere un indizio con Pitt,
+        condividete uno — non due, non spiegate agli altri cosa avete visto.</p>
+      </div>
+    </div>
+
+    <div class="fase-pub" style="margin-bottom:14px">
+      <span class="fase-lbl">◆ Terza cosa</span>
+      <div class="s-body">
+        <p>🎭 <strong>Siete figure di corte del 1791.</strong></p>
+        <p>Tra poco vi verrà chiesto un nome.
+        Potete scegliere qualcosa di contestuale —
+        <em>«Sir Edmund di Verona»</em>,
+        <em>«Lady Charlotte di Napoli»</em> —
+        o il vostro nome con un tocco di epoca.
+        La città vi verrà assegnata per sorteggio.</p>
+        <p class="dim" style="margin-top:10px">A chi vi aveva detto che studiare
+        la storia settecentesca inglese non sarebbe mai servito a niente —
+        stasera potete rispondergli.</p>
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();go('setup')">Registrarsi →</button>
+      <button class="btn-s" onclick="playTap();go('title')">← Indietro</button>
+    </div>
+  </div>`);
+}
+
+function doTitle(){
+  render(`<div>
+    <div class="logo-wrap">
+      <div class="logo-deco">London · MDCCXCI</div>
+      <div class="logo">The Document</div>
+      <div class="logo-rule"></div>
+      <div class="logo-sub">Un'indagine alla corte di Re Giorgio</div>
+    </div>
+    <div class="s-body">
+      <p>La sera del <span class="hl">14 novembre 1791</span>, un documento di
+      straordinaria importanza scompare dagli appartamenti del Lord Ciambellano
+      a St. James's Palace.</p>
+      <p>Nessuna serratura forzata. Nessuna finestra infranta dall'esterno.
+      Il furto è opera di qualcuno <em>che conosce il palazzo</em>.</p>
+      <p>Voi siete figure di corte di secondo piano — abbastanza vicini al potere
+      da muovervi liberamente, abbastanza distanti da non essere sospettati.
+      <span class="hl">Non vi fidate l'uno dell'altro.</span></p>
+      <p>Ogni giocatore raccoglie le proprie prove in privato.
+      Alla fine, ognuno accusa in segreto.
+      <span class="hl">Vince chi ha ragione — e più prove in mano.</span></p>
+    </div>
+    <div class="info-box">
+      <strong>Gioco competitivo · 2–4 giocatori · Pass &amp; Play · Un solo dispositivo</strong><br>
+      Ogni turno: una parte pubblica (letta ad alta voce) e una parte privata
+      (solo per i tuoi occhi). Ogni giocatore ha la sua scena esclusiva.<br><br>
+      <strong>Difficoltà:</strong> Media / Difficile
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();go('istruzioni')">Iniziare l'indagine</button>
+    </div>
+    <div class="footer">
+      <div>◆ THE DOCUMENT · Londra, 1791 ◆</div>
+      <div>Un gioco narrativo competitivo · Pass &amp; Play</div>
+      <div style="margin-top:10px">Disegno e testi: <strong style="color:var(--text2)">Andrea Zullo</strong></div>
+      <div>Astronomia Spiccia · 2025</div>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  SETUP
+// ══════════════════════════════════════════════
+const CITTA_IT = ['Sommacampagna', 'Verona', 'Venezia', 'Firenze', 'Napoli', 'Torino', 'Milano', 'Bologna', 'Genova', 'Palermo', 'Padova', 'Siena', 'Ferrara', 'Mantova', 'Cremona', 'Brescia', 'Bergamo', 'Modena', 'Parma', 'Lucca', 'Pisa', 'Ravenna', 'Perugia'];
+
+function doSetup(){
+  render(`<div>
+    <div class="s-hdr">Registrazione dei partecipanti</div>
+    <div class="s-body">
+      <p>Inserite il nome del vostro personaggio e scegliete il titolo.
+      La città sarà assegnata per voi.</p>
+    </div>
+    ${[1,2,3,4].map(i=>`
+      <div class="fld">
+        <label>Giocatore ${i}${i<=2?' <span style="color:var(--rtext)">✦ obbligatorio</span>':''}</label>
+        <div style="display:flex;gap:8px;align-items:stretch">
+          <select id="g${i}" style="background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:11px 10px;font-family:'Playfair Display',serif;font-size:.88em;flex:0 0 auto;cursor:pointer">
+            <option value="Sir">Sir</option>
+            <option value="Lady">Lady</option>
+            <option value="">—</option>
+          </select>
+          <input type="text" id="p${i}"
+            placeholder="${i<=2?'Nome':'Facoltativo'}"
+            maxlength="24" style="flex:1">
+        </div>
+      </div>`).join('')}
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();confirmSetup()">Confermare</button>
+      <button class="btn-s" onclick="playTap();go('istruzioni')">← Indietro</button>
+    </div>
+  </div>`);
+}
+
+function confirmSetup(){
+  const raw=[1,2,3,4].map(i=>{
+    const nome=document.getElementById('p'+i).value.trim();
+    const titolo=document.getElementById('g'+i).value;
+    return nome?{nome,titolo}:null;
+  }).filter(Boolean);
+  if(raw.length<2){
+    document.getElementById('p1').style.borderColor='var(--rtext)';
+    document.getElementById('p1').focus(); return;
+  }
+  // Assegna città casuali distinte
+  const pool=[...CITTA_IT].sort(()=>Math.random()-.5);
+  G.players=raw.map((obj,i)=>{
+    const citta=pool[i%pool.length];
+    const prefisso=obj.titolo?obj.titolo+' ':'';
+    return {nome:prefisso+obj.nome+' di '+citta, clues:new Set(), moves:0, accusation:null};
+  });
+  G.cur=0;
+  startMelody();
+  showSplash('🕯️','La candela è accesa.',1800,()=>go('intro'));
+}
+
+// ══════════════════════════════════════════════
+//  INTRO — pubblica, letta ad alta voce da tutti
+// ══════════════════════════════════════════════
+function doIntro(){
+  render(`<div>
+    <div class="s-hdr">📢 Annuncio — Sala delle anticamere</div>
+    <div class="info-box" style="text-align:center">
+      <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Lord Pemberton, Lord Ciambellano di Sua Maestà, entra nella sala
+        con il viso di chi ha perso qualcosa di irreparabile.
+        La conversazione si spegne. Si schiarisce la voce.</p>
+        <p><em>«Signore e signori — questa notte è scomparso dagli appartamenti
+        privati un documento di natura <span class="hl">strettamente riservata</span>.
+        ${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()}  &#x2014; e voi tutti &#x2014; Sua Maest&#xe0; ha ordinato che nessuno lasci il palazzo prima dell'alba.
+        Vi chiedo la massima discrezione.»</em></p>
+        <p>Non dice cos'è. Non dice dove era custodito. Ma voi frequentate
+        questi corridoi da abbastanza tempo da capire che
+        <em>certe cose non scompaiono da sole</em>.</p>
+        <p>I sospetti sono già nell'aria. Le voci anche.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_go__tavolo__" onclick="confirmBtn('btn_nav_go__tavolo__','go(\\\'tavolo\\\')')"">Procedere →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  PASS SCREEN
+// ══════════════════════════════════════════════
+function doPass(){
+    render(`<div>
+    <div class="pass-screen">
+      <span class="pass-icon">📲</span>
+      <div class="pass-name">${P().nome}</div>
+      <div class="pass-sub">È il tuo turno</div>
+      <div class="s-body" style="text-align:center;font-size:.85em;margin-bottom:28px">
+        <p class="dim">Passa il dispositivo.<br>Gli altri non devono guardare.</p>
+      </div>
+      <button class="btn-g" id="btn_nav_goMyScene__" onclick="confirmBtn('btn_nav_goMyScene__','goMyScene()')"">Sono pronto →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  SCENA 1 — Giocatore 0
+// ══════════════════════════════════════════════
+function doS1Pub(){
+  P().moves++;
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">📢 Sala dei ritratti — ore 20:30</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${P().nome}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>La sala è illuminata da candelabri che proiettano ombre alte sui
+        ritratti di Hannover. Vicino alla finestra, due figure discutono
+        sottovoce: <span class="hl">William Pitt il Giovane</span> e
+        <span class="hl">Charles James Fox</span>.</p>
+        <p>Nemici parlamentari che raramente si parlano in privato.
+        Quando vi avvicinate, si separano con una rapidità che
+        non è discrezione — è allarme.</p>
+        <p>Fox vi sorride con quella disinvoltura che usa
+        in aula quando mente benissimo.
+        Pitt finge di osservare un quadro. Sul pavimento,
+        vicino alla sedia appena lasciata da Fox,
+        <span class="hl">una macchia di inchiostro fresco</span>.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();doMiniGame('s1_priv')">Avanzare →</button>
+    </div>
+  </div>`);
+}
+
+function doS1Priv(){
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">🔒 Sala dei ritratti — solo per te</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Privato</span>
+      <div class="priv-reveal" id="priv-s1" onclick="revealPriv('priv-s1')">
+        <div class="s-body">
+          ${G.miniResult ? `
+          <p>Nel momento esatto in cui entrambi si voltano, la vostra
+          mano raggiunge il davanzale. Nascosta sotto il tendaggio:
+          <span class="hl">una piccola chiave con un nastro di seta</span>.
+          Il colore — un blu-oro preciso — è quello della servitù
+          di Carlton House. La raccogliete senza farvi vedere.</p>
+          <p>Non corrisponde a nessuna serratura pubblica.
+          Corrisponde al formato delle <em>anticamere private</em>.
+          Qualcuno è passato di qui stasera
+          e non se n'è accorto di averla persa.</p>
+          ` : `
+          <p>Pitt e Fox si separano, ma non abbastanza a lungo.
+          I vostri occhi colgono qualcosa sul davanzale —
+          un oggetto, nascosto sotto il tendaggio pesante.
+          Prima che possiate avvicinarvi, uno dei due si rigira.</p>
+          <p>Non avete fatto in tempo. Avete visto che c'era
+          qualcosa. Non di più.</p>
+          `}
+        </div>
+      </div>
+      <div class="priv-hint" id="hint-priv-s1">[ tocca per leggere in privato ]</div>
+    </div>
+    ${renderClues()}
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_addClue__c_ink___if_" onclick="confirmBtn('btn_nav_addClue__c_ink___if_','addClue('c_ink');if(G.miniResult){addClue('c_chiave');addClue('c_fiocco');}afterPrivate()')"">Concludere il turno →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  SCENA 2 — Giocatore 1
+// ══════════════════════════════════════════════
+function doS2Pub(){
+  P().moves++;
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">📢 Biblioteca privata — ore 20:55</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${P().nome}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Pitt è in piedi davanti allo scaffale delle memorie parlamentari.
+        Non sta leggendo — sta aspettando. Quando vi vede, il suo sguardo
+        rimane impassibile, ma le mani stringono il risvolto della giacca.</p>
+        <p><em>«Ah. Proprio voi.»</em> Una pausa lunga.
+        <em>«Spero che questa disgrazia si risolva presto.
+        Certe carte, nelle mani sbagliate, potrebbero creare
+        imbarazzo a molti.»</em></p>
+        <p>Non dice a chi. Non dice quali carte.
+        Ma la parola <span class="hl">imbarazzo</span>
+        è una scelta molto precisa per un uomo preciso come lui.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();doMiniGame('s2_priv')">Avanzare →</button>
+    </div>
+  </div>`);
+}
+
+function doS2Priv(){
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">🔒 Biblioteca — solo per te</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Privato</span>
+      <div class="priv-reveal" id="priv-s2" onclick="revealPriv('priv-s2')">
+        <div class="s-body">
+          ${G.miniResult ? `
+          <p>Il momento giusto arriva. I vostri occhi cadono
+          sull'agenda aperta sul tavolo — <span class="hl">l'agenda personale di Pitt</span>: la data di ieri ha
+          un appuntamento <span class="hl">cancellato con due tratti netti</span>.
+          Accanto, un'iniziale maiuscola: <em>«J.»</em></p>
+          <p>Il tempo di quell'appuntamento cancellato corrisponde
+          esattamente all'ora in cui il documento è sparito.</p>
+          ` : `
+          <p>Pitt si volta prima di quanto vi aspettaste.
+          Scorgete qualcosa nella sua agenda personale aperta sul tavolo —
+          una data di ieri, qualcosa di cancellato.
+          Ma non fate in tempo a leggere altro.</p>
+          <p>Avete visto che c'era un appuntamento cancellato.
+          La data sembra quella di ieri. Niente di più.</p>
+          `}
+        </div>
+      </div>
+      <div class="priv-hint" id="hint-priv-s2">[ tocca per leggere in privato ]</div>
+    </div>
+    ${renderClues()}
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_addClue__c_agenda___" onclick="confirmBtn('btn_nav_addClue__c_agenda___','addClue('c_agenda');if(G.miniResult){addClue('c_lettera_j');}afterPrivate()')"">Concludere il turno →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  SCENA 3 — Giocatore 2
+// ══════════════════════════════════════════════
+function doS3Pub(){
+  P().moves++;
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">📢 Galleria ovest — ore 21:10</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${P().nome}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Fox è solo per una volta, senza pubblico.
+        Vi accoglie con un gesto — <em>venite, venite</em> —
+        come se stesse per farvi un favore.</p>
+        <p><em>«Vi dirò una cosa che i vostri colleghi non sapranno mai»</em>,
+        sussurra. <em>«Quella sera, verso le sei, ho visto qualcuno
+        uscire dal corridoio est. Una figura elegante.
+        Un mantello scuro. Qualcosa di piatto sotto il braccio.»</em></p>
+        <p>Si ferma. Vi guarda.
+        <em>«Sono disposto a ricordarlo. O a dimenticarlo.
+        Dipende.»</em></p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();doMiniGame('s3_priv')">Avanzare →</button>
+    </div>
+  </div>`);
+}
+
+function doS3Priv(){
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">🔒 Galleria ovest — solo per te</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Privato</span>
+      <div class="priv-reveal" id="priv-s3" onclick="revealPriv('priv-s3')">
+        <div class="s-body">
+          ${G.miniResult ? `
+          <p>Fox ha detto la verità — in parte.
+          Prima di congedarvi, i vostri occhi cadono sul pavimento
+          del corridoio est — proprio dove lui indica.
+          Lì, scostato verso il battiscopa,
+          <span class="hl">un guanto di seta avorio</span>.
+          Taglia femminile. Qualcuno è passato di qui
+          in fretta e non se ne è accorto.</p>
+          <p>Fox lo ha visto anche lui. Non ne ha parlato.</p>
+          ` : `
+          <p>Fox vi congeda con un sorriso. Mentre vi girate,
+          il vostro sguardo percorre il corridoio est —
+          quello che lui ha descritto. Il pavimento è vuoto.
+          O forse c'era qualcosa e qualcuno l'ha già raccolto.</p>
+          <p>Fox sa più di quanto dica.
+          Ma questa volta non avete trovato nulla di concreto.</p>
+          `}
+        </div>
+      </div>
+      <div class="priv-hint" id="hint-priv-s3">[ tocca per leggere in privato ]</div>
+    </div>
+    ${renderClues()}
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_addClue__c_ora___add" onclick="confirmBtn('btn_nav_addClue__c_ora___add','addClue('c_ora');addClue('c_voce');if(G.miniResult){addClue('c_guanto');}afterPrivate()')"">Concludere il turno →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  SCENA 4 — Giocatore 3
+// ══════════════════════════════════════════════
+function doS4Pub(){
+  P().moves++;
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">📢 Anticamera del Principe — ore 21:20</div>
+    <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${P().nome}</span><span class="reader-sub">tutti ascoltano</span></div>
+    <div class="fase-pub">
+      <span class="fase-lbl">◆ Pubblico</span>
+      <div class="s-body">
+        <p>Le porte sono socchiuse. Voci dentro — alte, poi bruscamente
+        abbassate. Quando bussate, il silenzio cade
+        come una lama.</p>
+        <p>Ad aprire è <span class="hl">Mrs. Fitzherbert</span>
+        con la compostezza di chi nasconde tutto da anni.
+        Dietro di lei, una sedia rovesciata.
+        Sul tavolo, un sigillo di cera rossa e
+        un foglio piegato in fretta.</p>
+        <p><em>«Il Principe non riceve stasera.
+        Vi consiglio di tornare domani.»</em></p>
+        <p>La porta si chiude prima che possiate rispondere.</p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();doMiniGame('s4_priv')">Avanzare →</button>
+    </div>
+  </div>`);
+}
+
+function doS4Priv(){
+  render(`<div>
+    ${renderProgress()}
+    <div class="player-tag">Turno di <span>${P().nome}</span></div>
+    <div class="s-hdr">🔒 Anticamera — solo per te</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Privato</span>
+      <div class="priv-reveal" id="priv-s4" onclick="revealPriv('priv-s4')">
+        <div class="s-body">
+          ${G.miniResult ? `
+          <p>Prima che la porta si richiuda del tutto, i vostri occhi
+          colgono sul tavolo accanto al sigillo di cera
+          un foglio spostato in fretta. In fondo alla pagina,
+          <span class="hl">una firma parzialmente visibile</span> —
+          grafia maschile, affrettata. Non riuscite a leggere
+          il nome completo prima che la porta si chiuda.</p>
+          <p>E nel cortile sottostante: una carrozza con il
+          blasone coperto da un panno scuro,
+          partita in fretta — si vedono ancora
+          i segni delle ruote fresche sul selciato.
+          Vuota. Senza passeggeri.</p>
+          ` : `
+          <p>La porta si richiude. Nel cortile sottostante
+          notate una carrozza con il blasone coperto da un panno scuro —
+          partita in fretta — i segni delle ruote
+          ancora freschi sul selciato.
+          Vuota.</p>
+          <p>Il corridoio est è deserto.
+          Se c'era qualcosa per terra, non c'è più.</p>
+          `}
+        </div>
+      </div>
+      <div class="priv-hint" id="hint-priv-s4">[ tocca per leggere in privato ]</div>
+    </div>
+    ${renderClues()}
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_addClue__c_cera___ad" onclick="confirmBtn('btn_nav_addClue__c_cera___ad','addClue('c_cera');addClue('c_carrozza');if(G.miniResult){addClue('c_firma');}afterPrivate()')"">Concludere il turno →</button>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  ACCUSE — pass-and-play in segreto
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+//  RIEPILOGO INDIZI — PRIVATO
+// ══════════════════════════════════════════════
+function doRiepilogo(){
+  const p = P();
+  const clues = [...p.clues];
+  const items = clues
+    .map(k => CLUES_LBL[k])
+    .filter(Boolean)
+    .map(label => `<div class="pergamena-item">${label}</div>`)
+    .join('');
+
+  render(`<div>
+    <div class="player-tag">Turno di <span>${p.nome}</span></div>
+    <div class="s-hdr">🔒 Le tue scoperte — solo per te</div>
+    <div class="fase-priv">
+      <span class="fase-lbl">🔒 Solo per te</span>
+      <div class="s-body">
+        <p>Non mostrare agli altri.
+        Leggile con calma prima di accusare.</p>
+      </div>
+    </div>
+    <div class="pergamena">
+      <div class="pergamena-title">Prove in mio possesso</div>
+      ${items || '<div class="pergamena-empty">Nessuna prova raccolta</div>'}
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();go('accuse')">
+        Formulare la mia accusa →
+      </button>
+    </div>
+  </div>`);
+}
+function doPassAccuse(){
+  render(`<div>
+    <div class="pass-screen">
+      <span class="pass-icon">⚖️</span>
+      <div class="pass-name">${P().nome}</div>
+      <div class="pass-sub">È il momento della tua accusa</div>
+      <div class="s-body" style="text-align:center;font-size:.85em;margin-bottom:28px">
+        <p class="dim">Gli altri non devono guardare.<br>
+        La tua accusa sarà segreta fino alla fine.</p>
+      </div>
+      <button class="btn-g" id="btn_nav_go__riepilogo__" onclick="confirmBtn('btn_nav_go__riepilogo__','go(\\\'riepilogo\\\')')"">Cosa ho scoperto →</button>
+    </div>
+  </div>`);
+}
+
+function doAccuse(){
+  let selS=null, selM=null;
+
+  render(`<div>
+    <div class="player-tag">Accusa di <span>${P().nome}</span></div>
+    <div class="s-hdr">⚖️ La tua accusa — in segreto</div>
+    <div class="s-body">
+      <p>Avete una sola occasione. Scegliete con cura.</p>
+    </div>
+    ${renderClues()}
+    <div class="s-hdr" style="margin-top:8px">Chi ha rubato il documento?</div>
+    <div id="susp-list">
+      ${SUSPECTS.map(s=>`
+        <div class="suspect-card" id="sc-${s.id}" onclick="pickSusp('${s.id}')">
+          <div class="suspect-name">${s.name}</div>
+          <span class="suspect-role">${s.role}</span>
+        </div>`).join('')}
+    </div>
+    <div id="motive-section" style="display:none">
+      <div class="s-hdr" style="margin-top:16px">Qual è il movente?</div>
+      <div id="motive-list" class="c-wrap"></div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn-acc" disabled onclick="confirmBtn('btn-acc','confirmAccuse()')">
+        Sigillare l'accusa
+      </button>
+    </div>
+  </div>`);
+
+  window.pickSusp=function(id){
+    playTap(); selS=id; selM=null;
+    document.querySelectorAll('.suspect-card').forEach(el=>el.classList.remove('sel'));
+    document.getElementById('sc-'+id).classList.add('sel');
+    const ms=MOTIVES[id]||[];
+    document.getElementById('motive-section').style.display='block';
+    document.getElementById('motive-list').innerHTML=ms.map(m=>`
+      <button class="choice" onclick="playTap();pickMot(this,'${m.replace(/'/g,"\\'")}')">${m}</button>`).join('');
+    document.getElementById('btn-acc').disabled=true;
+  };
+  window.pickMot=function(el,m){
+    selM=m;
+    document.querySelectorAll('#motive-list .choice').forEach(b=>b.classList.remove('sel'));
+    el.classList.add('sel');
+    document.getElementById('btn-acc').disabled=false;
+  };
+  window.confirmAccuse=function(){
+    P().accusation={suspect:selS,motive:selM};
+    const allDone=G.players.every(p=>p.accusation!==null);
+    if(allDone){
+      showSplash('📜','Le accuse sono sigillate.',2000,()=>go('final'));
+    } else {
+      G.cur=(G.cur+1)%G.players.length;
+      showSplash('📲','Passa il dispositivo.',1600,()=>doPassAccuse());
+    }
+  };
+}
+
+// ══════════════════════════════════════════════
+//  FINALE
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+//  CONFESSIONE DI LADY JERSEY
+// ══════════════════════════════════════════════
+
+// ══════════════════════════════════════════════
+//  JERSEY — IL MURO — accusa giusta, movente sbagliato
+// ══════════════════════════════════════════════
+function doJerseyMuro(){
+  render(`<div>
+    <div class="logo-wrap">
+      <div class="logo-deco">&#x25C6; Lady Jersey &#x25C6;</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">&#x25C6; Pubblico</span>
+      <div class="s-body">
+        <p>Quando il nome di
+        <span class="hl">Lady Jersey</span>
+        viene pronunciato,
+        lei si volta lentamente.</p>
+
+        <p>Non nega. Non conferma.
+        Aspetta che qualcuno finisca
+        di parlare.</p>
+
+        <p>Poi dice, con una voce
+        che non ha fretta:</p>
+
+        <p><em>&#xAB;${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()}  &#x2014; avete il nome.
+        Non avete nulla altro.
+        Nessun documento.
+        Nessuna testimonianza che regga.
+        Nessuna prova che un giudice
+        potrebbe leggere senza ridere.&#xBB;</em></p>
+
+        <p>Si guarda le mani.
+        Le risistemata i guanti &#x2014;
+        entrambi, questa volta.</p>
+
+        <p><em>&#xAB;Sapete dove sono stata
+        questa sera?
+        In compagnia.
+        Ci sono testimoni.
+        Molti testimoni.&#xBB;</em></p>
+
+        <p>Sorride appena &#x2014;
+        lo stesso sorriso
+        che ha avuto per tutta la notte.</p>
+
+        <p><em>&#xAB;Buona fortuna.&#xBB;</em></p>
+
+        <p class="dim" style="margin-top:20px">
+          Nella storia vera,
+          Lady Jersey non fu mai processata
+          per nessun crimine.
+          Tre anni dopo quella notte,
+          convinse il Principe ad abbandonare
+          Fitzherbert e a sposare
+          Carolina di Brunswick &#x2014;
+          mossa che le garantì
+          altri tredici anni di potere.
+          Perse la sua posizione di corte
+          solo nel 1807,
+          quando il Principe si stancò
+          anche di lei.
+          Mor&#xec; a Cheltenham nel 1821,
+          quasi dimenticata.
+        </p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_muro_final" onclick="confirmBtn('btn_nav_muro_final',\"go('final')\")" >
+        Classifica finale &#x2192;
+      </button>
+    </div>
+  </div>`);
+}
+function doConfessione(){
+  render(`<div>
+    <div class="logo-wrap">
+      <div class="logo-deco">&#x25C6; La verit&#xe0; &#x25C6;</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div class="reader-box">
+      <span class="reader-label">Legge ad alta voce</span>
+      <span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()} </span>
+      <span class="reader-sub">tutti ascoltano</span>
+    </div>
+    <div class="fase-pub">
+      <span class="fase-lbl">&#x25C6; Pubblico</span>
+      <div class="s-body">
+        <p>Quando il nome di
+        <span class="hl">Lady Jersey</span>
+        viene pronunciato,
+        nel corridoio cade un silenzio diverso
+        da tutti quelli della notte.</p>
+
+        <p>Lei non nega.
+        Non si volta.
+        Guarda ancora fuori dalla finestra
+        dove la carrozza &#xe8; ormai sparita nel buio.</p>
+
+        <p>Poi dice, piano e senza drammi:</p>
+
+        <p><em>&#xAB;Quel documento nell&#x2019;ufficio
+        era una bomba a orologeria.
+        Chiunque poteva trovarlo.
+        Chiunque poteva usarlo.
+        Finch&#xe9; era l&#xec; &#x2014; non lo controllava nessuno.&#xBB;</em></p>
+
+        <p>Si volta. Li guarda uno per uno.</p>
+
+        <p><em>&#xAB;Portandolo via,
+        ho smesso di avere paura.
+        Non l&#x2019;ho distrutto.
+        L&#x2019;ho messo al sicuro &#x2014;
+        dove solo io sapevo dov&#x2019;era.
+        Questo mi dava qualcosa
+        che il documento nell&#x2019;ufficio
+        non mi dava mai:
+        la certezza che non sarebbe
+        mai emerso senza il mio consenso.&#xBB;</em></p>
+
+        <p>Una pausa.</p>
+
+        <p><em>&#xAB;Proteggere il Principe?
+        S&#xec; &#x2014; anche.
+        Ma soprattutto proteggere
+        la mia posizione.
+        L&#x2019;unico modo per farlo
+        era essere l&#x2019;unica
+        a sapere dove si trovava.&#xBB;</em></p>
+
+        <p>Il Principe di Galles
+        non dice niente.
+        Fox studia il fondo della bottiglia.</p>
+
+        <p>Lady Jersey sistema
+        un guanto che non ha bisogno
+        di essere sistemato.</p>
+
+        <p><em>&#xAB;E ora &#x2014;&#xBB;</em>
+        sorride appena verso ${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'&#x2014;';})()}
+        <em>&#xAB;&#x2014; potete fare quello che volete,
+        Il documento non lo troverete.&#xBB;</em></p>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn-g" id="btn_nav_to_final" onclick="confirmBtn('btn_nav_to_final','go(\'final\')')">
+        Classifica finale &#x2192;
+      </button>
+    </div>
+  </div>`);
+}
+function doFinal(){
+    const thief=SUSPECTS.find(s=>s.id===TRUE_THIEF);
+  // Se qualcuno ha indovinato accusa E movente → mostra confessione prima
+  const perfectAcc = G.players.find(p=>
+    p.accusation &&
+    p.accusation.suspect===TRUE_THIEF &&
+    p.accusation.motive===TRUE_MOTIVE
+  );
+  if(perfectAcc && !G._confessioneDone){
+    G._confessioneDone=true;
+    go('confessione');
+    return;
+  }
+  // Accusa giusta ma movente sbagliato
+  const partialAcc = !perfectAcc && G.players.find(p=>
+    p.accusation && p.accusation.suspect===TRUE_THIEF
+  );
+  if(partialAcc && !G._jerseyMuroDone){
+    G._jerseyMuroDone=true;
+    go('jersey_muro');
+    return;
+  }
+
+  const scored=G.players
+    .map(p=>({...p,score:calcScore(p)}))
+    .sort((a,b)=>b.score-a.score);
+  const winner=scored[0];
+  const anyCorrect=G.players.some(p=>p.accusation&&p.accusation.suspect===TRUE_THIEF);
+
+  render(`<div>
+    <div class="logo-wrap">
+      <div class="logo-deco">Rivelazione finale</div>
+      <div class="logo" style="font-size:2em">Il verdetto</div>
+      <div class="logo-rule"></div>
+    </div>
+    <div class="s-body">
+      ${anyCorrect
+        ? '<p>Il colpevole era <span class=\"hl\">' + thief.name + '</span> — <em>' + thief.role + '</em>.</p><p>Movente: <em>' + TRUE_MOTIVE + '.</em></p>'
+        : '<p>Nessuno ha trovato il colpevole.</p><p class=\"dim\">Il documento &#xe8; ancora là fuori. E chi lo ha preso si &#xe8; portato via anche la risposta.</p>'
+      }
+    </div>
+    <div class="s-hdr">Classifica finale</div>
+    ${scored.map((p,i)=>{
+      const ok=p.accusation&&p.accusation.suspect===TRUE_THIEF;
+      const okM=p.accusation&&p.accusation.motive===TRUE_MOTIVE;
+      const accusedName=p.accusation?SUSPECTS.find(s=>s.id===p.accusation.suspect)?.name:'—';
+      return `<div class="verdict ${ok?'ok':'ko'}" style="margin-bottom:12px">
+        <div class="v-title">${i===0?'🏆 ':''}${p.nome} — ${p.score} pt</div>
+        <p style="font-size:.85em;margin-bottom:6px">
+          Ha accusato: <em>${accusedName}</em><br>
+          <strong style="color:${ok?'var(--gtext)':'var(--rtext)'}">${ok?'✓ Accusa corretta':'✗ Accusa errata'}</strong>
+          ${okM?'<span style="color:var(--gold)"> · ✦ Movente corretto</span>':''}
+        </p>
+      </div>`;
+    }).join('')}
+    <div class="info-box" style="margin-top:10px">
+      <strong>Vincitore: ${winner.nome}</strong>
+      ${winner.accusation&&winner.accusation.suspect===TRUE_THIEF
+        ? '<br><span style="color:var(--gtext);font-size:.9em">Ha identificato il colpevole.</span>'
+        : '<br><span style="color:var(--muted);font-size:.9em">Ha vinto per numero di prove raccolte.</span>'}
+    </div>
+    <div class="nav">
+      <button class="btn-g" onclick="playTap();location.reload()">Nuova partita</button>
+    </div>
+    <div class="footer">
+      <div>◆ THE DOCUMENT · Londra, 1791 ◆</div>
+      <div>Disegno e testi: <strong style="color:var(--text2)">Andrea Zullo</strong></div>
+      <div>Astronomia Spiccia · 2025</div>
+    </div>
+  </div>`);
+}
+
+// ══════════════════════════════════════════════
+//  AVVIO
+// ══════════════════════════════════════════════
+go('title');
+</script>
+</body>
+</html>
