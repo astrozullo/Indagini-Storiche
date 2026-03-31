@@ -308,6 +308,42 @@ body{
   transition:opacity .15s;
 }
 .restart-btn:hover{opacity:1;color:var(--rtext);}
+
+/* ── TITLE SCREEN ANIMATO ─────────────────────── */
+.ts-wrap{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--bg);}
+.ts-palazzo{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:700px;opacity:0;animation:tsPalazzo 3s ease-out .3s forwards;z-index:0;pointer-events:none;}
+@keyframes tsPalazzo{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.ts-fog{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.ts-fog-l{position:absolute;width:200%;height:100%;background:radial-gradient(ellipse 60% 40% at 50% 80%,rgba(7,8,14,0) 0%,rgba(7,8,14,.45) 40%,rgba(7,8,14,.88) 100%);animation:tsDrift 18s ease-in-out infinite alternate;}
+.ts-fog-l:nth-child(2){animation-duration:25s;animation-direction:alternate-reverse;opacity:.55;}
+@keyframes tsDrift{from{transform:translateX(-8%) scaleY(1);}to{transform:translateX(8%) scaleY(1.07);}}
+.ts-wins{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:200px;pointer-events:none;z-index:1;}
+.ts-win{position:absolute;width:7px;height:9px;background:rgba(200,160,48,.7);border-radius:1px;box-shadow:0 0 5px 2px rgba(200,160,48,.25);animation:tsFlicker var(--dur,3s) ease-in-out var(--del,0s) infinite alternate;}
+@keyframes tsFlicker{0%{opacity:.3;}35%{opacity:.9;}65%{opacity:.5;}100%{opacity:.95;}}
+.ts-sparks{position:fixed;inset:0;pointer-events:none;z-index:2;}
+.ts-spark{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(255,200,60,.8);left:var(--x,50%);animation:tsSpark var(--dur,4s) ease-out var(--del,0s) infinite;}
+@keyframes tsSpark{0%{transform:translate(0,0) scale(1);opacity:.8;top:82%;}50%{transform:translate(var(--dx,10px),-55px) scale(.8);opacity:.5;}100%{transform:translate(var(--dx2,-5px),-130px) scale(0);opacity:0;}}
+.ts-center{position:relative;z-index:10;text-align:center;padding:20px;}
+.ts-candle-wrap{display:flex;justify-content:center;margin-bottom:28px;opacity:0;animation:tsFadeUp .8s ease-out .3s forwards;}
+.ts-candle{position:relative;width:12px;}
+.ts-cbody{width:12px;height:44px;background:linear-gradient(to bottom,#e8d8b0,#c8b880,#a09040);border-radius:2px 2px 1px 1px;margin-top:16px;}
+.ts-flame{position:absolute;top:-11px;left:50%;transform:translateX(-50%);width:10px;height:15px;}
+.ts-fi{width:7px;height:13px;background:radial-gradient(ellipse at 50% 80%,#fff8e0 0%,#ffd060 30%,#ff8020 65%,transparent 100%);border-radius:50% 50% 30% 30%;margin:0 auto;animation:tsFlameDance .8s ease-in-out infinite alternate;transform-origin:bottom center;}
+.ts-fg{position:absolute;top:-4px;left:-8px;width:26px;height:24px;background:radial-gradient(ellipse,rgba(255,180,40,.4) 0%,transparent 70%);animation:tsGlow 1.1s ease-in-out infinite alternate;}
+@keyframes tsFlameDance{from{transform:scaleX(1) skewX(-3deg) scaleY(1);}to{transform:scaleX(.85) skewX(4deg) scaleY(1.05);}}
+@keyframes tsGlow{from{opacity:.6;transform:scale(1);}to{opacity:1;transform:scale(1.15);}}
+.ts-pretitle{font-family:'Courier Prime',monospace;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold2);margin-bottom:10px;opacity:0;animation:tsFadeUp .8s ease-out 1.2s forwards;}
+.ts-title{font-size:2.4rem;font-weight:normal;letter-spacing:.08em;color:var(--gold);line-height:1.2;margin-bottom:6px;white-space:nowrap;}
+
+
+.ts-sub{font-size:.7rem;letter-spacing:.18em;color:var(--muted);font-style:italic;margin-bottom:6px;opacity:0;animation:tsFadeUp .8s ease-out 3.8s forwards;}
+.ts-date{font-family:'Courier Prime',monospace;font-size:.6rem;letter-spacing:.3em;color:var(--gold2);opacity:0;animation:tsFadeUp .8s ease-out 4.0s forwards;margin-bottom:24px;}
+.ts-rule{width:0;height:1px;background:linear-gradient(to right,transparent,var(--gold2),transparent);margin:0 auto 22px;animation:tsRule 1.2s ease-out 3.6s forwards;}
+@keyframes tsRule{from{width:0;}to{width:180px;}}
+.ts-btn{opacity:0;animation:tsFadeUp .8s ease-out 4.4s forwards;font-family:Georgia,serif;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;padding:11px 30px;background:transparent;border:1px solid var(--gold2);color:var(--gold);cursor:pointer;transition:border-color .2s;}
+.ts-btn:hover{border-color:var(--gold);}
+@keyframes tsFadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+@keyframes tsCursor{50%{opacity:0;}}
 </style>
 </head>
 <body><div class="restart-bar" style="display:flex;justify-content:space-between;align-items:center"><button class="restart-btn" id="back-btn" onclick="confirmBtn('back-btn','window.location.href=\'index.html\'')" style="opacity:.35">&#x2190; Indice</button><button class="restart-btn" id="restart-btn" onclick="confirmBtn('restart-btn','location.reload()')">&#x2715; Ricomincia</button></div>
@@ -3244,42 +3280,69 @@ function doIstruzioni(){
 }
 
 function doTitle(){
-  render(`<div>
-    <div class="logo-wrap">
-      <div class="logo-deco">London · MDCCXCI</div>
-      <div class="logo">The Document</div>
-      <div class="logo-rule"></div>
-      <div class="logo-sub">Un'indagine alla corte di Re Giorgio</div>
-    </div>
-    <div class="s-body">
-      <p>La sera del <span class="hl">14 novembre 1791</span>, un documento di
-      straordinaria importanza scompare dagli appartamenti del Lord Ciambellano
-      a St. James's Palace.</p>
-      <p>Nessuna serratura forzata. Nessuna finestra infranta dall'esterno.
-      Il furto è opera di qualcuno <em>che conosce il palazzo</em>.</p>
-      <p>Voi siete figure di corte di secondo piano — abbastanza vicini al potere
-      da muovervi liberamente, abbastanza distanti da non essere sospettati.
-      <span class="hl">Non vi fidate l'uno dell'altro.</span></p>
-      <p>Ogni giocatore raccoglie le proprie prove in privato.
-      Alla fine, ognuno accusa in segreto.
-      <span class="hl">Vince chi ha ragione — e più prove in mano.</span></p>
-    </div>
-    <div class="info-box">
-      <strong>Gioco competitivo · 2–4 giocatori · Pass &amp; Play · Un solo dispositivo</strong><br>
-      Ogni turno: una parte pubblica (letta ad alta voce) e una parte privata
-      (solo per i tuoi occhi). Ogni giocatore ha la sua scena esclusiva.<br><br>
-      <strong>Difficoltà:</strong> Media / Difficile
-    </div>
-    <div class="nav">
-      <button class="btn-g" onclick="playTap();go('istruzioni')">Iniziare l'indagine</button>
-    </div>
-    <div class="footer">
-      <div>◆ THE DOCUMENT · Londra, 1791 ◆</div>
-      <div>Un gioco narrativo competitivo · Pass &amp; Play</div>
-      <div style="margin-top:10px">Disegno e testi: <strong style="color:var(--text2)">Andrea Zullo</strong></div>
-      <div>Astronomia Spiccia · 2025</div>
+  render(`<div class="ts-wrap" id="ts-${Date.now()}">
+    <svg class="ts-palazzo" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#07080e" d="M0,200 L0,140 L30,140 L30,100 L50,100 L50,80 L70,80 L70,100 L90,100 L90,140 L110,140 L110,90 L130,70 L150,90 L150,60 L160,60 L160,90 L180,90 L180,140 L200,140 L200,80 L220,80 L220,70 L240,70 L240,80 L260,80 L260,140 L280,140 L280,60 L290,40 L300,30 L310,40 L320,60 L320,140 L340,140 L340,80 L360,80 L360,70 L380,70 L380,80 L400,80 L400,140 L420,140 L420,90 L440,70 L450,90 L450,60 L460,60 L460,90 L480,90 L480,140 L500,140 L500,100 L520,100 L520,80 L540,80 L540,100 L560,100 L560,140 L580,140 L580,100 L600,100 L600,140 L620,140 L620,120 L640,120 L640,140 L700,140 L700,200 Z"/>
+    </svg>
+    <div class="ts-wins" id="ts-wins"></div>
+    <div class="ts-fog"><div class="ts-fog-l"></div><div class="ts-fog-l"></div></div>
+    <div class="ts-sparks" id="ts-sparks"></div>
+    <div class="ts-center">
+      <div class="ts-candle-wrap">
+        <div class="ts-candle">
+          <div class="ts-flame"><div class="ts-fg"></div><div class="ts-fi"></div></div>
+          <div class="ts-cbody"></div>
+        </div>
+      </div>
+      <div class="ts-pretitle">London &nbsp;&#xB7;&nbsp; St. James Palace &nbsp;&#xB7;&nbsp; MDCCXCI</div>
+      <div class="ts-title"><span id="ts-typed"></span><span id="ts-cursor" style="display:inline-block;width:2px;height:2.2rem;background:var(--gold);margin-left:2px;vertical-align:middle;animation:tsCursor .7s step-end infinite;"></span></div>
+      <div class="ts-sub">Un&#x27;indagine alla corte di Re Giorgio</div>
+      <div class="ts-date">14 Novembre 1791</div>
+      <div class="ts-rule"></div>
+      <button class="ts-btn" onclick="playTap();go('istruzioni')">Entrare nel palazzo</button>
     </div>
   </div>`);
+  const wc=document.getElementById('ts-wins');
+  if(wc){
+    [{l:'18%',b:'80px'},{l:'24%',b:'95px'},{l:'38%',b:'85px'},{l:'44%',b:'105px'},
+     {l:'50%',b:'115px'},{l:'56%',b:'105px'},{l:'62%',b:'85px'},{l:'68%',b:'80px'},
+     {l:'74%',b:'90px'},{l:'31%',b:'70px'},{l:'82%',b:'75px'}].forEach(p=>{
+      const w=document.createElement('div'); w.className='ts-win';
+      w.style.left=p.l; w.style.bottom=p.b;
+      w.style.setProperty('--dur',(2+Math.random()*4)+'s');
+      w.style.setProperty('--del',(Math.random()*3)+'s');
+      wc.appendChild(w);
+    });
+  }
+  const sc=document.getElementById('ts-sparks');
+  if(sc){
+    for(let i=0;i<12;i++){
+      const s=document.createElement('div'); s.className='ts-spark';
+      s.style.setProperty('--x',(44+Math.random()*12)+'%');
+      s.style.setProperty('--dx',(Math.random()*30-15)+'px');
+      s.style.setProperty('--dx2',(Math.random()*20-10)+'px');
+      s.style.setProperty('--dur',(3+Math.random()*4)+'s');
+      s.style.setProperty('--del',(Math.random()*6)+'s');
+      sc.appendChild(s);
+    }
+  }
+  // Typewriter JS
+  const _tw='The Document';
+  let _ti=0;
+  const _tel=document.getElementById('ts-typed');
+  const _cur=document.getElementById('ts-cursor');
+  if(_tel){
+    _tel.textContent='';
+    setTimeout(function _type(){
+      if(_ti<_tw.length){
+        _tel.textContent+=_tw[_ti++];
+        setTimeout(_type, 170);
+      } else {
+        // Cursore lampeggia ancora 2s poi sparisce
+        setTimeout(()=>{ if(_cur) _cur.style.display='none'; }, 2000);
+      }
+    }, 1800);
+  }
 }
 
 // ══════════════════════════════════════════════
