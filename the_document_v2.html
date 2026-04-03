@@ -980,7 +980,7 @@ function calcScore(p){
   let s=0;
   if(p.accusation.suspect===TRUE_THIEF)  s+=20;
   if(p.accusation.motive ===TRUE_MOTIVE) s+=10;
-  s+=p.clues.size*7;
+  s+=p.clues.size*5;
   return Math.max(0,s);
 }
 
@@ -1567,7 +1567,7 @@ function doBallIntro(){
   pauseMelody(); stopAmb();
   ambToken={alive:true}; const _btok=ambToken; setTimeout(()=>loopCourt(_btok),200);
   render(`<div>
-    <div class="s-hdr">📢 Sala nascosta — piano inferiore</div>
+    <div class="s-hdr">📢 Sala nascosta — piano inferiore — ore 22:00</div>
     <div class="reader-box"><span class="reader-label">Legge ad alta voce</span><span class="reader-name">${(()=>{const r=G.players[Math.floor(Math.random()*G.players.length)];return r?r.nome:'—';})()} </span><span class="reader-sub">tutti ascoltano</span></div>
     <div class="fase-pub">
       <span class="fase-lbl">◆ Pubblico</span>
@@ -2433,6 +2433,8 @@ function doCorridoio(){
       <span class="fase-lbl">◆ Pubblico</span>
       <div class="s-body">
         <p>🚪 I soldati vi cacciano fuori dalla stanza di Burke.
+        Nel frattempo altri militari hanno rastrellato il palazzo —
+        nessuno degli ospiti di quella sera è stato lasciato andare.
         Siete tutti nel corridoio nord —
         <span class="hl">il Principe di Galles, Pitt, Fox,
         Lady Jersey, Mrs. Fitzherbert</span>.
@@ -3124,6 +3126,22 @@ function doAlbaScena(){
 function avviaAccuse(){showSplash('⚖️','Alba. Accusate.',1800,()=>{G.cur=0;doPassAccuse();});}
 
 function doColpo(){
+  // Con 2 giocatori: s3 e s4 non vengono assegnate
+  // Distribuisce i loro indizi base a tutti i giocatori
+  if(G.players.length <= 2){
+    G.players.forEach(p=>{
+      p.clues.add('c_ora');
+      p.clues.add('c_voce');
+      p.clues.add('c_cera');
+      p.clues.add('c_carrozza');
+    });
+  }
+  if(G.players.length <= 3){
+    G.players.forEach(p=>{
+      p.clues.add('c_cera');
+      p.clues.add('c_carrozza');
+    });
+  }
   pauseMelody(); stopAmb();
   ambToken={alive:true}; const _ctok=ambToken; setTimeout(()=>loopTension(_ctok),150);
   render(`<div>
@@ -3494,8 +3512,11 @@ function doS1Priv(){
           <p>Nel momento esatto in cui entrambi si voltano, la vostra
           mano raggiunge il davanzale. Nascosta sotto il tendaggio:
           <span class="hl">una piccola chiave con un nastro di seta</span>.
-          Il colore — un blu-oro preciso — è quello della servitù
-          di Carlton House. La raccogliete senza farvi vedere.</p>
+          Il colore — un blu-oro preciso — è quello della livrea
+          della servitù di Carlton House,
+          residenza del Principe di Galles.
+          Qualcuno di casa sua è passato di qui questa sera.
+          La raccogliete senza farvi vedere.</p>
           <p>Non corrisponde a nessuna serratura pubblica.
           Corrisponde al formato delle <em>anticamere private</em>.
           Qualcuno è passato di qui stasera
@@ -3514,7 +3535,7 @@ function doS1Priv(){
     </div>
     ${renderClues()}
     <div class="nav">
-      <button class="btn-g" id="btn_nav_addClue__c_ink___if_" onclick="confirmBtn('btn_nav_addClue__c_ink___if_','addClue('c_ink');if(G.miniResult){addClue('c_chiave');addClue('c_fiocco');}afterPrivate()')"">Concludere il turno →</button>
+      <button class="btn-g" id="btn_nav_addClue__c_ink___if_" onclick="confirmBtn('btn_nav_addClue__c_ink___if_',"addClue('c_ink');if(G.miniResult){addClue('c_chiave');addClue('c_fiocco');}afterPrivate()")"">Concludere il turno →</button>
     </div>
   </div>`);
 }
@@ -3580,7 +3601,7 @@ function doS2Priv(){
     </div>
     ${renderClues()}
     <div class="nav">
-      <button class="btn-g" id="btn_nav_addClue__c_agenda___" onclick="confirmBtn('btn_nav_addClue__c_agenda___','addClue('c_agenda');if(G.miniResult){addClue('c_lettera_j');}afterPrivate()')"">Concludere il turno →</button>
+      <button class="btn-g" id="btn_nav_addClue__c_agenda___" onclick="confirmBtn('btn_nav_addClue__c_agenda___',"addClue('c_agenda');if(G.miniResult){addClue('c_lettera_j');}afterPrivate()")"">Concludere il turno →</button>
     </div>
   </div>`);
 }
@@ -3626,14 +3647,16 @@ function doS3Priv(){
       <div class="priv-reveal" id="priv-s3" onclick="revealPriv('priv-s3')">
         <div class="s-body">
           ${G.miniResult ? `
-          <p>Fox ha detto la verità — in parte.
-          Prima di congedarvi, i vostri occhi cadono sul pavimento
-          del corridoio est — proprio dove lui indica.
-          Lì, scostato verso il battiscopa,
+          <p>Prima di congedarvi, i vostri occhi cadono sul pavimento
+          del corridoio est — proprio dove Fox ha indicato.
+          Scostato verso il battiscopa:
           <span class="hl">un guanto di seta avorio</span>.
           Taglia femminile. Qualcuno è passato di qui
           in fretta e non se ne è accorto.</p>
-          <p>Fox lo ha visto anche lui. Non ne ha parlato.</p>
+          <p>Fox ha descritto quella figura a tutti —
+          ma questo guanto non l'ha menzionato.
+          Lo ha visto. Ne siete certi.
+          Ha scelto di non dirlo.</p>
           ` : `
           <p>Fox vi congeda con un sorriso. Mentre vi girate,
           il vostro sguardo percorre il corridoio est —
@@ -3648,7 +3671,7 @@ function doS3Priv(){
     </div>
     ${renderClues()}
     <div class="nav">
-      <button class="btn-g" id="btn_nav_addClue__c_ora___add" onclick="confirmBtn('btn_nav_addClue__c_ora___add','addClue('c_ora');addClue('c_voce');if(G.miniResult){addClue('c_guanto');}afterPrivate()')"">Concludere il turno →</button>
+      <button class="btn-g" id="btn_nav_addClue__c_ora___add" onclick="confirmBtn('btn_nav_addClue__c_ora___add',"addClue('c_ora');addClue('c_voce');if(G.miniResult){addClue('c_guanto');}afterPrivate()")"">Concludere il turno →</button>
     </div>
   </div>`);
 }
@@ -3699,8 +3722,9 @@ function doS4Priv(){
           colgono sul tavolo accanto al sigillo di cera
           un foglio spostato in fretta. In fondo alla pagina,
           <span class="hl">una firma parzialmente visibile</span> —
-          grafia maschile, affrettata. Non riuscite a leggere
-          il nome completo prima che la porta si chiuda.</p>
+          grafia maschile, affrettata.
+          Tre iniziali che fanno in tempo a imprimersi:
+          <em>G. P. W.</em></p>
           <p>E nel cortile sottostante: una carrozza con il
           blasone coperto da un panno scuro,
           partita in fretta — si vedono ancora
@@ -3721,7 +3745,7 @@ function doS4Priv(){
     </div>
     ${renderClues()}
     <div class="nav">
-      <button class="btn-g" id="btn_nav_addClue__c_cera___ad" onclick="confirmBtn('btn_nav_addClue__c_cera___ad','addClue('c_cera');addClue('c_carrozza');if(G.miniResult){addClue('c_firma');}afterPrivate()')"">Concludere il turno →</button>
+      <button class="btn-g" id="btn_nav_addClue__c_cera___ad" onclick="confirmBtn('btn_nav_addClue__c_cera___ad',"addClue('c_cera');addClue('c_carrozza');if(G.miniResult){addClue('c_firma');}afterPrivate()")"">Concludere il turno →</button>
     </div>
   </div>`);
 }

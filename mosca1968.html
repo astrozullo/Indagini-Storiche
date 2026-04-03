@@ -357,6 +357,7 @@ const CLUES_LBL={
   c_zhuk:'Anatoly Zhuk visto vicino all\'edificio ore 21:15',
   c_cheskov_tardi:'Cheskov assente ~1h dalla riunione del 22',
   c_nota_vs:'Nota di Sokolov — nome in codice "Olga"',
+  c_irina_ag_adm:'Irina Volkova: presenza confermata — rifiuta dichiarazioni',
   c_falso_petrov:'Pagamento 300 rubli a Petrov il 23 ottobre',
   c_foto_vienna:'Fotografia Irina + agenti B.N.D. — Vienna 1967',
   c_volkov_morto:'Lista trovata su Volkov — "Cheskov, D. mandante"',
@@ -1385,7 +1386,8 @@ ${S.clues.has('c_ir_num')||S.clues.has('c_agenda')?S.flags.irina_fuggita?'<p>�
 ${S.clues.has('c_lett_ch')?S.clues.has('c_cheskov_tardi')?'<p>🔴 La lettera di <strong>Cheskov</strong> è esplicita — e il suo alibi ha una crepa.</p>':'<p>🔴 La lettera di <strong>Cheskov</strong> contiene minacce esplicite.</p>':''}
 ${S.clues.has('c_zhuk')?'<p>🔴 <strong>Anatoly Zhuk</strong> era vicino all\'edificio quella sera.</p>':''}
 ${S.clues.has('c_microfilm')?'<p>🔴 Il microfilm cambia la portata del caso. Sokolov documentava agenti?</p>':''}
-${S.clues.has('c_falso_petrov')?'<p>🔴 Una ricevuta collega <strong>Petrov</strong> a un pagamento anonimo il giorno dopo il decesso.</p>':''}
+${S.clues.has('c_irina_ag_adm:'Irina Volkova: presenza confermata — rifiuta dichiarazioni',
+  c_falso_petrov')?'<p>🔴 Una ricevuta collega <strong>Petrov</strong> a un pagamento anonimo il giorno dopo il decesso.</p>':''}
 <p class="dim">Segnate sul foglio quello che trovate importante prima di passare avanti.</p>`,
   choices:()=>[
     {text:'🔎 Interrogare Irina Volkova',goto:'hub_irina',
@@ -1465,7 +1467,7 @@ sc('irina_num',{
 
 sc('irina_ag',{
   title:"L'Appuntamento in Agenda",
-  enter:()=>S.visited.add('irina_ag'),
+  enter:()=>{S.visited.add('irina_ag');S.clues.add('c_irina_ag_adm');},
   text:()=>`<p>Di fronte all'agenda con il suo nome alle 20:00 del 22 ottobre, Irina smette di muoversi. Poi si siede lentamente.</p>
 <p>"Sì. Ero da lui quella sera. Abbiamo parlato di lavoro. L'ho lasciato in buona salute."</p>
 <p>Lunga pausa. "Non dirò altro senza assistenza legale."</p>
@@ -1691,7 +1693,8 @@ sc('petrov_contatto',{
   text:()=>`<p>Lunga pausa. Gli occhi di Petrov si spostano verso la porta.</p>
 <p>"Stamattina presto, prima che arrivassero le autorità ufficiali. Una voce femminile. Mi ha detto cosa avrei trovato, e che sarebbe stato meglio — per tutti — chiudere il caso rapidamente."</p>
 <p>"Non ho riconosciuto la voce. Non ho chiesto il nome."</p>
-${S.clues.has('c_falso_petrov')?'<p>Gli si mostra la ricevuta dei 300 rubli — datata il 23 ottobre, conto anonimo. Petrov la guarda in silenzio per diversi secondi. Poi: "Non so di cosa si tratti." La mano sul bordo della scrivania stringe. Sa benissimo di cosa si tratta.</p>':''}
+${S.clues.has('c_irina_ag_adm:'Irina Volkova: presenza confermata — rifiuta dichiarazioni',
+  c_falso_petrov')?'<p>Gli si mostra la ricevuta dei 300 rubli — datata il 23 ottobre, conto anonimo. Petrov la guarda in silenzio per diversi secondi. Poi: "Non so di cosa si tratti." La mano sul bordo della scrivania stringe. Sa benissimo di cosa si tratta.</p>':''}
 <p>Sta mentendo su qualcosa, ma la paura sembra autentica.</p>`,
   choices:()=>[{text:'← Petrov',goto:'hub_petrov'}]
 });
@@ -1978,7 +1981,8 @@ sc('hot2_a',{
 
 sc('hot2_b',{
   title:'Scelta Cautelativa',
-  enter:()=>{S.flags.nota_distrutta=true;S.clues.add('c_falso_petrov');},
+  enter:()=>{S.flags.nota_distrutta=true;S.clues.add('c_irina_ag_adm:'Irina Volkova: presenza confermata — rifiuta dichiarazioni',
+  c_falso_petrov');},
   text:()=>`<p>Si decide di non dare peso alla nota — potrebbe essere piazzata. Viene messa da parte.</p>
 <p>Frugando più a fondo nella busta, si trova un secondo foglio che era passato inosservato: una ricevuta intestata al <strong>dott. Petrov</strong>, datata 23 ottobre, per 300 rubli da un conto anonimo.</p>
 <p>Il pagamento è avvenuto il giorno successivo alla morte di Sokolov.</p>`,
